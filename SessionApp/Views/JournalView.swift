@@ -6,15 +6,29 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct JournalView: View 
 {
+    @StateObject var globalCluster = PromptCluster()
+    @Environment(\.modelContext) var context;
+    var newSession:SessionEntry
+    var newSession2:SessionEntry
+    var newSession3:SessionEntry
+    
+    init()
+    {
+        newSession = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"First")
+        newSession2 = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"Second")
+        newSession3 = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"Third")
+    }
+    
     var body: some View
     {
         ZStack
         {
             Rectangle().fill(Color("BGColor"))
-            NavigationView
+            NavigationStack
             {
                 VStack
                 {
@@ -29,7 +43,7 @@ struct JournalView: View
                     let fColor = Color.red
                     let fBody = "Recall a new idea you had\nrecently. What led to that idea\nand how can you make time\nfor those things."
                     
-                    boxStackView(titleText:fTitle, bodyText:fBody, backColor:fColor)
+                    boxStackView(titleText:fTitle, bodyText:fBody, backColor:fColor, newSession: newSession)
                     
                     Spacer().frame(height:20)
                     
@@ -38,7 +52,7 @@ struct JournalView: View
                     let sColor = Color.purple
                     let sBody = "Write about an important friend\nor family member. Include an\naudio recording if possible."
                     
-                    boxStackView(titleText:sTitle, bodyText:sBody, backColor: sColor)
+                    boxStackView(titleText:sTitle, bodyText:sBody, backColor: sColor, newSession: newSession)
                     
                     Spacer().frame(height:20)
                     
@@ -47,17 +61,21 @@ struct JournalView: View
                     let tColor = Color.blue
                     let tBody = "Write about an whatever your\nheart desires!."
                     
-                    boxStackView(titleText:tTitle, bodyText:tBody, backColor: tColor)
+                    boxStackView(titleText:tTitle, bodyText:tBody, backColor: tColor, newSession:newSession)
                 }
-            }
-        }.ignoresSafeArea()
+            }.environmentObject(globalCluster)
+        }
+        .ignoresSafeArea()
+        .onAppear()
+        {
+            context.insert(newSession)
+            context.insert(newSession2)
+            context.insert(newSession3)
+        }
+        //.environmentObject(globalCluster)
         
         //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }
-}
-
-#Preview {
-    JournalView().modelContainer(for:SessionEntry.self)
 }
 
 struct boxStackView: View
@@ -65,10 +83,21 @@ struct boxStackView: View
     @State var titleText = ""
     var bodyText = ""
     var backColor = Color.red
+    var newSession:SessionEntry
+    
+    init(titleText:String, bodyText:String, backColor:Color, newSession:SessionEntry)
+    {
+        self._titleText = State(initialValue: titleText)
+        self.backColor = backColor
+        self.bodyText = bodyText
+        self.newSession = newSession
+        
+        //context.insert(newSession)
+    }
     
     var body: some View
     {
-        NavigationLink(destination:QueryView(reflectionText : titleText))
+        NavigationLink(destination:QueryView(currentSession: newSession))
         {
             ZStack
             {
@@ -92,7 +121,16 @@ struct boxStackView: View
                         .frame(width:350, height:130, alignment: .bottomLeading)
                         .multilineTextAlignment(.leading)
                 }.frame(height:200)
-            }.frame(maxWidth:.infinity, alignment: .center)
+            }
+            .frame(maxWidth:.infinity, alignment: .center)
         }
     }
+}
+
+
+#Preview {
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
+    
+    return JournalView().modelContainer(container)
 }

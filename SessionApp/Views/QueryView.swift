@@ -12,26 +12,31 @@ import Foundation
 
 struct QueryView: View
 {
-    @Query(filter: #Predicate<JournalEntryTwo> { $0.promptId == 1 }) var ans1:[JournalEntryTwo]
-    @Query(filter: #Predicate<JournalEntryTwo> { $0.promptId == 2 }) var ans2:[JournalEntryTwo]
-    @Query(filter: #Predicate<JournalEntryTwo> { $0.promptId == 3 }) var ans3:[JournalEntryTwo]
-    @Query(filter: #Predicate<JournalEntryTwo> { $0.promptId == 4 }) var ans4:[JournalEntryTwo]
-    @Query(filter: #Predicate<JournalEntryTwo> { $0.promptId == 5 }) var ans5:[JournalEntryTwo]
-    
     @Environment(\.modelContext) var context;
-    
+    @EnvironmentObject var globalCluster:PromptCluster
     
     @State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
     @State private var promptId : Int = 0
+    @State private var num:Int = 0
     @State var answerText : String = ""
     
-    var reflectionText:String
+    @Query(filter: #Predicate<SessionEntry> {$0.sessionLabel > 0})
+    var sessions:[SessionEntry]
     
-    init(reflectionText:String)
+    var currentSession:SessionEntry?
+    
+    var isEditing:Bool = false
+    var reflectionText:String = ""
+    
+    /*init(activeSession:SessionEntry, editing:Bool = false)
     {
-        self.reflectionText = reflectionText
-    }
+        //currentSession = activeSession
+        isEditing = editing
+        
+        promptBoxes = PromptCluster(session:activeSession, edit:editing)
+        //newCluster = PromptCluster(session:activeSession, edit:editing)
+    }*/
     
     var body: some View
     {
@@ -39,139 +44,69 @@ struct QueryView: View
         {
             Rectangle().fill(Color("BGColor")).ignoresSafeArea()
          
-            NavigationStack
+            VStack
             {
                 VStack(spacing:30)
                 {
                     Spacer().frame(height:15)
                     
-                    Button
+                    if(!isEditing)
                     {
-                        pText = "First prompt question"
-                        promptId = 1
-                        let _ = print("first pText: " + pText + " isShowing: " + String(isShowingEditorSheet))
-                        isShowingEditorSheet = true;
+                        NavigationLink
+                        {
+                            SessionHistory(sessions:sessions)
+                        }label:
+                        {
+                            let count = sessions.count
+                            Label("Session History count: \(count)", systemImage: "quote.opening")
+                        }
+                        .buttonStyle(.bordered)
+                        .frame(maxWidth:.infinity, alignment: .trailing)
+                        .padding(.horizontal)
                     }
-                    label:
+                    else
                     {
-                        if(ans1.count > 0)
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "First prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white,
-                                answerText: ans1[ans1.count - 1].promptAnswer)
-                        }
-                        else
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "First prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white)
-                        }
+                        let v = currentSession!.timestamp
+                        Text(v, style:.date)
                     }
                     
-                    Button
-                    {
-                        pText = "Second prompt question"
-                        promptId = 2
-                        isShowingEditorSheet = true;
-                    }
-                    label:
-                    {
-                        if(ans2.count > 0)
+                    //let _ = print(promptBoxes.promptEntries.count)
+                    ForEach(globalCluster.promptEntries){ pBox in
+                    //ForEach(promptBoxes.promptEntries){ pBox in
+                        Button
                         {
-                            boxStackViewNoTitle(
-                                bodyText: "Second prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white,
-                                answerText: ans2[ans2.count - 1].promptAnswer)
+                            //let _ = print("Before change: " + selectedBox.promptQuestion)
+                            //selectedBox = pBox
+                            //let _ = print("After change: " + selectedBox.promptQuestion)
+                            //promptBoxes.selectedEntry = pBox
+                            globalCluster.selectedEntry = pBox
+                            isShowingEditorSheet = true;
                         }
-                        else
+                        label:
                         {
+                            var answered = Date()
+                            let dateFormatter = DateFormatter()
+                            let _ = dateFormatter.dateFormat = "YY/MM/dd"
+                            let dateString = "Answered: " + dateFormatter.string(from: answered)
+                            var final:String
+                            
+                            if(!isEditing && pBox.promptAnswer != "")
+                            {
+                                let _ = final = dateString
+                            }
+                            else
+                            {
+                                let _ = final = pBox.promptAnswer
+                            }
+                            
                             boxStackViewNoTitle(
-                                bodyText: "Second prompt question",
-                                iconName: "bicycle.circle.fill",
-                                boxHeight: 90,
-                                backColor: Color.white)
-                        }
-                    }
-                    
-                    Button
-                    {
-                        pText = "Third prompt question"
-                        promptId = 3
-                        isShowingEditorSheet = true;
-                    }
-                    label:
-                    {
-                        if(ans3.count > 0)
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Third prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white,
-                                answerText: ans3[ans3.count - 1].promptAnswer)
-                        }
-                        else
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Third prompt question",
-                                iconName: "airplayvideo.circle.fill",
-                                boxHeight: 90,
-                                backColor: Color.white)
-                        }
-                    }
-                    
-                    Button
-                    {
-                        promptId = 4
-                        pText = "Fourth prompt question"
-                        isShowingEditorSheet = true;
-                    }
-                    label:
-                    {
-                        if(ans4.count > 0)
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Fourth prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white,
-                                answerText: ans4[ans4.count - 1].promptAnswer)
-                        }
-                        else
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Fourth prompt question",
-                                iconName: "headphones.circle.fill",
-                                boxHeight: 90,
-                                backColor: Color.white)
-                        }
-                    }
-                    
-                    Button
-                    {
-                        pText = "Fifth prompt question"
-                        promptId = 5
-                        isShowingEditorSheet = true;
-                    }
-                    label:
-                    {
-                        if(ans5.count > 0)
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Fifth prompt question",
-                                boxHeight: 90,
-                                backColor: Color.white,
-                                answerText: ans5[ans5.count - 1].promptAnswer)
-                        }
-                        else
-                        {
-                            boxStackViewNoTitle(
-                                bodyText: "Fifth prompt question",
-                                iconName: "building.2.crop.circle.fill",
-                                boxHeight: 90,
-                                backColor: Color.white)
+                                            bodyText: pBox.promptQuestion,
+                                            iconName: "airplayvideo.circle.fill",
+                                            boxHeight: 90,
+                                            backColor: Color.white,
+                                            answerText:final)
+                            
+                        
                         }
                     }
                     
@@ -179,18 +114,72 @@ struct QueryView: View
                 }
             }.sheet(isPresented : $isShowingEditorSheet)
             {
-                addEditorSheet(promptText: $pText, promptId: $promptId, rText:reflectionText)
+                //if let uBox = selectedBox
+                //{
+                //addEditorSheet(boxes:$promptBoxes,
+                               //promptEntry: promptBoxes.selectedEntry,
+                               //currentSession: currentSession)
+                
+                addEditorSheet(promptEntry: globalCluster.selectedEntry,
+                               currentSession: currentSession)
+                
+                
+                //promptBoxes[selectedBox.promptID].promptAnswer = selectedBox.promptAnswer
+                //}
+                //else
+                //{
+                //    addEditorSheet(promptText: "Invalid current box", promptId: $promptId,
+                //               currentSession: currentSession)
+                //}
             }
+        }.onAppear()
+        {
+            globalCluster.promptEntries[0].promptAnswer = ""
+            globalCluster.promptEntries[0].journalEntry = nil
+            
+            globalCluster.promptEntries[1].promptAnswer = ""
+            globalCluster.promptEntries[1].journalEntry = nil
+            
+            globalCluster.promptEntries[2].promptAnswer = ""
+            globalCluster.promptEntries[2].journalEntry = nil
+            
+            globalCluster.promptEntries[3].promptAnswer = ""
+            globalCluster.promptEntries[3].journalEntry = nil
+            
+            globalCluster.promptEntries[4].promptAnswer = ""
+            globalCluster.promptEntries[4].journalEntry = nil
+            //for session:SessionEntry in sessions
+            //{
+                if let unwr = currentSession
+                {
+                    if let unwr2 = unwr.journalEntries
+                    {
+                        print("ENtry count: \(unwr2.count)")
+                        for entry:JournalEntry in unwr2
+                        {
+                            globalCluster.promptEntries[entry.promptId].promptAnswer = entry.promptAnswer
+                            globalCluster.promptEntries[entry.promptId].journalEntry = entry
+                            /*if(entry.promptID >= 0 && entry.promptID < 5)
+                             {
+                             promptEntries[entry.promptID].promptAnswer = "hi"
+                             }*/
+                            
+                        }
+                    }
+                }
+            //}
         }
     }
 }
 
 struct addEditorSheet : View
 {
-    @Binding var promptText : String
-    @Binding var promptId : Int
+    //@Binding var boxes:PromptCluster
+    @EnvironmentObject var globalCluster:PromptCluster
+    var promptEntry : PromptEntry
+    var currentSession : SessionEntry?
     
-    var rText : String
+    var rText : String = ""
     var answerText:String = ""
     
     @Environment(\.dismiss) private var dismiss
@@ -203,7 +192,7 @@ struct addEditorSheet : View
     {
         NavigationStack
         {
-            Text(promptText).font(Font.custom("Papyrus", size:25))
+            Text(promptEntry.promptQuestion).font(Font.custom("Papyrus", size:25))
             
             Form
             {
@@ -223,14 +212,72 @@ struct addEditorSheet : View
                 {
                     Button("Save")
                     {
-                        let jentry = JournalEntryTwo(promptId: promptId, promptAnswer: entry, sessionID: 1)
+                        //  If we have a journal entry associated with this prompt, we are editing
+                        if let currentEntry = promptEntry.journalEntry
+                        {
+                            print("Inside edit")
+                            currentEntry.promptAnswer = entry
+                            //boxes.promptEntries[boxes.selectedEntry.promptID].promptAnswer = entry
+                            globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
+                            
+                        }
+                        else
+                        {
+                            print("Inside save: \(currentSession!.sessionID)")
+                            // No Entry associated, so create new
+                            let vv = JournalEntry(promptId: globalCluster.selectedEntry.promptID,
+                                                  promptAnswer: entry,
+                                                  sessionID: currentSession!.sessionID,
+                                                  sessionEntry: currentSession)
+                            
+                            if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5)
+                            {
+                                globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
+                            }
+                            
+                            //curBox.promptAnswer = entry
+                            //context.insert(book)
+                            
+                            context.insert(vv)
+                            //num += 1
+                            //currentSession.journalEntry1.promptAnswer = "Hi!"
+                        }
+                         
+                        dismiss()
                         
-                        context.insert(jentry)
+                    }
+                }
+                
+                ToolbarItemGroup(placement: .topBarTrailing)
+                {
+                    Button("Edit")
+                    {
+                        print("Inside new save: \(currentSession!.sessionID)")
+                        // No Entry associated, so create new
+                        let vv = JournalEntry(promptId: globalCluster.selectedEntry.promptID,
+                                              promptAnswer: entry,
+                                              sessionID: currentSession!.sessionID,
+                                              sessionEntry: currentSession)
                         
-                        //try! context.save()
+                        if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5)
+                        {
+                            globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
+                        }
+                        
+                        //context.insert(vv)
+                        
                         dismiss()
                     }
                 }
+            }
+        }.onAppear()
+        {
+            //print("Here")
+            
+            if let e = globalCluster.selectedEntry.journalEntry
+            {
+                //print("Here2")
+                entry = e.promptAnswer
             }
         }
     }
@@ -296,6 +343,83 @@ private func lastLocationPosition() -> Int? {
     }
 }
 
-#Preview {
-    QueryView(reflectionText:"").modelContainer(for:JournalEntryTwo.self)
+#Preview 
+{
+    //var tsession = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [])
+    //@StateObject var globalCluster = PromptCluster(session:tsession, edit:false)
+    
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
+    let twodays = Date.now.addingTimeInterval(-2*(24 * 60 * 60))
+    let threedays = Date.now.addingTimeInterval(-3*(24 * 60 * 60))
+    
+    //let previewSession = SessionEntry(timestamp: .now, sessionLabel: 1, entries:[])
+    var session = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"First")
+    container.mainContext.insert(session)
+    
+    session = SessionEntry(timestamp: twodays, sessionLabel: 2, entries: [], name:"Second")
+    container.mainContext.insert(session)
+    
+    session = SessionEntry(timestamp: threedays, sessionLabel: 3, entries: [], name:"Third")
+    container.mainContext.insert(session)
+    
+    @StateObject var globalCluster = PromptCluster()
+    
+    //QueryView(reflectionText:"").modelContainer(modelContainer)
+    return NavigationStack
+    {
+        return QueryView(currentSession:session).modelContainer(container)
+    }.environmentObject(globalCluster)
+}
+
+class PromptCluster : ObservableObject
+{
+    var promptEntries = [PromptEntry]()
+    var selectedEntry:PromptEntry
+    
+    init()
+    {
+        //print("Editing: \(edit)")
+        promptEntries.append(PromptEntry(id:0, question:"First prompt question"))
+        promptEntries.append(PromptEntry(id:1, question:"Second prompt question"))
+        promptEntries.append(PromptEntry(id:2, question:"Third prompt question"))
+        promptEntries.append(PromptEntry(id:3, question:"Fourth prompt question"))
+        promptEntries.append(PromptEntry(id:4, question:"Fifth prompt question"))
+        
+        selectedEntry = promptEntries[0]
+        
+        /*if(edit)
+        {
+            if let unwr = session.journalEntries
+            {
+                for entry:JournalEntry in unwr
+                {
+                    promptEntries[entry.promptId].promptAnswer = entry.promptAnswer
+                    promptEntries[entry.promptId].journalEntry = entry
+                    /*if(entry.promptID >= 0 && entry.promptID < 5)
+                    {
+                        promptEntries[entry.promptID].promptAnswer = "hi"
+                    }*/
+                   
+                }
+            }
+        }*/
+    }
+}
+
+struct PromptEntry : Identifiable
+{
+    let id:UUID = UUID()
+    var isFilled:Bool = false
+    var promptAnswer:String = "EMPTY_ANSWER"
+    var promptQuestion:String
+    var promptID:Int
+    var journalEntry:JournalEntry?
+    
+    init(id:Int, question:String)
+    {
+        promptID = id
+        promptQuestion = question
+    }
 }

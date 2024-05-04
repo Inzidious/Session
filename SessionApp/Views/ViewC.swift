@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+
 let sqsize:CGFloat = 100;
 let fontSize:CGFloat = 20;
 let numSquares:Int = 4
@@ -20,7 +22,7 @@ struct ViewC: View
         ZStack
         {
             Rectangle().fill(Color("BGColor"))
-            NavigationView
+            NavigationStack
             {
                 VStack
                 {
@@ -96,5 +98,8 @@ struct smallBoxStack: View
 }
 
 #Preview {
-    ViewC()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
+    
+    return ViewC().modelContainer(container)
 }

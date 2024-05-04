@@ -8,6 +8,21 @@
 import SwiftUI
 import SwiftData
 
+/*@main
+struct SessionAppApp: App {
+    
+    var body: some Scene
+    {
+        WindowGroup
+        {
+            //ContentView()
+            SplashScreenView()
+        }.modelContainer(for:SessionEntry.self)
+    }
+}
+*/
+
+
 @main
 struct SessionAppApp: App {
     
@@ -17,6 +32,6 @@ struct SessionAppApp: App {
         {
             //ContentView()
             SplashScreenView()
-        }.modelContainer(for:JournalEntryTwo.self)
+        }.modelContainer(for:SessionEntry.self)
     }
 }

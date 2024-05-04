@@ -11,44 +11,71 @@ import SwiftData
 @Model
 class JournalEntry
 {
-    var sessionId:Int
+    var sessionId:UUID
     var promptId:Int
     var promptAnswer:String
+    var sessionEntry:SessionEntry?
     
-    init(promptId: Int, promptAnswer: String, sessionID:Int)
+    init(promptId: Int, promptAnswer: String, sessionID:UUID, sessionEntry:SessionEntry?)
     {
         self.promptId = promptId
         self.promptAnswer = promptAnswer
         self.sessionId = sessionID
+        self.sessionEntry = sessionEntry
     }
 }
 
 @Model
-class JournalEntryTwo
+class Page2
 {
-    var sessionId:Int
-    var promptId:Int
-    var promptAnswer:String
+    var id:UUID
+    var name:String
     
-    init(promptId: Int, promptAnswer: String, sessionID:Int)
+    //@Relationship(deleteRule: .cascade, inverse: \JournalEntryTwo.sessionEntry)
+    var book:Book2?
+    
+    init(id:UUID, name:String)
     {
-        self.promptId = promptId
-        self.promptAnswer = promptAnswer
-        self.sessionId = sessionID
+        self.id = id
+        self.name = name
     }
 }
 
 @Model
-class SessionEntry
+class Book2
 {
-    var sessionID:Int
-    var sessionIdentifier:Int
+    var id:UUID
+    var name:String
+    
+    @Relationship(deleteRule: .cascade, inverse: \Page2.book)
+    var pages:[Page2]?
+    
+    init(id:UUID, name:String)
+    {
+        self.id = id
+        self.name = name
+    }
+}
+
+@Model
+class SessionEntry : Identifiable
+{
+    var sessionID:UUID
+    var sessionLabel:Int
     var timestamp:Date
+    var sessionName:String
     
-    init(sessionID:Int, timestamp:Date, identifier:Int)
+    @Relationship(deleteRule: .cascade, inverse: \JournalEntry.sessionEntry)
+    var journalEntries:[JournalEntry]?
+    
+    init(timestamp:Date, sessionLabel:Int, entries:[JournalEntry], name:String = "")
     {
-        self.sessionID = sessionID
+        self.sessionName = name
+        self.sessionID = UUID()
         self.timestamp = timestamp
-        self.sessionIdentifier = identifier
+        self.sessionLabel = sessionLabel
+        self.journalEntries = entries
+        
+        ///journalEntry1 = JournalEntryTwo(promptId: 1, promptAnswer: "Filler", sessionID: 1)
     }
 }
