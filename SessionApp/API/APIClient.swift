@@ -34,7 +34,7 @@ struct SpaceData : Codable,Identifiable
         
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else
         {
-            print("bad")
+            //print("Bad response in API fetch")
             return
         }
         

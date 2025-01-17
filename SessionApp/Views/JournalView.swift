@@ -27,41 +27,71 @@ struct JournalView: View
     {
         ZStack
         {
-            Rectangle().fill(Color("BGColor"))
+            Rectangle().fill(Color("BGRev1"))
             NavigationStack
             {
                 VStack
                 {
-                    //  Spacing rectangle
-                    //Rectangle()
-                    //    .frame(width:350, height:50)
-                    //    .foregroundColor(.white)
-                    //    .cornerRadius(10)
-                    
-                    //  First red
-                    let fTitle = "Pre Session Reflection"
-                    let fColor = Color.red
-                    let fBody = "Recall a new idea you had\nrecently. What led to that idea\nand how can you make time\nfor those things."
-                    
-                    boxStackView(titleText:fTitle, bodyText:fBody, backColor:fColor, newSession: newSession)
+                    ZStack
+                    {
+                        Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                            .overlay( /// apply a rounded border
+                                Ellipse()
+                                    .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+                        VStack
+                        {
+                            Spacer().frame(height:40)
+                            Text("Generate")
+                                .foregroundColor(.black).opacity(0.5)
+                                .font(.system(size:50.0))
+                            
+                            Text("What's on your mind this week")
+                                .foregroundColor(.black).opacity(1)
+                                .font(.system(size:20.0))
+                                .frame(width:260).multilineTextAlignment(.center)
+                        }
+                    }
                     
                     Spacer().frame(height:20)
                     
-                    //  Second purple
-                    let sTitle = "Post Session Reflection"
-                    let sColor = Color.purple
-                    let sBody = "Write about an important friend\nor family member. Include an\naudio recording if possible."
-                    
-                    boxStackView(titleText:sTitle, bodyText:sBody, backColor: sColor, newSession: newSession)
+                    ZStack
+                    {
+                        Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                            .overlay( /// apply a rounded border
+                                Ellipse()
+                                    .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+                        
+                        VStack
+                        {
+                            Spacer().frame(height:40)
+                            Text("Expand")
+                                .foregroundColor(.black).opacity(0.5)
+                                .font(.system(size:50.0))
+                            
+                            Text("Ah-Ha moments from session")
+                                .foregroundColor(.black).opacity(1)
+                                .font(.system(size:20.0))
+                                .frame(width:260).multilineTextAlignment(.center)
+                        }
+                            
+                    }
                     
                     Spacer().frame(height:20)
                     
                     //  Third blue
-                    let tTitle = "Open Free Write"
-                    let tColor = Color.blue
-                    let tBody = "Write about an whatever your\nheart desires!."
-                    
-                    boxStackView(titleText:tTitle, bodyText:tBody, backColor: tColor, newSession:newSession)
+                    ZStack
+                    {
+                        Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                            .overlay( /// apply a rounded border
+                                Ellipse()
+                                    .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+                        
+                        Text("Dream")
+                            .foregroundColor(.black).opacity(0.5)
+                            .font(.system(size:50.0))
+                            .padding(10)
+                            
+                    }
                 }
             }.environmentObject(globalCluster)
         }

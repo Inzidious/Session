@@ -6,16 +6,19 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SplashScreenView: View {
     @State private var isActive:Bool = false;
     @State private var size = 0.8;
     @State private var opacity = 0.5;
     
+    //var currentUser:CurrentUser
+    
     var body: some View {
         if(isActive)
         {
-            ContentView()
+            LoaderView()
         }
         else
         {
@@ -23,11 +26,12 @@ struct SplashScreenView: View {
             {
                 VStack
                 {
-                    Image(systemName: "hare.fill")
-                        .font(.system(size:80))
+                    Image("res_therapy")
+                    //Image(systemName: "hare.fill")
+                        //.font(.system(size:80))
                     
-                    Text("Hello again, Shauna!")
-                        .font(Font.custom("Baskerville-Bold", size: 26))
+                    //Text("Hello again," + currentUser.firstName + "!")
+                        //.font(Font.custom("Baskerville-Bold", size: 26))
                 }
                 .scaleEffect(size)
                 .opacity(opacity)
@@ -35,7 +39,7 @@ struct SplashScreenView: View {
                 {
                     withAnimation(.easeIn(duration: 1.2))
                     {
-                        self.size = 1.2;
+                        self.size = 1.8;
                         self.opacity = 1.0;
                     }
                 }
@@ -52,5 +56,8 @@ struct SplashScreenView: View {
 }
 
 #Preview {
-    SplashScreenView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self, FeelingEntry.self, CurrentUser.self, User.self, configurations: config)
+    
+    return SplashScreenView().modelContainer(container)
 }

@@ -9,6 +9,40 @@ import Foundation
 import SwiftData
 
 @Model
+class User
+{
+    var firstName:String
+    var lastName:String
+    var email:String
+    var password:String
+    
+    init(firstName:String, lastName:String, email:String, password:String)
+    {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.password = password
+    }
+}
+
+@Model
+class CurrentUser
+{
+    var firstName:String
+    var lastName:String
+    var email:String
+    var password:String
+    
+    init(firstName:String, lastName:String, email:String, password:String)
+    {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.email = email
+        self.password = password
+    }
+}
+
+@Model
 class JournalEntry
 {
     var sessionId:UUID
@@ -54,6 +88,37 @@ class Book2
     {
         self.id = id
         self.name = name
+    }
+}
+
+@Model
+class FeelingEntry
+{
+    var feelingID:UUID
+    var name:String
+    var sleep:Int
+    var food:Int
+    var move:Int
+    var irrit:Int
+    var cycle:Int
+    var medi:Int
+    var feeling:Int
+    var triggers:String
+    var timestamp:Date
+    
+    init(nameTxt:String)
+    {
+        self.sleep = 0
+        self.food = 0
+        self.move = 0
+        self.irrit = 0
+        self.triggers = ""
+        self.cycle = 0
+        self.medi = 0
+        self.feeling = 0
+        self.name = nameTxt
+        self.feelingID = UUID()
+        self.timestamp = .now
     }
 }
 

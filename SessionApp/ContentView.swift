@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    
     var body: some View {
         TabView
         {
@@ -40,5 +42,7 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self,FeelingEntry.self, CurrentUser.self, configurations: config)
+    return ContentView().modelContainer(container)
 }

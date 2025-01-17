@@ -6,19 +6,68 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ViewA: View {
-    var body: some View {
-        ZStack{
-            Color.green
-            
-            Image(systemName: "slider.horizontal.3")
-                .foregroundColor(.white)
-                .font(.system(size:100.0))
+    private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
+    
+    var body: some View 
+    {
+        NavigationView
+        {
+            VStack
+            {
+                Spacer()
+                HStack
+                {
+                    Spacer().frame(width:110)
+                    
+                    Text("Resources")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .font(Font.custom("Papyrus", size:38))
+                }
+                Spacer()
+                LazyVGrid(columns:adaptiveColumns,
+                          spacing:30)
+                {
+                    /*smallBoxStack()
+                     smallBoxStack(boxText: "Breath")
+                     smallBoxStack(boxText: "Meditation")
+                     smallBoxStack(boxText: "Focus")*/
+                    
+                    smallBoxImage(boxText: "res_feeelings").padding(.leading, 50)
+                    Spacer()
+                    
+                    smallBoxImage(boxText: "res_problem").padding(.trailing, 50)
+                    
+                    smallBoxImage(boxText: "res_stress").padding(.leading, 50)
+                    Spacer()
+                    
+                    NavigationLink(destination:ResourceDetails())
+                    {
+                        smallBoxImage(boxText: "res_dep").padding(.trailing, 50)
+                    }
+                    
+                    smallBoxImage(boxText: "res_comm").padding(.leading, 50)
+                    Spacer().frame(width: 5)
+                    smallBoxImage(boxText: "res_anxiety").padding(.trailing, 50)
+                    
+                    smallBoxImage(boxText: "res_grief").padding(.leading, 50)
+                    Spacer().frame(width: 5)
+                    smallBoxImage(boxText: "res_anger").padding(.trailing, 50)
+                    
+                    
+                }
+                .padding()
+                .frame(alignment: .top)
+            }
         }
     }
 }
 
 #Preview {
-    ViewA()
+    let config = ModelConfiguration(isStoredInMemoryOnly: true)
+    let container = try! ModelContainer(for: SessionEntry.self,FeelingEntry.self, configurations: config)
+    
+    return ViewA().modelContainer(container)
 }

@@ -24,7 +24,17 @@ struct SessionAppApp: App {
 
 
 @main
-struct SessionAppApp: App {
+struct SessionAppApp: App 
+{
+    @State private var currentUser:CurrentUser? = nil
+    
+    let config = ModelConfiguration(isStoredInMemoryOnly: false)
+    private var container:ModelContainer
+    
+    init()
+    {
+        container = try! ModelContainer(for: FeelingEntry.self, SessionEntry.self, User.self, CurrentUser.self, configurations: config)
+    }
     
     var body: some Scene
     {
@@ -32,6 +42,8 @@ struct SessionAppApp: App {
         {
             //ContentView()
             SplashScreenView()
-        }.modelContainer(for:SessionEntry.self)
+            //SplashScreenView()
+            
+        }.modelContainer(container)
     }
 }

@@ -17,6 +17,8 @@ struct QueryView: View
     
     @State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
+    @State private var isShowingBodySheet = false
+    @State private var BodyValue = "None"
     @State private var promptId : Int = 0
     @State private var num:Int = 0
     @State var answerText : String = ""
@@ -42,77 +44,126 @@ struct QueryView: View
     {
         ZStack
         {
-            Rectangle().fill(Color("BGColor")).ignoresSafeArea()
+            Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
          
             VStack
             {
-                VStack(spacing:30)
+                if(!isEditing)
                 {
-                    Spacer().frame(height:15)
-                    
-                    if(!isEditing)
+                    NavigationLink
                     {
-                        NavigationLink
-                        {
-                            SessionHistory(sessions:sessions)
-                        }label:
-                        {
-                            let count = sessions.count
-                            Label("Session History count: \(count)", systemImage: "quote.opening")
-                        }
-                        .buttonStyle(.bordered)
-                        .frame(maxWidth:.infinity, alignment: .trailing)
-                        .padding(.horizontal)
-                    }
-                    else
+                        SessionHistory(sessions:sessions)
+                    }label:
                     {
-                        let v = currentSession!.timestamp
-                        Text(v, style:.date)
+                        let count = sessions.count
+                        Label("Session History count: \(count)", systemImage: "quote.opening")
                     }
-                    
-                    //let _ = print(promptBoxes.promptEntries.count)
-                    ForEach(globalCluster.promptEntries){ pBox in
-                    //ForEach(promptBoxes.promptEntries){ pBox in
-                        Button
-                        {
-                            //let _ = print("Before change: " + selectedBox.promptQuestion)
-                            //selectedBox = pBox
-                            //let _ = print("After change: " + selectedBox.promptQuestion)
-                            //promptBoxes.selectedEntry = pBox
-                            globalCluster.selectedEntry = pBox
-                            isShowingEditorSheet = true;
-                        }
-                        label:
-                        {
-                            var answered = Date()
-                            let dateFormatter = DateFormatter()
-                            let _ = dateFormatter.dateFormat = "YY/MM/dd"
-                            let dateString = "Answered: " + dateFormatter.string(from: answered)
-                            var final:String
-                            
-                            if(!isEditing && pBox.promptAnswer != "")
-                            {
-                                let _ = final = dateString
-                            }
-                            else
-                            {
-                                let _ = final = pBox.promptAnswer
-                            }
-                            
-                            boxStackViewNoTitle(
-                                            bodyText: pBox.promptQuestion,
-                                            iconName: "airplayvideo.circle.fill",
-                                            boxHeight: 90,
-                                            backColor: Color.white,
-                                            answerText:final)
-                            
-                        
-                        }
-                    }
-                    
-                    Spacer()
+                    .buttonStyle(.bordered)
+                    .frame(maxWidth:.infinity, alignment: .trailing)
+                    .padding(.horizontal)
                 }
-            }.sheet(isPresented : $isShowingEditorSheet)
+                else
+                {
+                    let v = currentSession!.timestamp
+                    Text(v, style:.date)
+                }
+                
+                VStack
+                {
+                    Text("Generate")
+                        .foregroundColor(.black)
+                        .font(Font.custom("Papyrus", size:30))
+                        .padding(10)
+                        .frame(width:350, alignment: .leading)
+                        .multilineTextAlignment(.leading)
+                    
+                    Text("Utilize the events of your week as grist for the mill")
+                        .foregroundColor(.black)
+                        .font(Font.custom("Papyrus", size:23))
+                        .padding(10)
+                        .frame(width:350, alignment: .trailing)
+                        .multilineTextAlignment(.trailing)
+                }
+                
+                Spacer().frame(height:30)
+                
+                HStack
+                {
+                    HStack
+                    {
+                        Spacer().frame(width:50)
+                        ScrollView()
+                        {
+                            Spacer().frame(height:10)
+                            
+                            
+                            
+                            //let _ = print(promptBoxes.promptEntries.count)
+                            ForEach(globalCluster.promptEntries){ pBox in
+                                //ForEach(promptBoxes.promptEntries){ pBox in
+                                Button
+                                {
+                                    //let _ = print("Before change: " + selectedBox.promptQuestion)
+                                    //selectedBox = pBox
+                                    //let _ = print("After change: " + selectedBox.promptQuestion)
+                                    //promptBoxes.selectedEntry = pBox
+                                    globalCluster.selectedEntry = pBox
+                                    isShowingEditorSheet = true;
+                                }
+                            label:
+                                {
+                                    var answered = Date()
+                                    let dateFormatter = DateFormatter()
+                                    let _ = dateFormatter.dateFormat = "YY/MM/dd"
+                                    let dateString = "Answered: " + dateFormatter.string(from: answered)
+                                    var final:String
+                                    
+                                    if(!isEditing && pBox.promptAnswer != "")
+                                    {
+                                        let _ = final = dateString
+                                    }
+                                    else
+                                    {
+                                        let _ = final = pBox.promptAnswer
+                                    }
+                                    
+                                    boxStackViewClear(
+                                        bodyText: pBox.promptQuestion,
+                                        iconName: "airplayvideo.circle.fill",
+                                        boxHeight: 90,
+                                        backColor: Color.white,
+                                        answerText:pBox.promptAnswer)
+                                }
+                                
+                                Spacer().frame(height:45)
+                            }
+                            
+                            Spacer()
+                        }.background()
+                        {
+                            Image("notebook").resizable().frame(width:540, height:660)
+                        }
+                    }
+                    
+                    Button()
+                    {
+                        isShowingBodySheet = true
+                    }
+                    label:
+                    {
+                        VStack
+                        {
+                            Image("body_picker").resizable().frame(width:37, height:50)
+                            Text("\(self.BodyValue)")
+                        }.offset(x:-15)
+                    }
+                }
+                
+            }.sheet(isPresented : $isShowingBodySheet)
+            {
+                BodyImage(bodyvalue:self.$BodyValue)
+            }
+            .sheet(isPresented : $isShowingEditorSheet)
             {
                 //if let uBox = selectedBox
                 //{
@@ -154,7 +205,7 @@ struct QueryView: View
                 {
                     if let unwr2 = unwr.journalEntries
                     {
-                        print("ENtry count: \(unwr2.count)")
+                        //print("ENtry count: \(unwr2.count)")
                         for entry:JournalEntry in unwr2
                         {
                             globalCluster.promptEntries[entry.promptId].promptAnswer = entry.promptAnswer
@@ -323,6 +374,39 @@ struct boxStackViewNoTitle: View
         }.frame(maxWidth:.infinity, alignment: .center)
     }
 }
+
+struct boxStackViewClear: View
+{
+    var bodyText = ""
+    var iconName = "tram.circle.fill"
+    var boxHeight = 200.0;
+    var backColor = Color.red
+    var answerText = ""
+    
+    var body: some View
+    {
+        VStack
+        {
+            ZStack
+            {
+                Rectangle()
+                    .frame(width:250, height:40)
+                    .foregroundColor(Color.gray)
+                    .cornerRadius(10)
+                    .opacity(0.4)
+                
+                Text(bodyText)
+                    .foregroundColor(.black)
+                    .font(Font.custom("Papyrus", size:20))
+                    .padding(10)
+                    .frame(width:250, alignment: .bottomLeading)
+                    .multilineTextAlignment(.leading)
+            }
+            Text(answerText)
+        }
+    }
+}
+
 
 extension View {
     func PPrint(_ vars: Any...) -> some View {

@@ -1,0 +1,127 @@
+2024-12-07 22:09:32 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x32b830360; archive(resolved)="<IDEArchive: 0x60000f719920>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	Chain (15, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x32b830360; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x12fa80b10; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12f71c0a0; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x10da11430; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12f71c720; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12f71b9c0; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12f71ab10; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x12f71b180; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x32bb10a10; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x600000c3ca00; teamID='C59RKZM3HY', teamName='Shawn McLean', teamType='Individual', username='voshtt@gmail.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x32f79c9b0; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="(null)">
+	<IDEDistributionContext: 0x10da0fe00; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="(null)">
+	<IDEDistributionContext: 0x10da0f3c0; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="(null)">
+	<IDEDistributionContext: 0x12f8122e0; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x6000051840d0>", team="(null)">
+	<IDEDistributionContext: 0x32f77fb40; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="(null)", team="(null)">
+	<IDEDistributionContext: 0x32bb06c40; archive = "<IDEArchive: 0x60000f719920>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x32b830360>
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCreateDestRootStep
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCopyItemStep
+2024-12-07 22:09:32 +0000  Running /usr/bin/ditto '-V' '/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app' '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app'
+2024-12-07 22:09:32 +0000  >>> Copying /Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app 
+2024-12-07 22:09:32 +0000  copying file ./_CodeSignature/CodeResources ... 
+2024-12-07 22:09:32 +0000  2739 bytes for ./_CodeSignature/CodeResources
+2024-12-07 22:09:32 +0000  copying file ./s_audio.mp3 ... 
+2024-12-07 22:09:32 +0000  680873 bytes for ./s_audio.mp3
+2024-12-07 22:09:32 +0000  copying file ./SessionApp ... 
+2024-12-07 22:09:32 +0000  762608 bytes for ./SessionApp
+2024-12-07 22:09:32 +0000  copying file ./sample-15s.mp3 ... 
+2024-12-07 22:09:32 +0000  307453 bytes for ./sample-15s.mp3
+2024-12-07 22:09:32 +0000  copying file ./Assets.car ... 
+2024-12-07 22:09:32 +0000  12382624 bytes for ./Assets.car
+2024-12-07 22:09:32 +0000  copying file ./embedded.mobileprovision ... 
+12302 bytes for ./embedded.mobileprovision
+copying file ./Info.plist ... 
+1251 bytes for ./Info.plist
+copying file ./PkgInfo ... 
+2024-12-07 22:09:32 +0000  8 bytes for ./PkgInfo
+2024-12-07 22:09:32 +0000  /usr/bin/ditto exited with 0
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionEmbedProfileStep
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionInfoPlistStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionSymbolsStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionAppThinningStep
+2024-12-07 22:09:32 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionArchThinningStep
+2024-12-07 22:09:32 +0000  Item /Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app doesn't have the entitlement com.apple.developer.web-browser-engine.host enabled, returning ["arm64e"]
+2024-12-07 22:09:32 +0000  Archs to thin for item /Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app are ["arm64e"]
+2024-12-07 22:09:32 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app/SessionApp' '-verify_arch' 'arm64e'
+2024-12-07 22:09:32 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2024-12-07 22:09:32 +0000  Skipping architecture thinning for item "SessionApp" because arch "arm64e" wasn't found
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionODRStep
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionStripXattrsStep
+2024-12-07 22:09:32 +0000  Skipping stripping extended attributes because the codesign step will strip them.
+2024-12-07 22:09:32 +0000  Processing step: IDEDistributionCodesignStep
+2024-12-07 22:09:32 +0000  Entitlements for <IDEDistributionItem: 0x60000f704a20; bundleID='MediaOptimized.SessionApp', path='<DVTFilePath:0x600007f27800:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000f2005f0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x6000029beb80; name='Apple Development: voshtt@gmail.com (GRLL9J86V5)', hash='1FB183F34C4D4AB6AF1729C2B93CAF7023E70EFA', serialNumber='3DDDEC546B58CBBB13DCFE9D62AFB624', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-12-03 21:20:08 +0000''>', entitlements='{
+    "application-identifier" = "C59RKZM3HY.MediaOptimized.SessionApp";
+    "com.apple.developer.team-identifier" = C59RKZM3HY;
+    "get-task-allow" = 1;
+}', teamID='C59RKZM3HY', identifier='MediaOptimized.SessionApp', executablePath='<DVTFilePath:0x600007f05d80:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app/SessionApp'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "C59RKZM3HY.MediaOptimized.SessionApp";
+    "com.apple.developer.team-identifier" = C59RKZM3HY;
+    "get-task-allow" = 1;
+}
+2024-12-07 22:09:32 +0000  Associated App Clip Identifiers Filter: Skipping because "com.apple.developer.associated-appclip-app-identifiers" is not present
+2024-12-07 22:09:32 +0000  Entitlements for <IDEDistributionItem: 0x60000f704a20; bundleID='MediaOptimized.SessionApp', path='<DVTFilePath:0x600007f27800:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000f2005f0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x600002645d40; name='Apple Development: voshtt@gmail.com (GRLL9J86V5)', hash='1FB183F34C4D4AB6AF1729C2B93CAF7023E70EFA', serialNumber='3DDDEC546B58CBBB13DCFE9D62AFB624', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-12-03 21:20:08 +0000''>', entitlements='{
+    "application-identifier" = "C59RKZM3HY.MediaOptimized.SessionApp";
+    "com.apple.developer.team-identifier" = C59RKZM3HY;
+    "get-task-allow" = 1;
+}', teamID='C59RKZM3HY', identifier='MediaOptimized.SessionApp', executablePath='<DVTFilePath:0x600007f05d80:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app/SessionApp'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "C59RKZM3HY.MediaOptimized.SessionApp";
+    "com.apple.developer.team-identifier" = C59RKZM3HY;
+    "get-task-allow" = 1;
+}
+2024-12-07 22:09:32 +0000  Writing entitlements for <IDEDistributionItem: 0x60000f704a20; bundleID='MediaOptimized.SessionApp', path='<DVTFilePath:0x600007f27800:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x60000f2005f0; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000260d140; name='Apple Development: voshtt@gmail.com (GRLL9J86V5)', hash='1FB183F34C4D4AB6AF1729C2B93CAF7023E70EFA', serialNumber='3DDDEC546B58CBBB13DCFE9D62AFB624', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2024-12-03 21:20:08 +0000''>', entitlements='{
+    "application-identifier" = "C59RKZM3HY.MediaOptimized.SessionApp";
+    "com.apple.developer.team-identifier" = C59RKZM3HY;
+    "get-task-allow" = 1;
+}', teamID='C59RKZM3HY', identifier='MediaOptimized.SessionApp', executablePath='<DVTFilePath:0x600007f05d80:'/Users/shawn/Library/Developer/Xcode/Archives/2024-12-03/SessionApp 12-3-24, 1.53 PM.xcarchive/Products/Applications/SessionApp.app/SessionApp'>', hardenedRuntime='0'>'> to: /var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/entitlements~~~VtHrZ5
+2024-12-07 22:09:32 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '1FB183F34C4D4AB6AF1729C2B93CAF7023E70EFA' '--entitlements' '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/entitlements~~~VtHrZ5' '--generate-entitlement-der' '--strip-disallowed-xattrs' '--preserve-metadata=identifier,flags,runtime' '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app'
+2024-12-07 22:09:32 +0000  /var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app: replacing existing signature
+2024-12-07 22:09:36 +0000  /var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app: signed app bundle with Mach-O thin (arm64) [MediaOptimized.SessionApp]
+2024-12-07 22:09:36 +0000  /usr/bin/codesign exited with 0
+2024-12-07 22:09:36 +0000  Processing step: IDEDistributionZipODRItemStep
+2024-12-07 22:09:36 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2024-12-07 22:09:36 +0000  Processing step: IDEDistributionCreateIPAStep
+2024-12-07 22:09:36 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root' '/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Packages/SessionApp.ipa'
+2024-12-07 22:09:36 +0000  >>> Copying /var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root 
+2024-12-07 22:09:36 +0000  copying file ./Payload/SessionApp.app/_CodeSignature/CodeResources ... 
+2024-12-07 22:09:36 +0000  2739 bytes for ./Payload/SessionApp.app/_CodeSignature/CodeResources
+2024-12-07 22:09:36 +0000  copying file ./Payload/SessionApp.app/s_audio.mp3 ... 
+2024-12-07 22:09:36 +0000  680873 bytes for ./Payload/SessionApp.app/s_audio.mp3
+2024-12-07 22:09:36 +0000  copying file ./Payload/SessionApp.app/SessionApp ... 
+2024-12-07 22:09:36 +0000  762608 bytes for ./Payload/SessionApp.app/SessionApp
+2024-12-07 22:09:36 +0000  copying file ./Payload/SessionApp.app/sample-15s.mp3 ... 
+2024-12-07 22:09:36 +0000  307453 bytes for ./Payload/SessionApp.app/sample-15s.mp3
+2024-12-07 22:09:36 +0000  copying file ./Payload/SessionApp.app/Assets.car ... 
+2024-12-07 22:09:37 +0000  12382624 bytes for ./Payload/SessionApp.app/Assets.car
+copying file ./Payload/SessionApp.app/embedded.mobileprovision ... 
+2024-12-07 22:09:37 +0000  12302 bytes for ./Payload/SessionApp.app/embedded.mobileprovision
+copying file ./Payload/SessionApp.app/Info.plist ... 
+1251 bytes for ./Payload/SessionApp.app/Info.plist
+copying file ./Payload/SessionApp.app/PkgInfo ... 
+2024-12-07 22:09:37 +0000  8 bytes for ./Payload/SessionApp.app/PkgInfo
+2024-12-07 22:09:37 +0000  /usr/bin/ditto exited with 0
+2024-12-07 22:09:37 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2024-12-07 22:09:37 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2024-12-07 22:09:37 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2024-12-07 22:09:37 +0000  IDEDistributionItem init <DVTFilePath:0x600007f6e000:'/var/folders/9x/c9bkxczn1yg9j5vzd45trw6w0000gn/T/XcodeDistPipeline.~~~1MN1jC/Root/Payload/SessionApp.app'>
+2024-12-07 22:09:37 +0000  Processing step: IDEDistributionCreateManifestStep
