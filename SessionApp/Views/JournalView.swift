@@ -28,27 +28,31 @@ struct JournalView: View
         ZStack
         {
             Rectangle().fill(Color("BGRev1"))
-            NavigationStack
+            NavigationView
             {
                 VStack
                 {
-                    ZStack
+                    NavigationLink(destination:QueryView(currentSession: newSession))
                     {
-                        Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
-                            .overlay( /// apply a rounded border
-                                Ellipse()
-                                    .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
-                        VStack
+                        ZStack
                         {
-                            Spacer().frame(height:40)
-                            Text("Generate")
-                                .foregroundColor(.black).opacity(0.5)
-                                .font(.system(size:50.0))
                             
-                            Text("What's on your mind this week")
-                                .foregroundColor(.black).opacity(1)
-                                .font(.system(size:20.0))
-                                .frame(width:260).multilineTextAlignment(.center)
+                            Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                                .overlay( /// apply a rounded border
+                                    Ellipse()
+                                        .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+                            VStack
+                            {
+                                Spacer().frame(height:40)
+                                Text("Generate")
+                                    .foregroundColor(.black).opacity(0.5)
+                                    .font(.system(size:50.0))
+                                
+                                Text("What's on your mind this week")
+                                    .foregroundColor(.black).opacity(1)
+                                    .font(.system(size:20.0))
+                                    .frame(width:260).multilineTextAlignment(.center)
+                            }
                         }
                     }
                     
