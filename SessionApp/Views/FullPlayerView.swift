@@ -9,7 +9,7 @@ import SwiftUI
 import AVKit
 
 struct FullPlayerView: View {
-    let audioFile = "s_audio"
+    let audioFile = "s_audioknkn"
     @Environment(\.dismiss) private var dismiss
     
     @State private var player: AVAudioPlayer?
