@@ -11,7 +11,7 @@ import SwiftData
 struct ViewA: View {
     private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
     
-    var body: some View 
+    var body: some View
     {
         NavigationView
         {
@@ -36,6 +36,7 @@ struct ViewA: View {
                      smallBoxStack(boxText: "Focus")*/
                     
                     smallBoxImage(boxText: "res_feeelings").padding(.leading, 50)
+        
                     Spacer()
                     
                     smallBoxImage(boxText: "res_problem").padding(.trailing, 50)

@@ -14,6 +14,7 @@ struct QueryView: View
 {
     @Environment(\.modelContext) var context;
     @EnvironmentObject var globalCluster:PromptCluster
+    @Environment(\.dismiss) var dismiss
     
     @State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
@@ -48,8 +49,10 @@ struct QueryView: View
          
             VStack
             {
+                /* Lets disbale the session history view for now
                 if(!isEditing)
                 {
+                    
                     NavigationLink
                     {
                         SessionHistory(sessions:sessions)
@@ -66,21 +69,19 @@ struct QueryView: View
                 {
                     let v = currentSession!.timestamp
                     Text(v, style:.date)
-                }
+                }*/
                 
                 VStack
                 {
                     Text("Generate")
                         .foregroundColor(.black)
                         .font(Font.custom("Papyrus", size:30))
-                        .padding(10)
                         .frame(width:350, alignment: .leading)
                         .multilineTextAlignment(.leading)
                     
                     Text("Utilize the events of your week as grist for the mill")
                         .foregroundColor(.black)
                         .font(Font.custom("Papyrus", size:23))
-                        .padding(10)
                         .frame(width:350, alignment: .trailing)
                         .multilineTextAlignment(.trailing)
                 }
@@ -116,16 +117,6 @@ struct QueryView: View
                                     let dateFormatter = DateFormatter()
                                     let _ = dateFormatter.dateFormat = "YY/MM/dd"
                                     let dateString = "Answered: " + dateFormatter.string(from: answered)
-                                    var final:String
-                                    
-                                    if(!isEditing && pBox.promptAnswer != "")
-                                    {
-                                        let _ = final = dateString
-                                    }
-                                    else
-                                    {
-                                        let _ = final = pBox.promptAnswer
-                                    }
                                     
                                     boxStackViewClear(
                                         bodyText: pBox.promptQuestion,
@@ -141,7 +132,7 @@ struct QueryView: View
                             Spacer()
                         }.background()
                         {
-                            Image("notebook").resizable().frame(width:540, height:660)
+                            Image("notebook").resizable().frame(width:340, height:600)
                         }
                     }
                     
@@ -220,6 +211,16 @@ struct QueryView: View
                 }
             //}
         }
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+                    ToolbarItem(placement: .topBarLeading) {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Label("Back", systemImage: "arrow.left.circle")
+                        }
+                    }
+                }
     }
 }
 

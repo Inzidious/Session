@@ -33,6 +33,8 @@
 		2928AC212CC8261600457A86 /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AC202CC8261600457A86 /* ImagePickerView.swift */; };
 		2928AC232CD15A5500457A86 /* AnimationLearner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AC222CD15A5500457A86 /* AnimationLearner.swift */; };
 		2928AC252CED16D700457A86 /* BodyImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2928AC242CED16D700457A86 /* BodyImage.swift */; };
+		293517742D40291D0089276C /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293517732D40291D0089276C /* APIModels.swift */; };
+		293517762D42F2770089276C /* TestAPIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293517752D42F2770089276C /* TestAPIButton.swift */; };
 		293C01202CFF8A12006CCB52 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C011F2CFF8A12006CCB52 /* InsightsView.swift */; };
 		293C01222CFF8D20006CCB52 /* ExampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293C01212CFF8D20006CCB52 /* ExampleData.swift */; };
 		298B04242CA5BE9D00954591 /* ResourceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298B04232CA5BE9C00954591 /* ResourceDetails.swift */; };
@@ -94,6 +96,8 @@
 		2928AC202CC8261600457A86 /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		2928AC222CD15A5500457A86 /* AnimationLearner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationLearner.swift; sourceTree = "<group>"; };
 		2928AC242CED16D700457A86 /* BodyImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyImage.swift; sourceTree = "<group>"; };
+		293517732D40291D0089276C /* APIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModels.swift; sourceTree = "<group>"; };
+		293517752D42F2770089276C /* TestAPIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestAPIButton.swift; sourceTree = "<group>"; };
 		293C011F2CFF8A12006CCB52 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		293C01212CFF8D20006CCB52 /* ExampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleData.swift; sourceTree = "<group>"; };
 		298B04232CA5BE9C00954591 /* ResourceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDetails.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 		29054D332B9F88C2003FA7EB /* SessionApp */ = {
 			isa = PBXGroup;
 			children = (
+				293517722D4029000089276C /* Models */,
 				29054D712BBDE3E3003FA7EB /* API */,
 				29054D5E2BA4D5E5003FA7EB /* Views */,
 				29054D342B9F88C2003FA7EB /* SessionAppApp.swift */,
@@ -226,6 +231,7 @@
 				2928AC242CED16D700457A86 /* BodyImage.swift */,
 				293C011F2CFF8A12006CCB52 /* InsightsView.swift */,
 				293C01212CFF8D20006CCB52 /* ExampleData.swift */,
+				293517752D42F2770089276C /* TestAPIButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -236,6 +242,14 @@
 				29054D732BBDE517003FA7EB /* APIClient.swift */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		293517722D4029000089276C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				293517732D40291D0089276C /* APIModels.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,6 +398,7 @@
 				298B042A2CB452BE00954591 /* NewUserView.swift in Sources */,
 				298B042C2CB46DD900954591 /* LoaderView.swift in Sources */,
 				29054D372B9F88C2003FA7EB /* ContentView.swift in Sources */,
+				293517742D40291D0089276C /* APIModels.swift in Sources */,
 				29054D6E2BBDC41A003FA7EB /* SplashScreenView.swift in Sources */,
 				2928AC252CED16D700457A86 /* BodyImage.swift in Sources */,
 				2928AC1D2CC81A3E00457A86 /* FullPlayerView.swift in Sources */,
@@ -404,6 +419,7 @@
 				2928AC1B2CBEE00600457A86 /* LogInView.swift in Sources */,
 				2928AC212CC8261600457A86 /* ImagePickerView.swift in Sources */,
 				29054D702BBDE0A6003FA7EB /* CommunityView.swift in Sources */,
+				293517762D42F2770089276C /* TestAPIButton.swift in Sources */,
 				29054D7C2BC8531F003FA7EB /* JournalEntry.swift in Sources */,
 				29054D622BA4D651003FA7EB /* ViewB.swift in Sources */,
 				299BFBDC2BDC618D00F533A9 /* SwiftUIView.swift in Sources */,
