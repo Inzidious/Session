@@ -1,3 +1,5 @@
 SessionAppTests
 SessionAppUITests
 
+.DS_Store
+*.xcuserstate

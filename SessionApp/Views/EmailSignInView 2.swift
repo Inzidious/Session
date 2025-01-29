@@ -1,6 +1,12 @@
-import SwiftUI
-import SwiftData
+//
+//  EmailSignInView 2.swift
+//  SessionApp
+//
+//  Created by macOS on 1/26/25.
+//
 
+
+import SwiftUI
 
 struct EmailSignInView: View {
     @Environment(\.modelContext) var context
@@ -130,11 +136,7 @@ struct EmailSignInView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: CurrentUser.self)
     
-<<<<<<< HEAD
-    EmailSignInView(
-=======
     return EmailSignInView(
->>>>>>> 64e4462c8358242800bad8a694982bdefe7371b4
         currentUser: .constant(nil),
         confirmed: .constant(false)
     )
