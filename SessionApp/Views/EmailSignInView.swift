@@ -130,11 +130,7 @@ struct EmailSignInView: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: CurrentUser.self)
     
-<<<<<<< HEAD
-    EmailSignInView(
-=======
     return EmailSignInView(
->>>>>>> 64e4462c8358242800bad8a694982bdefe7371b4
         currentUser: .constant(nil),
         confirmed: .constant(false)
     )
