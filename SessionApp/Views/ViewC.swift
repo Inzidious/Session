@@ -112,10 +112,7 @@ struct ViewC: View
             }
             .sheet(isPresented: $newUserSheet)
             {
-                NewUserView(currentUser:$currentUser, confirmed:$_confirmed).onDisappear()
-                {
-                    //print("dipped")
-                }
+                AuthenticationView(currentUser: $currentUser, confirmed: $_confirmed)
             }
         }
     }
