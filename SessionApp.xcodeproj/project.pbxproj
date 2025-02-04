@@ -3,12 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		22F6ADDB2D49B80E001669F5 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADD92D49B80E001669F5 /* AuthenticationView.swift */; };
 		22F6ADDD2D49B867001669F5 /* EmailSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADDC2D49B867001669F5 /* EmailSignInView.swift */; };
+		22F6ADE12D517DAF001669F5 /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F6ADE02D517DA1001669F5 /* info.plist */; };
+		22F6ADFF2D51CBAC001669F5 /* Journal_Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */; };
+		22F6AE012D51DA79001669F5 /* JournalModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6AE002D51DA4A001669F5 /* JournalModels.swift */; };
+		22F6AE042D51E7E2001669F5 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6AE032D51E7E2001669F5 /* SharedComponents.swift */; };
 		29054D352B9F88C2003FA7EB /* SessionAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29054D342B9F88C2003FA7EB /* SessionAppApp.swift */; };
 		29054D372B9F88C2003FA7EB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29054D362B9F88C2003FA7EB /* ContentView.swift */; };
 		29054D392B9F88C4003FA7EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29054D382B9F88C4003FA7EB /* Assets.xcassets */; };
@@ -69,9 +73,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22F6ADD82D49B6BD001669F5 /* Untitled.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Untitled.swift; sourceTree = "<group>"; };
+		22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal_Dream.swift; sourceTree = "<group>"; };
 		22F6ADD92D49B80E001669F5 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		22F6ADDC2D49B867001669F5 /* EmailSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmailSignInView.swift; path = SessionApp/Views/EmailSignInView.swift; sourceTree = SOURCE_ROOT; };
+		22F6ADE02D517DA1001669F5 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
+		22F6AE002D51DA4A001669F5 /* JournalModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalModels.swift; sourceTree = "<group>"; };
+		22F6AE032D51E7E2001669F5 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
+		22F6AE062D51EBD4001669F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29054D312B9F88C2003FA7EB /* SessionApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SessionApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29054D342B9F88C2003FA7EB /* SessionAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionAppApp.swift; sourceTree = "<group>"; };
 		29054D362B9F88C2003FA7EB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -115,6 +123,11 @@
 		299BFBE32BED6D8000F533A9 /* BreathView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreathView.swift; sourceTree = "<group>"; };
 		299BFBE52BEEBF1B00F533A9 /* sample-15s.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "sample-15s.mp3"; path = "SessionApp/sample-15s.mp3"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		22F6ADE22D517FDA001669F5 /* Fonts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Fonts; sourceTree = "<group>"; };
+		22F6ADFE2D51C8EA001669F5 /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		29054D2E2B9F88C2003FA7EB /* Frameworks */ = {
@@ -174,6 +187,9 @@
 		29054D332B9F88C2003FA7EB /* SessionApp */ = {
 			isa = PBXGroup;
 			children = (
+				22F6AE062D51EBD4001669F5 /* Info.plist */,
+				22F6ADE02D517DA1001669F5 /* info.plist */,
+				22F6ADE22D517FDA001669F5 /* Fonts */,
 				293517722D4029000089276C /* Models */,
 				29054D712BBDE3E3003FA7EB /* API */,
 				29054D5E2BA4D5E5003FA7EB /* Views */,
@@ -216,9 +232,10 @@
 		29054D5E2BA4D5E5003FA7EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22F6ADD82D49B6BD001669F5 /* Untitled.swift */,
+				22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */,
 				22F6ADDA2D49B80E001669F5 /* Authentication */,
 				29054D5F2BA4D62F003FA7EB /* ViewA.swift */,
+				22F6ADFE2D51C8EA001669F5 /* Extensions */,
 				29054D612BA4D651003FA7EB /* ViewB.swift */,
 				29054D632BA4D661003FA7EB /* ViewC.swift */,
 				29054D672BAE106B003FA7EB /* JournalView.swift */,
@@ -227,10 +244,12 @@
 				29054D6D2BBDC41A003FA7EB /* SplashScreenView.swift */,
 				29054D6F2BBDE0A6003FA7EB /* CommunityView.swift */,
 				29054D752BC1E84E003FA7EB /* QueryView.swift */,
+				22F6AE032D51E7E2001669F5 /* SharedComponents.swift */,
 				29054D772BC44510003FA7EB /* NewsView.swift */,
 				299BFBDD2BDC669800F533A9 /* PageView.swift */,
 				299BFBDF2BDD9AD800F533A9 /* BackupQuery.swift */,
 				299BFBE12BDE9CCD00F533A9 /* SessionHistory.swift */,
+				22F6AE002D51DA4A001669F5 /* JournalModels.swift */,
 				299BFBE32BED6D8000F533A9 /* BreathView.swift */,
 				298B04232CA5BE9C00954591 /* ResourceDetails.swift */,
 				298B04252CA5C2EF00954591 /* AssetListView.swift */,
@@ -279,6 +298,10 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				22F6ADE22D517FDA001669F5 /* Fonts */,
+				22F6ADFE2D51C8EA001669F5 /* Extensions */,
 			);
 			name = SessionApp;
 			packageProductDependencies = (
@@ -358,6 +381,7 @@
 			mainGroup = 29054D282B9F88C2003FA7EB;
 			packageReferences = (
 				29054D722BBDE4CE003FA7EB /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				22F6AE052D51EB59001669F5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 29054D322B9F88C2003FA7EB /* Products */;
 			projectDirPath = "";
@@ -375,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F6ADE12D517DAF001669F5 /* info.plist in Resources */,
 				290DA2982D3D7FC200EE20A9 /* s_audio.mp3 in Resources */,
 				299BFBE62BEEBF1B00F533A9 /* sample-15s.mp3 in Resources */,
 				29054D3C2B9F88C4003FA7EB /* Preview Assets.xcassets in Resources */,
@@ -403,7 +428,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22F6AE042D51E7E2001669F5 /* SharedComponents.swift in Sources */,
 				29054D682BAE106B003FA7EB /* JournalView.swift in Sources */,
+				22F6AE012D51DA79001669F5 /* JournalModels.swift in Sources */,
+				22F6ADFF2D51CBAC001669F5 /* Journal_Dream.swift in Sources */,
 				299BFBDE2BDC669800F533A9 /* PageView.swift in Sources */,
 				298B04242CA5BE9D00954591 /* ResourceDetails.swift in Sources */,
 				299BFBE02BDD9AD800F533A9 /* BackupQuery.swift in Sources */,
@@ -603,6 +631,7 @@
 				DEVELOPMENT_TEAM = C59RKZM3HY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SessionApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -632,6 +661,7 @@
 				DEVELOPMENT_TEAM = C59RKZM3HY;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SessionApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -764,6 +794,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		22F6AE052D51EB59001669F5 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 		29054D722BBDE4CE003FA7EB /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image";
