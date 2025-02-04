@@ -29,7 +29,7 @@ struct ViewB: View
                 Spacer()
                 Text("Tracking")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:45))
+                    .font(.openSansRegular(size: 45))
                     .padding(20)
                     .frame(width:350, height:50, alignment: .trailing)
                 
@@ -50,13 +50,13 @@ struct ViewB: View
                 {
                     Text("History")
                         .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size:25))
+                        .font(.openSansRegular(size: 25))
                         .padding(20)
                         //.frame(width:400, height:45, alignment: .leading)
                         
                     Text("\(feelings.count) Items")
                         .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size:25))
+                        .font(.openSansRegular(size: 25))
                         .padding(20)
                     
                     
@@ -69,8 +69,12 @@ struct ViewB: View
                     {
                         VStack
                         {
-                            Image("insights").resizable().frame(width:70, height:20)
-                            Text("Insights").font(Font.custom("Papyrus", size:15))
+                            Image("insights")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 35, height: 35)
+                            Text("Insights")
+                                .font(.openSansRegular(size: 15))
                         }
                     }
                 }
@@ -132,7 +136,7 @@ struct FeelingBoxEntry: View
                         {
                             Text("No Feeling")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -144,7 +148,7 @@ struct FeelingBoxEntry: View
                             
                             Text("Feeling Stellar!")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -156,7 +160,7 @@ struct FeelingBoxEntry: View
                             
                             Text("Feeling Great!")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -168,7 +172,7 @@ struct FeelingBoxEntry: View
                             
                             Text("Feeling fair..")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -180,7 +184,7 @@ struct FeelingBoxEntry: View
                             
                             Text("Feeling Bad...")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -192,7 +196,7 @@ struct FeelingBoxEntry: View
                             
                             Text("Feeling Abysmal....")
                                 .foregroundColor(.black)
-                                .font(Font.custom("Papyrus", size:18))
+                                .font(.openSansRegular(size: 18))
                                 .padding(1)
                         }
                     }
@@ -205,28 +209,28 @@ struct FeelingBoxEntry: View
                             {
                                 Text("Sleep: Great")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             else if( feeling.sleep == 2 )
                             {
                                 Text("Sleep: Good")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.sleep == 3 )
                             {
                                 Text("Sleep: Low")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.sleep == 4 )
                             {
                                 Text("Sleep: None")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                         }
@@ -237,28 +241,28 @@ struct FeelingBoxEntry: View
                             {
                                 Text("Movement: Great")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             else if( feeling.move == 2 )
                             {
                                 Text("Movement: Good")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.move == 3 )
                             {
                                 Text("Movement: Low")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.move == 4 )
                             {
                                 Text("Movement: None")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                         }
@@ -269,28 +273,28 @@ struct FeelingBoxEntry: View
                             {
                                 Text(" Food: Great")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             else if( feeling.food == 2 )
                             {
                                 Text(" Food: Good")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.food == 3 )
                             {
                                 Text(" Food: Low")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                             if( feeling.food == 4 )
                             {
                                 Text(" Food: None")
                                     .foregroundColor(.black)
-                                    .font(Font.custom("Papyrus", size:18))
+                                    .font(.openSansRegular(size: 18))
                                     .padding(1)
                             }
                         }
@@ -313,13 +317,13 @@ struct HistoryBar: View
         {
             Text("History")
                 .foregroundColor(.black)
-                .font(Font.custom("Papyrus", size:25))
+                .font(.openSansRegular(size: 25))
                 .padding(20)
                 //.frame(width:400, height:45, alignment: .leading)
                 
             Text("\(count) Items")
                 .foregroundColor(.black)
-                .font(Font.custom("Papyrus", size:25))
+                .font(.openSansRegular(size: 25))
                 .padding(20)
             
             VStack
@@ -348,7 +352,7 @@ struct TitleBox: View
             {
                 Text("How are you feeling?")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:35))
+                    .font(.openSansRegular(size: 35))
                     .padding(10)
                 
                 ImageRow()
@@ -364,53 +368,65 @@ struct ImageRow: View
     {
         HStack
         {
+            Spacer().frame(width: 20)
+            
             VStack
             {
                 Image("stellar")
                 Text("Stellar")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:18))
+                    .font(.openSansRegular(size: 18))
                     .padding(1)
             }
+            
+            Spacer()
             
             VStack
             {
                 Image("great")
                 Text("Great")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:18))
+                    .font(.openSansRegular(size: 18))
                     .padding(1)
             }
+            
+            Spacer()
             
             VStack
             {
                 Image("fair")
                 Text("Fair")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:15))
+                    .font(.openSansRegular(size: 15))
                     .padding(1)
                     .frame(width:60)
             }
+            
+            Spacer()
             
             VStack
             {
                 Image("bad")
                 Text("Bad")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:15))
+                    .font(.openSansRegular(size: 15))
                     .padding(1)
                     .frame(width:60)
             }
+            
+            Spacer()
             
             VStack
             {
                 Image("abysmal")
                 Text("Abysmal")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:15))
+                    .font(.openSansRegular(size: 15))
                     .padding(1)
                     .frame(width:60)
             }
+            
+            Spacer().frame(width: 20)
         }
     }
 }

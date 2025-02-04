@@ -10,7 +10,7 @@ import SwiftData
 import CoreData
 import Foundation
 
-struct QueryView: View
+struct JournalDreamView: View
 {
     @Environment(\.modelContext) var context;
     @EnvironmentObject var globalCluster:PromptCluster
@@ -45,7 +45,10 @@ struct QueryView: View
     {
         ZStack
         {
-            Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
+            Image("Star_Background")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
          
             VStack
             {
@@ -73,14 +76,14 @@ struct QueryView: View
                 
                 VStack
                 {
-                    Text("Generate")
-                        .foregroundColor(.black)
+                    Text("Dream")
+                        .foregroundColor(.white)
                         .font(.openSansSemiBold(size: 35))
                         .frame(width:350, alignment: .leading)
                         .multilineTextAlignment(.leading)
                     
-                    Text("Utilize the events of your week as grist for the mill")
-                        .foregroundColor(.black)
+                    Text("Plant seeds for what is growing")
+                        .foregroundColor(.white)
                         .font(.openSansSemiBold(size: 23))
                         .frame(width:350, alignment: .trailing)
                         .multilineTextAlignment(.trailing)
@@ -227,7 +230,7 @@ struct QueryView: View
     }
 }
 
-struct QueryPreviewContainer: View {
+struct DreamPreviewContainer: View {
     @StateObject private var globalCluster = PromptCluster()
     
     var body: some View {
@@ -237,7 +240,7 @@ struct QueryPreviewContainer: View {
         container.mainContext.insert(session)
         
         return NavigationStack {
-            QueryView(currentSession: session)
+            JournalDreamView(currentSession: session)
                 .modelContainer(container)
                 .environmentObject(globalCluster)
         }
@@ -245,8 +248,10 @@ struct QueryPreviewContainer: View {
 }
 
 #Preview {
-    QueryPreviewContainer()
+    DreamPreviewContainer()
 }
+
+
 
 
 
