@@ -2,3 +2,39 @@
 .DS_Store
 *.xcuserstate
 IDEFindNavigatorScopes.plist
+
+# macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Xcode user-specific files
+xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Build generated
+build/
+DerivedData/
+*.moved-aside
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# CocoaPods
+Pods/
+*.xcworkspace
+
+# Temporary files
+*.swp
+*~.nib
