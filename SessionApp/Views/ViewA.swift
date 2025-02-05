@@ -74,7 +74,12 @@ struct ViewA: View {
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self,FeelingEntry.self, configurations: config)
-    
-    return ViewA().modelContainer(container)
+    if let container = try? ModelContainer(for: SessionEntry.self,
+                                         FeelingEntry.self,
+                                         configurations: config) {
+        ViewA()
+            .modelContainer(container)
+    } else {
+        Text("Failed to create container")
+    }
 }

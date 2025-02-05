@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		22F6ADDB2D49B80E001669F5 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADD92D49B80E001669F5 /* AuthenticationView.swift */; };
 		22F6ADDD2D49B867001669F5 /* EmailSignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADDC2D49B867001669F5 /* EmailSignInView.swift */; };
-		22F6ADE12D517DAF001669F5 /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 22F6ADE02D517DA1001669F5 /* info.plist */; };
 		22F6ADFF2D51CBAC001669F5 /* Journal_Dream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */; };
 		22F6AE012D51DA79001669F5 /* JournalModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6AE002D51DA4A001669F5 /* JournalModels.swift */; };
 		22F6AE042D51E7E2001669F5 /* SharedComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F6AE032D51E7E2001669F5 /* SharedComponents.swift */; };
@@ -76,7 +75,6 @@
 		22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal_Dream.swift; sourceTree = "<group>"; };
 		22F6ADD92D49B80E001669F5 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		22F6ADDC2D49B867001669F5 /* EmailSignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmailSignInView.swift; path = SessionApp/Views/EmailSignInView.swift; sourceTree = SOURCE_ROOT; };
-		22F6ADE02D517DA1001669F5 /* info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = info.plist; sourceTree = "<group>"; };
 		22F6AE002D51DA4A001669F5 /* JournalModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalModels.swift; sourceTree = "<group>"; };
 		22F6AE032D51E7E2001669F5 /* SharedComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedComponents.swift; sourceTree = "<group>"; };
 		22F6AE062D51EBD4001669F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -188,7 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				22F6AE062D51EBD4001669F5 /* Info.plist */,
-				22F6ADE02D517DA1001669F5 /* info.plist */,
 				22F6ADE22D517FDA001669F5 /* Fonts */,
 				293517722D4029000089276C /* Models */,
 				29054D712BBDE3E3003FA7EB /* API */,
@@ -355,7 +352,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					29054D302B9F88C2003FA7EB = {
 						CreatedOnToolsVersion = 15.3;
@@ -399,7 +396,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22F6ADE12D517DAF001669F5 /* info.plist in Resources */,
 				290DA2982D3D7FC200EE20A9 /* s_audio.mp3 in Resources */,
 				299BFBE62BEEBF1B00F533A9 /* sample-15s.mp3 in Resources */,
 				29054D3C2B9F88C4003FA7EB /* Preview Assets.xcassets in Resources */,
@@ -553,6 +549,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"INFOPLIST_KEY_CFBundleDisplayName[sdk=*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -632,6 +629,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SessionApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -662,6 +660,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SessionApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -683,7 +682,6 @@
 		29054D592B9F88C4003FA7EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -702,7 +700,6 @@
 		29054D5A2B9F88C4003FA7EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -721,7 +718,6 @@
 		29054D5C2B9F88C4003FA7EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -738,7 +734,6 @@
 		29054D5D2B9F88C4003FA7EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;

@@ -433,7 +433,11 @@ struct ImageRow: View
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
-    
-    return ViewB().modelContainer(container)
+    if let container = try? ModelContainer(for: FeelingEntry.self,
+                                         configurations: config) {
+        ViewB()
+            .modelContainer(container)
+    } else {
+        Text("Failed to create container")
+    }
 }

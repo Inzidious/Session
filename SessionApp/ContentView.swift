@@ -43,6 +43,13 @@ struct ContentView: View {
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self,FeelingEntry.self, CurrentUser.self, configurations: config)
-    return ContentView().modelContainer(container)
+    if let container = try? ModelContainer(for: SessionEntry.self, 
+                                         FeelingEntry.self, 
+                                         CurrentUser.self,
+                                         configurations: config) {
+        ContentView()
+            .modelContainer(container)
+    } else {
+        Text("Failed to create container")
+    }
 }

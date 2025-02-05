@@ -16,21 +16,21 @@ struct JournalDreamView: View
     @EnvironmentObject var globalCluster:PromptCluster
     @Environment(\.dismiss) var dismiss
     
-    @State private var pText : String = "filler"
+    // Unused variables - kept for future features
+    //@State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
     @State private var isShowingBodySheet = false
     @State private var BodyValue = "None"
-    @State private var promptId : Int = 0
-    @State private var num:Int = 0
-    @State var answerText : String = ""
+    //@State private var promptId : Int = 0
+    //@State private var num:Int = 0
+    //@State var answerText : String = ""
     
     @Query(filter: #Predicate<SessionEntry> {$0.sessionLabel > 0})
     var sessions:[SessionEntry]
     
     var currentSession:SessionEntry?
-    
     var isEditing:Bool = false
-    var reflectionText:String = ""
+    //var reflectionText:String = ""
     
     /*init(activeSession:SessionEntry, editing:Bool = false)
     {
@@ -122,10 +122,10 @@ struct JournalDreamView: View
                                 }
                             label:
                                 {
-                                    var answered = Date()
+                                    //let answered = Date()
                                     let dateFormatter = DateFormatter()
-                                    let _ = dateFormatter.dateFormat = "YY/MM/dd"
-                                    let dateString = "Answered: " + dateFormatter.string(from: answered)
+                                    //let _ = dateFormatter.dateFormat = "YY/MM/dd"
+                                    //let dateString = "Answered: " + dateFormatter.string(from: answered)
                                     
                                     boxStackViewClear(
                                         bodyText: pBox.promptQuestion,
@@ -235,14 +235,14 @@ struct DreamPreviewContainer: View {
     
     var body: some View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
-        let session = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"First")
-        container.mainContext.insert(session)
-        
-        return NavigationStack {
-            JournalDreamView(currentSession: session)
-                .modelContainer(container)
-                .environmentObject(globalCluster)
+        if let container = try? ModelContainer(for: SessionEntry.self, configurations: config) {
+            NavigationStack {
+                JournalDreamView(currentSession: nil)
+                    .modelContainer(container)
+                    .environmentObject(globalCluster)
+            }
+        } else {
+            Text("Failed to create preview container")
         }
     }
 }

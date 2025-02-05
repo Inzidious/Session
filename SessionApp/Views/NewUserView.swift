@@ -115,12 +115,24 @@ struct NewUserView: View {
     }
 }
 
+struct NewUserPreviewWrapper: View {
+    @State private var currentUser: CurrentUser? = nil
+    @State private var sel = false
+    
+    var body: some View {
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        if let container = try? ModelContainer(for: SessionEntry.self, 
+                                             User.self, 
+                                             CurrentUser.self,
+                                             configurations: config) {
+            NewUserView(currentUser: $currentUser, confirmed: $sel)
+                .modelContainer(container)
+        } else {
+            Text("Failed to create preview container")
+        }
+    }
+}
+
 #Preview {
-    @State var currentUser:CurrentUser? = nil
-    @State var sel:Bool = false
-    
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self, User.self, CurrentUser.self, configurations: config)
-    
-    return NewUserView(currentUser: $currentUser, confirmed:$sel).modelContainer(container)
+    NewUserPreviewWrapper()
 }

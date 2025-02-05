@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Observation
 
 struct ResourceAssets: View
 {
@@ -115,6 +116,13 @@ struct ResourceAssets: View
 }
 
 #Preview {
-    @State var previewString:String = "Preview"
-    return ResourceAssets(assetCategory:$previewString)
+    struct PreviewWrapper: View {
+        @State private var previewString = "Preview"
+        
+        var body: some View {
+            ResourceAssets(assetCategory: $previewString)
+        }
+    }
+    
+    return PreviewWrapper()
 }

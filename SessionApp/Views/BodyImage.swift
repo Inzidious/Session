@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Observation
 
 struct BodyImage: View 
 {
@@ -63,6 +64,13 @@ struct BodyImage: View
 }
 
 #Preview {
-    @State var temp:String = ""
-    return BodyImage(bodyvalue:$temp)
+    struct PreviewWrapper: View {
+        @State private var temp = ""
+        
+        var body: some View {
+            BodyImage(bodyvalue: $temp)
+        }
+    }
+    
+    return PreviewWrapper()
 }

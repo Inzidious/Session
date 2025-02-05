@@ -154,7 +154,12 @@ struct smallBoxImage: View
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self, CurrentUser.self, configurations: config)
-    
-    return ViewC().modelContainer(container)
+    if let container = try? ModelContainer(for: SessionEntry.self,
+                                         CurrentUser.self,
+                                         configurations: config) {
+        ViewC()
+            .modelContainer(container)
+    } else {
+        Text("Failed to create container")
+    }
 }

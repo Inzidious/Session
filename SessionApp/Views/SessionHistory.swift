@@ -63,8 +63,8 @@ struct SessionHistory: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
     
-    let twodays = Date.now.addingTimeInterval(-2*(24 * 60 * 60))
-    let threedays = Date.now.addingTimeInterval(-3*(24 * 60 * 60))
+    //let twodays = Date.now.addingTimeInterval(-2*(24 * 60 * 60))
+    //let threedays = Date.now.addingTimeInterval(-3*(24 * 60 * 60))
     
     //var sessions:[SessionEntry] = []
     //sessions.append(SessionEntry(timestamp: .now, sessionLabel: 1, entries: []))
