@@ -47,9 +47,9 @@ struct ContentView: View {
                                          FeelingEntry.self, 
                                          CurrentUser.self,
                                          configurations: config) {
-        ContentView()
+        return ContentView()
             .modelContainer(container)
     } else {
-        Text("Failed to create container")
+        return Text("Failed to create container")
     }
 }

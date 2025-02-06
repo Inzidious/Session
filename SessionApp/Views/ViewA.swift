@@ -77,9 +77,8 @@ struct ViewA: View {
     if let container = try? ModelContainer(for: SessionEntry.self,
                                          FeelingEntry.self,
                                          configurations: config) {
-        ViewA()
-            .modelContainer(container)
+        return ViewA().modelContainer(container)
     } else {
-        Text("Failed to create container")
+        return Text("Failed to create container")
     }
 }

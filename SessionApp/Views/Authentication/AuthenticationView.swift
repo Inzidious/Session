@@ -96,6 +96,23 @@ struct AuthenticationView: View {
         } message: {
             Text(authError?.localizedDescription ?? "An unknown error occurred")
         }
+        
+        Button()
+        {
+            dismiss()
+        }
+        label:
+        {
+            ZStack
+            {
+                Rectangle()
+                    .frame(maxWidth:.infinity)
+                    .foregroundColor(Color(.black).opacity(0.5))
+                    .padding(.horizontal, 20)
+                
+                Text("Cancel").font(Font.custom("Roboto", size:25)).foregroundColor(.white)
+            }.frame(height:50)
+        }
     }
     
     private func handleSignInWithAppleResult(_ result: Result<ASAuthorization, Error>) {

@@ -22,8 +22,11 @@ struct ViewC: View
     @State private var currentUser:CurrentUser? = nil
     @State private var newUserSheet:Bool = false;
     @State private var _confirmed:Bool = false;
+    @State private var newsSheet:Bool = false;
+    @State private var bodyText:String = "";
     
     @Query var currentUserList:[CurrentUser]
+    @State private var pageNodes:[PageNode]?
     
     var body: some View
     {
@@ -76,12 +79,25 @@ struct ViewC: View
                         
                         Image("healthnews")
                         
-                        if(data.news.count > 0)
+                        if(pageNodes != nil)
                         {
-                            NewsView(title:data.news[0].title,
-                                     imageUrl: data.news[0].imageUrl,
-                                     siteName: data.news[0].newsSite,
-                                     summary: data.news[0].summary)
+                            ForEach(pageNodes!, id: \.self)
+                            { pageNode in
+                                
+                                Button()
+                                {
+                                    bodyText = pageNode.body
+                                    newsSheet = true;
+                                    
+                                }
+                                label:
+                                {
+                                    NewsViewTopic(title:pageNode.title,
+                                                  imageUrl: "",
+                                                  siteName: pageNode.topic,
+                                                  summary: pageNode.body)
+                                }
+                            }
                         }
                         
                         Spacer()
@@ -90,7 +106,7 @@ struct ViewC: View
                     {
                         do
                         {
-                            try await data.getData()
+                            try await pageNodes = getPageNodes()
                         }
                         catch
                         {}
@@ -113,6 +129,10 @@ struct ViewC: View
             .sheet(isPresented: $newUserSheet)
             {
                 AuthenticationView(currentUser: $currentUser, confirmed: $_confirmed)
+            }
+            .sheet(isPresented: $newsSheet)
+            {
+                NewsView(text: $bodyText)
             }
         }
     }
@@ -157,9 +177,8 @@ struct smallBoxImage: View
     if let container = try? ModelContainer(for: SessionEntry.self,
                                          CurrentUser.self,
                                          configurations: config) {
-        ViewC()
-            .modelContainer(container)
+        return ViewC().modelContainer(container)
     } else {
-        Text("Failed to create container")
+        return Text("Failed to create container")
     }
 }
