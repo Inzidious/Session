@@ -1,109 +1,118 @@
 import SwiftUI
 import SwiftData
 
-struct addEditorSheet : View
-{
-    //@Binding var boxes:PromptCluster
-    @EnvironmentObject var globalCluster:PromptCluster
-    var promptEntry : PromptEntry
-    var currentSession : SessionEntry?
-    
-    var rText : String = ""
-    var answerText:String = ""
+struct addEditorSheet: View {
+    @EnvironmentObject var globalCluster: PromptCluster
+    var promptEntry: PromptEntry
+    var currentSession: SessionEntry?
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) var context
     
-    @State private var entry:String = ""
-    @State private var data:Date = .now
+    @State private var entry: String = ""
+    @State private var data: Date = .now
     
-    var body: some View
-    {
-        NavigationStack
-        {
-            Text(promptEntry.promptQuestion).font(Font.custom("OpenSans-Regular", size:25))
-            
-            Form
-            {
-                TextField("Start writing....", text:$entry, axis:.vertical )
-                DatePicker("Timestamp", selection:$data, displayedComponents: .date)
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 20) {
+                // Question display
+                Text(promptEntry.promptQuestion)
+                    .font(.custom("OpenSans-Regular", size: 20))
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(12)
+                    .padding(.horizontal)
                 
+                // Text input area
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Your Response")
+                        .font(.custom("OpenSans-Regular", size: 16))
+                        .foregroundColor(.secondary)
+                        .padding(.horizontal)
+                    
+                    TextEditor(text: $entry)
+                        .font(.custom("OpenSans-Regular", size: 18))
+                        .frame(minHeight: 200)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(.systemBackground))
+                                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color(.systemGray4), lineWidth: 1)
+                        )
+                }
+                .padding(.horizontal)
+                
+                // Date picker
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Date")
+                        .font(.custom("OpenSans-Regular", size: 16))
+                        .foregroundColor(.secondary)
+                    
+                    DatePicker("", selection: $data, displayedComponents: .date)
+                        .datePickerStyle(.compact)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color(.systemBackground))
+                                .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 2)
+                        )
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color(.systemGray4), lineWidth: 1)
+                        )
+                }
+                .padding(.horizontal)
+                
+                Spacer()
             }
-            .font(Font.custom("Papyrus", size:25))
-            .toolbar
-            {
-                ToolbarItemGroup(placement: .topBarLeading)
-                {
-                    Button("Cancel"){ dismiss()}
-                }
-                
-                ToolbarItemGroup(placement: .topBarTrailing)
-                {
-                    Button("Save")
-                    {
-                        //  If we have a journal entry associated with this prompt, we are editing
-                        if let currentEntry = promptEntry.journalEntry
-                        {
-                            print("Inside edit")
-                            currentEntry.promptAnswer = entry
-                            //boxes.promptEntries[boxes.selectedEntry.promptID].promptAnswer = entry
-                            globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
-                        }
-                        else
-                        {
-                            print("Inside save: \(currentSession!.sessionID)")
-                            // No Entry associated, so create new
-                            let vv = JournalEntry(promptId: globalCluster.selectedEntry.promptID,
-                                                  promptAnswer: entry,
-                                                  sessionID: currentSession!.sessionID,
-                                                  sessionEntry: currentSession)
-                            
-                            if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5)
-                            {
-                                globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
-                            }
-                            
-                            //curBox.promptAnswer = entry
-                            //context.insert(book)
-                            
-                            context.insert(vv)
-                            //num += 1
-                            //currentSession.journalEntry1.promptAnswer = "Hi!"
-                        }
-                         
-                        dismiss()
-                        
-                    }
-                }
-                
-                ToolbarItemGroup(placement: .topBarTrailing)
-                {
-                    Button("Edit")
-                    {
-                        print("Inside new save: \(currentSession!.sessionID)")
-                        // No Entry associated, so create new
-                        let vv = JournalEntry(promptId: globalCluster.selectedEntry.promptID,
-                                              promptAnswer: entry,
-                                              sessionID: currentSession!.sessionID,
-                                              sessionEntry: currentSession)
-                        
-                        if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5)
-                        {
-                            globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
-                        }
-                        
-                        //context.insert(vv)
-                        
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Cancel") {
                         dismiss()
                     }
+                    .font(.custom("OpenSans-Regular", size: 17))
+                }
+                
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        saveEntry()
+                        dismiss()
+                    }
+                    .font(.custom("OpenSans-Regular", size: 17))
+                    .foregroundColor(.blue)
                 }
             }
-        }.onAppear()
-        {
-            if let e = globalCluster.selectedEntry.journalEntry
-            {
+        }
+        .onAppear {
+            if let e = globalCluster.selectedEntry.journalEntry {
                 entry = e.promptAnswer
             }
+        }
+    }
+    
+    private func saveEntry() {
+        if let currentEntry = promptEntry.journalEntry {
+            currentEntry.promptAnswer = entry
+            globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
+        } else {
+            let newEntry = JournalEntry(
+                promptId: globalCluster.selectedEntry.promptID,
+                promptAnswer: entry,
+                sessionID: currentSession!.sessionID,
+                sessionEntry: currentSession
+            )
+            
+            if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5) {
+                globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
+            }
+            
+            context.insert(newEntry)
         }
     }
 }
@@ -134,7 +143,7 @@ struct boxStackViewNoTitle: View
                 {
                     Text(bodyText)
                         .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size:20))
+                        .font(Font.custom("OpenSans-Regular", size:20))
                         .padding(10)
                         .frame(width:250, alignment: .bottomLeading)
                         .multilineTextAlignment(.leading)

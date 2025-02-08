@@ -95,44 +95,49 @@ struct QueryView: View
                         Spacer().frame(width:50)
                         ScrollView()
                         {
-                            // Add space at top for logo
+                            // Reduce the spacing after logo
                             Image("journal_blank")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 340)
                                 .opacity(0.0)  // Make invisible but preserve space
-                                .frame(height: 150)  // Adjust this value to move fields lower
+                                .frame(height: 80)  // Reduced from 150 to 80
                             
-                            
-                            
-                            //let _ = print(promptBoxes.promptEntries.count)
-                            ForEach(globalCluster.promptEntries){ pBox in
-                                //ForEach(promptBoxes.promptEntries){ pBox in
-                                Button
-                                {
-                                    //let _ = print("Before change: " + selectedBox.promptQuestion)
-                                    //selectedBox = pBox
-                                    //let _ = print("After change: " + selectedBox.promptQuestion)
-                                    //promptBoxes.selectedEntry = pBox
-                                    globalCluster.selectedEntry = pBox
-                                    isShowingEditorSheet = true;
-                                }
-                            label:
-                                {
-                                    var answered = Date()
-                                    let dateFormatter = DateFormatter()
-                                    let _ = dateFormatter.dateFormat = "YY/MM/dd"
-                                    let dateString = "Answered: " + dateFormatter.string(from: answered)
+                            ForEach(globalCluster.promptEntries) { pBox in
+                                HStack {
+                                    Button {
+                                        globalCluster.selectedEntry = pBox
+                                        isShowingEditorSheet = true
+                                    } label: {
+                                        boxStackViewClear(
+                                            bodyText: pBox.promptQuestion,
+                                            iconName: "airplayvideo.circle.fill",
+                                            boxHeight: 70,
+                                            backColor: Color.white,
+                                            answerText: pBox.promptAnswer)
+                                    }
                                     
-                                    boxStackViewClear(
-                                        bodyText: pBox.promptQuestion,
-                                        iconName: "airplayvideo.circle.fill",
-                                        boxHeight: 70,
-                                        backColor: Color.white,
-                                        answerText:pBox.promptAnswer)
+                                    // Add feelings wheel icon for emotion-related prompts
+                                    if pBox.promptQuestion.lowercased().contains("emotions") ||
+                                       pBox.promptQuestion.lowercased().contains("feeling") {
+                                        NavigationLink(destination: 
+                                            FeelingsWheelContainerView(onFeelingSelected: { feeling in
+                                                if let index = globalCluster.promptEntries.firstIndex(where: { $0.id == pBox.id }) {
+                                                    globalCluster.promptEntries[index].promptAnswer = feeling
+                                                }
+                                                dismiss()
+                                            })
+                                        ) {
+                                            Image("feelings_wheel_icon")
+                                                .resizable()
+                                                .frame(width: 25, height: 25)
+                                                .foregroundColor(.black)
+                                        }
+                                        .padding(.leading, 8)
+                                    }
                                 }
                                 
-                                Spacer().frame(height:25)
+                                Spacer().frame(height: 25)
                             }
                             
                             Spacer()

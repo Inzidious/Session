@@ -5,6 +5,10 @@ struct FeelingsWheelContainerView: View {
     @State private var viewModel = FeelingsWheelViewModel()
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    @Environment(\.dismiss) private var dismiss
+    @State private var showConfirmation = false
+    @State private var selectedFeeling = ""
+    
     var onFeelingSelected: (String) -> Void
     
     var body: some View {
@@ -15,15 +19,29 @@ struct FeelingsWheelContainerView: View {
                     selectedSection: $viewModel.selectedSection,
                     onSectionTapped: { section in
                         viewModel.selectedSection = section
-                        onFeelingSelected(section.name)
-                        addSelectedFeeling()
+                        selectedFeeling = section.name
+                        showConfirmation = true
+                        
+                        // Add haptic feedback
+                        let impactMed = UIImpactFeedbackGenerator(style: .medium)
+                        impactMed.impactOccurred()
+                        
+                        // Delay dismissal to show feedback
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            onFeelingSelected(section.name)
+                            addSelectedFeeling()
+                            dismiss()
+                        }
                     }
                 )
                 
-                if let selectedSection = viewModel.selectedSection {
-                    Text(selectedSection.name)
-                        .font(.title2)
+                if showConfirmation {
+                    Text("Selected: \(selectedFeeling)")
+                        .font(.title3)
+                        .foregroundColor(.green)
                         .padding()
+                        .transition(.scale.combined(with: .opacity))
+                        .animation(.easeInOut, value: showConfirmation)
                 }
                 
                 List {

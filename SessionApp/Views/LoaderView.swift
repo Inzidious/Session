@@ -7,6 +7,26 @@
 
 import SwiftUI
 import SwiftData
+import AuthenticationServices // For Apple Sign In
+// import GoogleSignIn // For Google Sign In
+// import GoogleSignInSwift  // Add this import
+
+// Add this class before the LoaderView struct
+class SignInCoordinator: NSObject, ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            let userIdentifier = appleIDCredential.user
+            let fullName = appleIDCredential.fullName
+            let email = appleIDCredential.email
+            
+            // Handle the successful sign-in
+        }
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Apple Sign In failed: \(error.localizedDescription)")
+    }
+}
 
 struct LoaderView: View 
 {
@@ -20,6 +40,9 @@ struct LoaderView: View
     @State private var showContent:Bool = false
     
     @State private var showDetails = false
+
+    // Add this property
+    private let signInCoordinator = SignInCoordinator()
 
     var body: some View
     {
@@ -45,60 +68,112 @@ struct LoaderView: View
                 VStack
                 {
                     Image("res_therapy")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: UIScreen.main.bounds.width * 0.8)
+                        .frame(maxHeight: UIScreen.main.bounds.height * 0.3)
+                        .padding(.top, 40)
                     
-                    Spacer().frame(maxHeight:600)
+                    Spacer().frame(maxHeight: 40)
                     
                     VStack(spacing:8)
                     {
-                        Button()
-                        {
-                            newUserSheet = true
-                        }
-                        label:
-                        {
-                            ZStack
-                            {
+                        // Apple Sign In Button
+                        Button() {
+                            // Handle Apple Sign In
+                            handleAppleSignIn()
+                        } label: {
+                            ZStack {
                                 Rectangle()
-                                    .frame(maxWidth:.infinity, maxHeight:50)
-                                    .foregroundColor(Color(.black).opacity(1))
-                                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                                    .frame(maxWidth: .infinity, maxHeight: 50)
+                                    .foregroundColor(Color.black)
                                     .padding(.horizontal, 20)
                                 
-                                Text("Sign Up").font(Font.custom("Roboto", size:25)).foregroundColor(.white)
-                            }
-                        }
-                        
-                        Spacer().frame(maxHeight:0)
-                        
-                        if(self.userList.count > 0)
-                        {
-                            Button()
-                            {
-                                //let tempUser = User(firstName:"Temp", lastName:"Temp", email:"Test@test.com", password: "test")
-                                
-                                //context.insert(tempUser)
-                                //try! context.save()
-                                logInSheet = true
-                            }
-                            label:
-                            {
-                                ZStack
-                                {
-                                    Rectangle()
-                                        .frame(maxWidth:.infinity, maxHeight:50)
-                                        .foregroundColor(Color(.white).opacity(0.1))
-                                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-                                        .padding(.horizontal, 20)
-                                    
-                                    Text("Log In").font(Font.custom("Papyrus", size:25)).foregroundColor(.black)
+                                HStack {
+                                    Image(systemName: "apple.logo")
+                                        .foregroundColor(.white)
+                                    Text("Continue with Apple")
+                                        .font(Font.custom("Roboto", size: 20))
+                                        .foregroundColor(.white)
                                 }
                             }
                         }
-                        else
-                        {
-                            Spacer().frame(maxHeight:50)
+                        
+                        // Google Sign In Button
+                        Button() {
+                            // Handle Google Sign In
+                            handleGoogleSignIn()
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(maxWidth: .infinity, maxHeight: 50)
+                                    .foregroundColor(.white)
+                                    .border(Color.gray)
+                                    .padding(.horizontal, 20)
+                                
+                                HStack {
+                                    Image("google_logo") // You'll need to add this asset
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                    Text("Continue with Google")
+                                        .font(Font.custom("Roboto", size: 20))
+                                        .foregroundColor(.black)
+                                }
+                            }
                         }
-                        Spacer().frame(height:20)
+                        
+                        // Divider with "or" text
+                        HStack {
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.gray.opacity(0.3))
+                            Text("or")
+                                .foregroundColor(.gray)
+                                .font(.system(size: 14))
+                            Rectangle()
+                                .frame(height: 1)
+                                .foregroundColor(.gray.opacity(0.3))
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 10)
+                        
+                        // Existing Email Sign Up Button
+                        Button() {
+                            newUserSheet = true
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(maxWidth: .infinity, maxHeight: 50)
+                                    .foregroundColor(Color(.black).opacity(1))
+                                    .border(Color.black)
+                                    .padding(.horizontal, 20)
+                                
+                                Text("Sign Up with Email")
+                                    .font(Font.custom("Roboto", size: 20))
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        
+                        // Show Email Login only if users exist
+                        if(self.userList.count > 0) {
+                            Button() {
+                                logInSheet = true
+                            } label: {
+                                ZStack {
+                                    Rectangle()
+                                        .frame(maxWidth: .infinity, maxHeight: 50)
+                                        .foregroundColor(Color(.white).opacity(0.1))
+                                        .border(Color.black)
+                                        .padding(.horizontal, 20)
+                                    
+                                    Text("Log In with Email")
+                                        .font(Font.custom("Roboto", size: 20))
+                                        .foregroundColor(.black)
+                                }
+                            }
+                        }
+                        
+                        Spacer().frame(height: 20)
                     }
                 }
             }.sheet(isPresented: $logInSheet)
@@ -129,6 +204,25 @@ struct LoaderView: View
             }
         }
     }
+
+    private func handleAppleSignIn() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = signInCoordinator
+        controller.performRequests()
+    }
+
+    private func handleGoogleSignIn() {
+        // Comment out Google sign in implementation temporarily
+        // GIDSignIn.sharedInstance.signIn(
+        //     withPresenting: UIApplication.shared.windows.first?.rootViewController ?? UIViewController()
+        // ) { signInResult, error in
+        //     // Handle sign in result
+        // }
+    }
 }
 
 #Preview {
@@ -137,3 +231,4 @@ struct LoaderView: View
     
     return LoaderView().modelContainer(container)
 }
+
