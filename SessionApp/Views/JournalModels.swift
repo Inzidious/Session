@@ -9,35 +9,51 @@ import SwiftUI
 class PromptCluster : ObservableObject
 {
     var promptEntries = [PromptEntry]()
-    var selectedEntry:PromptEntry
+    var selectedEntry: PromptEntry
     
-    init()
-    {
-        //print("Editing: \(edit)")
-        promptEntries.append(PromptEntry(id:0, question:"First prompt question"))
-        promptEntries.append(PromptEntry(id:1, question:"Second prompt question"))
-        promptEntries.append(PromptEntry(id:2, question:"Third prompt question"))
-        promptEntries.append(PromptEntry(id:3, question:"Fourth prompt question"))
-        promptEntries.append(PromptEntry(id:4, question:"Fifth prompt question"))
+    init(journalType: JournalType = .dream) {
+        let questions = Self.getQuestions(for: journalType)
+        
+        promptEntries = questions.enumerated().map { index, question in
+            PromptEntry(id: index, question: question)
+        }
         
         selectedEntry = promptEntries[0]
-        
-        /*if(edit)
-        {
-            if let unwr = session.journalEntries
-            {
-                for entry:JournalEntry in unwr
-                {
-                    promptEntries[entry.promptId].promptAnswer = entry.promptAnswer
-                    promptEntries[entry.promptId].journalEntry = entry
-                    /*if(entry.promptID >= 0 && entry.promptID < 5)
-                    {
-                        promptEntries[entry.promptID].promptAnswer = "hi"
-                    }*/
-                   
-                }
-            }
-        }*/
+    }
+    
+    enum JournalType {
+        case dream
+        case generate
+        case reflect // Add your third journal type here
+    }
+    
+    private static func getQuestions(for type: JournalType) -> [String] {
+        switch type {
+        case .dream:
+            return [
+                "What was the story fo your dream?",
+                "Emotions present in your dream?",
+                "Sensations in my body upon waking?",
+                "Who were the characters? Do you know them? if not woh do they remind you of? ",
+                "Any symbols, colors, shapes or elements?"
+            ]
+        case .generate:
+            return [
+                "What affeccted me today?",
+                "Emotions I was feeling were?",
+                "Senssations in my body?",
+                "My thoughts were saying...",
+                "This reminds me of..."
+            ]
+        case .reflect:
+            return [
+                "What am I learning about myself?",
+                "What patterns am I noticing?",
+                "What do I want to remember?",
+                "What would I do differently?",
+                "What am I grateful for?"
+            ]
+        }
     }
 }
 

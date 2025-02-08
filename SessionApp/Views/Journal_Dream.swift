@@ -2,7 +2,7 @@
 //  QueryView.swift
 //  SessionApp
 //
-//  Created by Shawn McLean on 4/6/24.
+//  Updates 2/6/2025 - Update UI/UX desing
 //
 
 import SwiftUI
@@ -41,6 +41,54 @@ struct JournalDreamView: View
         //newCluster = PromptCluster(session:activeSession, edit:editing)
     }*/
     
+    // Extract the prompt row into a separate view
+    private func PromptRow(pBox: PromptEntry) -> some View {
+        HStack {
+            Button {
+                globalCluster.selectedEntry = pBox
+                isShowingEditorSheet = true
+            } label: {
+                boxStackViewClear(
+                    bodyText: pBox.promptQuestion,
+                    iconName: "airplayvideo.circle.fill",
+                    boxHeight: 70,
+                    backColor: Color.clear,
+                    answerText: pBox.promptAnswer)
+            }
+            .frame(maxWidth: .infinity)
+            
+            // Icons for sensations question
+            if pBox.promptQuestion.contains("sensations") {
+                HStack(spacing: 8) {
+                    NavigationLink(destination: 
+                        FeelingsWheelContainerView(onFeelingSelected: { feeling in
+                            if let index = globalCluster.promptEntries.firstIndex(where: { $0.id == pBox.id }) {
+                                globalCluster.promptEntries[index].promptAnswer = feeling
+                            }
+                            dismiss()
+                        })
+                    ) {
+                        Image("feelings_wheel_icon")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color.white)
+                    }
+                    
+                    Button {
+                        isShowingBodySheet = true
+                    } label: {
+                        Image("body_picker")
+                            .resizable()
+                            .frame(width: 25, height: 35)
+                            .foregroundColor(Color.white)
+                    }
+                }
+                .padding(.leading, 8)
+            }
+        }
+        .padding(.horizontal, 20)
+    }
+    
     var body: some View
     {
         ZStack
@@ -74,8 +122,7 @@ struct JournalDreamView: View
                     Text(v, style:.date)
                 }*/
                 
-                VStack
-                {
+                VStack {
                     Text("Dream")
                         .foregroundColor(.white)
                         .font(.openSansSemiBold(size: 35))
@@ -89,76 +136,30 @@ struct JournalDreamView: View
                         .multilineTextAlignment(.trailing)
                 }
                 
-                Spacer().frame(height:30)
+                Spacer().frame(height:10)  // Keep minimal space after title
                 
-                HStack
-                {
-                    HStack
-                    {
-                        Spacer().frame(width:50)
-                        ScrollView()
-                        {
-                            // Add space at top for logo
-                            Image("journal_blank")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 340)
-                                .opacity(0.0)  // Make invisible but preserve space
-                                .frame(height: 150)  // Adjust this value to move fields lower
+                // Notebook section
+                GeometryReader { geometry in
+                    ScrollView {
+                        VStack(spacing: 20) {
+                            // Increase top padding to avoid logo overlap
+                            Spacer().frame(height: 100)  // Increased from 60
                             
-                            
-                            
-                            //let _ = print(promptBoxes.promptEntries.count)
-                            ForEach(globalCluster.promptEntries){ pBox in
-                                //ForEach(promptBoxes.promptEntries){ pBox in
-                                Button
-                                {
-                                    //let _ = print("Before change: " + selectedBox.promptQuestion)
-                                    //selectedBox = pBox
-                                    //let _ = print("After change: " + selectedBox.promptQuestion)
-                                    //promptBoxes.selectedEntry = pBox
-                                    globalCluster.selectedEntry = pBox
-                                    isShowingEditorSheet = true;
-                                }
-                            label:
-                                {
-                                    //let answered = Date()
-                                    let dateFormatter = DateFormatter()
-                                    //let _ = dateFormatter.dateFormat = "YY/MM/dd"
-                                    //let dateString = "Answered: " + dateFormatter.string(from: answered)
-                                    
-                                    boxStackViewClear(
-                                        bodyText: pBox.promptQuestion,
-                                        iconName: "airplayvideo.circle.fill",
-                                        boxHeight: 70,
-                                        backColor: Color.white,
-                                        answerText:pBox.promptAnswer)
-                                }
-                                
-                                Spacer().frame(height:25)
+                            ForEach(globalCluster.promptEntries) { pBox in
+                                PromptRow(pBox: pBox)
                             }
                             
-                            Spacer()
-                        }.background()
-                        {
-                            Image("journal_blank").resizable().scaledToFit().frame(width:340)
+                            Spacer().frame(height: 40)
                         }
                     }
-                    
-                    Button()
-                    {
-                        isShowingBodySheet = true
-                    }
-                    label:
-                    {
-                        VStack
-                        {
-                            Image("body_picker").resizable().frame(width:37, height:50)
-                            Text("\(self.BodyValue)")
-                        }.offset(x:-15)
-                    }
+                    .background(
+                        Image("journal_blank_dark")  // Updated image name to match new dark version
+                            .resizable()
+                            .scaledToFit()
+                            .frame(maxHeight: geometry.size.height * 0.95)
+                    )
+                    .frame(width: geometry.size.width * 0.9)
                 }
-                
             }.sheet(isPresented : $isShowingBodySheet)
             {
                 BodyImage(bodyvalue:self.$BodyValue)
@@ -231,7 +232,7 @@ struct JournalDreamView: View
 }
 
 struct DreamPreviewContainer: View {
-    @StateObject private var globalCluster = PromptCluster()
+    @StateObject private var globalCluster = PromptCluster(journalType: .dream)
     
     var body: some View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)

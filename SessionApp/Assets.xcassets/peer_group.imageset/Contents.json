@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "add_profile_pic.svg",
+      "filename" : "peer_group.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "peer_group@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "peer_group@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

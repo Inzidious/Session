@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class NotificationManager {
+class NotificationManager: ObservableObject {
     
     static let instance = NotificationManager() // Singleton
     
@@ -69,124 +69,251 @@ class NotificationManager {
 }
 
 struct CommunityView: View {
+    @State private var changeProfileImage = false
+    @State private var openCameraRoll = false
+    @State private var imageSelected = UIImage()
     
-    @State var changeProfileImage:Bool = false
-    @State var openCameraRoll:Bool = false
-    @State var imageSelected:UIImage = UIImage()
-    
-    @State var notiTitle:String = ""
-    @State var notiSub:String = ""
+    // Move notification testing states to a separate debug view
+    @State private var showDebugMenu = false
     
     var body: some View {
-        ZStack
-        {
-            Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
+        ZStack {
+            Color("BGRev1")
+                .ignoresSafeArea()
             
-            VStack
-            {
-                Text("Community")
-                    .frame(maxWidth: .infinity, alignment: .trailing).padding(.horizontal, 20)
-                    .font(Font.custom("Roboto", size:38))
-                
-                ZStack
-                {
-                    RoundedRectangle(cornerRadius: 25)
-                        .frame(height:220)
-                        .foregroundColor(Color(.white).opacity(0))
-                        .overlay( /// apply a rounded border
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+            ScrollView(.vertical, showsIndicators: true) {
+                VStack(spacing: 16) {
+                    // Header
+                    Text("Community")
+                        .font(.system(size: 34, weight: .bold))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
                     
-                    VStack
-                    {
-                        HStack
-                        {
-                            Image("res_hand").resizable().frame(width:200, height:150)
-                            
-                            VStack
-                            {
-                                Button()
-                                {
-                                    changeProfileImage = true
-                                    openCameraRoll = true
-                                }
-                                label:
-                                {
-                                    if changeProfileImage
-                                    {
-                                        ZStack
-                                        {
-                                            Circle().frame(width: 100, height: 100)
-                                                .foregroundColor(Color(.white).opacity(0))
-                                                .overlay(
-                                                    Circle().stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
-                                            
-                                            Image(uiImage: imageSelected)
-                                                .resizable()
-                                                .frame(width:120, height:120)
-                                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                        }
-                                    }
-                                    else
-                                    {
-                                        ZStack
-                                        {
-                                            Circle().frame(width: 100, height: 100)
-                                                .foregroundColor(Color(.white).opacity(0))
-                                                .overlay(
-                                                    Circle().stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
-                                            
-                                            Image("add_profile")
-                                                .resizable()
-                                                .frame(width:120, height:120)
-                                                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                                        }
-                                    }
-                                }
-                                
-                                Text("Name")
-                                Text("Oakland").opacity(0.5)
-                            }
-                        }
-                        
-                        HStack
-                        {
-                            Spacer()
-                            Text("Friends 71 Teachers 12").opacity(0.5)
-                        }
-                    }.padding(.horizontal, 30)
+                    // Profile Card
+                    ProfileCardView(
+                        profileImage: $imageSelected,
+                        hasSelectedImage: $changeProfileImage,
+                        openCameraRoll: $openCameraRoll
+                    )
                     
+                    // Community Content
+                    VStack(spacing: 16) {
+                        CommunityImageSection(
+                            imageName: "peer_group",
+                            title: "Peer Groups"
+                        )
+                        CommunityImageSection(
+                            imageName: "facilitated_group",
+                            title: "Facilitated Groups"
+                        )
+                    }
+                    .padding(.horizontal)
+                    
+                    // Add some bottom padding to ensure last item is visible
+                    Spacer()
+                        .frame(height: 20)
                 }
-                
-                VStack(spacing:10)
-                {
-                    Image("res_peer")
-                    
-                    Button("Request permission")
-                    {
-                        NotificationManager.instance.requestAuthorization()
-                    }
-                    
-                    TextField("Notification title", text:self.$notiTitle)
-                    TextField("Notification subtitle", text:self.$notiSub)
-                    Button("Schedule notification")
-                    {
-                        NotificationManager.instance.scheduleNotification(title: self.notiTitle, subtitle: self.notiSub)
-                    }
-                    
-                    Button("Cancel notification") {
-                                    NotificationManager.instance.cancelNotification()
-                                }
-                    
-                    Image("res_facil")
-                }.padding(20)
+                .padding(.vertical, 12)
             }
-        }.sheet(isPresented:$openCameraRoll)
-        {
-            ImagePicker(sourceType:.camera, selectedImage:self.$imageSelected)
+        }
+        .sheet(isPresented: $openCameraRoll) {
+            ImagePicker(
+                sourceType: .camera,
+                selectedImage: $imageSelected
+            )
+        }
+        #if DEBUG
+        .overlay(alignment: .bottomTrailing) {
+            debugButton
+        }
+        #endif
+    }
+    
+    #if DEBUG
+    private var debugButton: some View {
+        Button {
+            showDebugMenu.toggle()
+        } label: {
+            Image(systemName: "ant.circle.fill")
+                .font(.title)
+        }
+        .padding()
+        .sheet(isPresented: $showDebugMenu) {
+            NotificationDebugView()
+        }
+    }
+    #endif
+}
+
+// MARK: - Supporting Views
+
+struct ProfileCardView: View {
+    @Binding var profileImage: UIImage
+    @Binding var hasSelectedImage: Bool
+    @Binding var openCameraRoll: Bool
+    
+    var body: some View {
+        VStack(spacing: 16) {
+            HStack(spacing: 20) {
+                Image("res_hand")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 160)
+                
+                VStack(spacing: 12) {
+                    ProfileImageButton(
+                        profileImage: profileImage,
+                        hasSelectedImage: hasSelectedImage,
+                        action: {
+                            hasSelectedImage = true
+                            openCameraRoll = true
+                        }
+                    )
+                    
+                    VStack(spacing: 4) {
+                        Text("Name")
+                            .font(.headline)
+                        Text("Oakland")
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                    }
+                }
+            }
+            
+            HStack {
+                Spacer()
+                Text("Friends 71 • Teachers 12")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+            }
+        }
+        .padding()
+        .background {
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(Color.primary, lineWidth: 2)
+        }
+        .padding(.horizontal)
+    }
+}
+
+struct ProfileImageButton: View {
+    let profileImage: UIImage
+    let hasSelectedImage: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        Button(action: action) {
+            ZStack {
+                Circle()
+                    .strokeBorder(Color.primary, lineWidth: 2)
+                    .frame(width: 100, height: 100)
+                
+                if hasSelectedImage {
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 90, height: 90)
+                        .clipShape(Circle())
+                } else {
+                    Image("add_profile")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 50, height: 50)
+                }
+            }
         }
     }
 }
+
+struct CommunityImageSection: View {
+    let imageName: String
+    let title: String
+    
+    var body: some View {
+        VStack(spacing: 12) {
+            HStack(alignment: .center, spacing: 20) {
+                // Left side artwork - reduced height
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 140, height: 100)
+                
+                Spacer()
+                
+                // Right side circle - reduced size
+                Circle()
+                    .strokeBorder(Color.primary, lineWidth: 2)
+                    .frame(width: 80, height: 80)
+                    .overlay(
+                        Image(imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                    )
+                    .padding(.trailing, 8)
+            }
+            
+            HStack {
+                Spacer()
+                Text(title)
+                    .font(.subheadline)
+                    .foregroundColor(.primary)
+            }
+        }
+        .padding(.vertical, 12)
+        .padding(.horizontal)
+        .background {
+            RoundedRectangle(cornerRadius: 20)
+                .strokeBorder(Color.primary, lineWidth: 2)
+        }
+        .padding(.horizontal)
+    }
+}
+
+// MARK: - Debug Views
+#if DEBUG
+struct NotificationDebugView: View {
+    @Environment(\.dismiss) private var dismiss
+    @StateObject private var notificationManager = NotificationManager()
+    @State private var title = ""
+    @State private var subtitle = ""
+    
+    var body: some View {
+        NavigationStack {
+            Form {
+                Section("Notification Test") {
+                    TextField("Title", text: $title)
+                    TextField("Subtitle", text: $subtitle)
+                    
+                    Button("Request Permission") {
+                        notificationManager.requestAuthorization()
+                    }
+                    
+                    Button("Schedule") {
+                        notificationManager.scheduleNotification(
+                            title: title,
+                            subtitle: subtitle
+                        )
+                    }
+                    
+                    Button("Cancel All", role: .destructive) {
+                        notificationManager.cancelNotification()
+                    }
+                }
+            }
+            .navigationTitle("Debug Menu")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+#endif
 
 #Preview {
     CommunityView()

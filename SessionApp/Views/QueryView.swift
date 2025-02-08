@@ -228,7 +228,7 @@ struct QueryView: View
 }
 
 struct QueryPreviewContainer: View {
-    @StateObject private var globalCluster = PromptCluster()
+    @StateObject private var globalCluster = PromptCluster(journalType: .generate)
     
     var body: some View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
