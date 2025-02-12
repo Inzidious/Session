@@ -1,0 +1,9 @@
+SessionAppTests
+SessionAppUITests
+
+SessionApp.xcodeproj/xcuserdata/*
+SessionApp.xcodeproj/project.xcworkspace/xcuserdata/*
+
+.DS_Store
+*.xcuserstate
+*.xcuserstate

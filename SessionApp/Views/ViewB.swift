@@ -26,6 +26,19 @@ struct ViewB: View
             
             VStack
             {
+                HStack {
+                    NavigationLink(destination: ProfileView()) {
+                        Image(systemName: "person.circle.fill")
+                            .font(.title2)
+                            .scaleEffect(2.5)
+                            .foregroundColor(Color(.systemBrown).opacity(0.5))
+                    }
+                    .padding(.leading, 60)
+                    
+                    Spacer()
+                }
+                .padding(.top, 60)
+                
                 Spacer()
                 Text("Tracking")
                     .foregroundColor(.black)

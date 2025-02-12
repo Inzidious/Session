@@ -63,28 +63,10 @@ struct SessionHistory: View {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
     
-    //let twodays = Date.now.addingTimeInterval(-2*(24 * 60 * 60))
-    //let threedays = Date.now.addingTimeInterval(-3*(24 * 60 * 60))
+    let sessions: [SessionEntry] = []
+    let tempCluster = PromptCluster()
     
-    //var sessions:[SessionEntry] = []
-    //sessions.append(SessionEntry(timestamp: .now, sessionLabel: 1, entries: []))
-    //sessions.append(SessionEntry(timestamp: twodays, sessionLabel: 1, entries: []))
-    //sessions.append(SessionEntry(timestamp: threedays, sessionLabel: 1, entries: []))
-    /*var session = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [])
-    container.mainContext.insert(session)
-    
-    session = SessionEntry(timestamp: twodays, sessionLabel: 1, entries: [])
-    container.mainContext.insert(session)
-    
-    session = SessionEntry(timestamp: threedays, sessionLabel: 1, entries: [])
-    container.mainContext.insert(session)*/
-    
-    //let previewSession = SessionEntry(timestamp: .now, sessionLabel: 1, entries:[])
-    //var tempSessionEntry = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [])
-    
-    @State var tempCluster = PromptCluster()
-    
-    var sessions:[SessionEntry] = []
-    
-    return SessionHistory(sessions:sessions).modelContainer(container)
+    return SessionHistory(sessions: sessions)
+        .modelContainer(container)
+        .environmentObject(tempCluster)
 }

@@ -62,43 +62,55 @@ struct JournalView: View
                         
                         Spacer().frame(height:20)
                         
-                        ZStack
+                        NavigationLink(destination: Expand_Journal(currentSession: newSession2).environmentObject(globalCluster))
                         {
-                            Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
-                                .overlay( /// apply a rounded border
-                                    Ellipse()
-                                        .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
-                            
-                            VStack
+                            ZStack
                             {
-                                Spacer().frame(height:40)
-                                Text("Expand")
-                                    .foregroundColor(.black).opacity(0.5)
-                                    .font(.system(size:50.0))
+                                Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                                    .overlay( /// apply a rounded border
+                                        Ellipse()
+                                            .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
                                 
-                                Text("Ah-Ha moments from session")
-                                    .foregroundColor(.black).opacity(1)
-                                    .font(.system(size:20.0))
-                                    .frame(width:260).multilineTextAlignment(.center)
+                                VStack
+                                {
+                                    Spacer().frame(height:40)
+                                    Text("Expand")
+                                        .foregroundColor(.black).opacity(0.5)
+                                        .font(.system(size:50.0))
+                                    
+                                    Text("Ah-Ha moments from session")
+                                        .foregroundColor(.black).opacity(1)
+                                        .font(.system(size:20.0))
+                                        .frame(width:260).multilineTextAlignment(.center)
+                                }
+                                
                             }
-                            
                         }
                         
                         Spacer().frame(height:20)
                         
-                        //  Third blue
-                        ZStack
+                        NavigationLink(destination: JournalDreamView(currentSession: newSession3).environmentObject(globalCluster))
                         {
-                            Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
-                                .overlay( /// apply a rounded border
-                                    Ellipse()
-                                        .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
-                            
-                            Text("Dream")
-                                .foregroundColor(.black).opacity(0.5)
-                                .font(.system(size:50.0))
-                                .padding(10)
-                            
+                            ZStack
+                            {
+                                Ellipse().fill(Color("ShTeal")).opacity(0.5).frame(width: 310, height:180)
+                                    .overlay( /// apply a rounded border
+                                        Ellipse()
+                                            .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
+                                
+                                VStack
+                                {
+                                    Spacer().frame(height:40)
+                                    Text("Dream")
+                                        .foregroundColor(.black).opacity(0.5)
+                                        .font(.system(size:50.0))
+                                    
+                                    Text("Plant seeds for what is growing")
+                                        .foregroundColor(.black).opacity(1)
+                                        .font(.system(size:20.0))
+                                        .frame(width:260).multilineTextAlignment(.center)
+                                }
+                            }
                         }
                     }
                 //}
@@ -122,6 +134,16 @@ struct JournalView: View
                     dismiss()
                 }) {
                     Label("Back", systemImage: "arrow.left.circle")
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink(destination: ProfileView()) {
+                    Image(systemName: "person.circle.fill")
+                        .font(.title2)
+                        .scaleEffect(2.5)
+                        .foregroundColor(Color(.systemBrown).opacity(0.5))
+                        .padding(.trailing, 30)
                 }
             }
         }

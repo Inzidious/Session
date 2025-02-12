@@ -95,7 +95,5 @@ struct NewsViewTopic: View {
 }
 
 #Preview {
-    @State var str:String = "Test"
-    return NewsView(text:$str)
-    //NewsViewTopic()
+    NewsView(text: .constant("Test"))
 }

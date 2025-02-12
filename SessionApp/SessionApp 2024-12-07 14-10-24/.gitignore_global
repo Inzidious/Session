@@ -1,6 +1,5 @@
 # Xcode
 .DS_Store
-**/.DS_Store
 */build/*
 *.pbxuser
 !default.pbxuser
@@ -14,7 +13,6 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 DerivedData/
-xuserdata/
 .idea/
 *.hmap
 *.xcuserstate
@@ -46,14 +44,12 @@ injectionforxcode/
 *.pbxuser
 *.mode1v3
 *.mode2v3
-*.perspectivev3
-# Media files 
-*.mp3
-*.mp4
-*.mov
-*.m4a
-*.wav
-*.avi
-*.flv
-*.m4v
-*.3gp
+*.perspectivev3SessionAppTests
+SessionAppUITests
+
+SessionApp.xcodeproj/xcuserdata/*
+SessionApp.xcodeproj/project.xcworkspace/xcuserdata/*
+
+.DS_Store
+*.xcuserstate
+*.xcuserstate

@@ -37,6 +37,19 @@ struct ViewC: View
                 Rectangle().fill(Color("BGRev1"))
                 VStack //NavigationStack
                 {
+                    HStack {
+                        NavigationLink(destination: ProfileView()) {
+                            Image(systemName: "person.circle.fill")
+                                .font(.title2)
+                                .scaleEffect(2.5)
+                                .foregroundColor(Color(.systemBrown).opacity(0.5))
+                        }
+                        .padding(.leading, 60)
+                        
+                        Spacer()
+                    }
+                    .padding(.top, 60)
+                    
                     VStack
                     {
                         Spacer().frame(height:75)
@@ -63,15 +76,21 @@ struct ViewC: View
                             
                             Spacer().frame(width: 5)
                             
-                            NavigationLink(destination:BreathView())
-                            {
+                            NavigationLink(destination: SessionListView(
+                                assetCategory: .constant(""),
+                                assetType: .breathing
+                            )) {
                                 smallBoxImage(boxText: "breath").padding(.trailing, 50)
                             }
                             
                             smallBoxImage(boxText: "movement").padding(.leading, 50)
                             Spacer().frame(width: 5)
-                            smallBoxImage(boxText: "meditation").padding(.trailing, 50)
                             
+                            NavigationLink(destination: SessionMeditation(
+                                assetCategory: .constant("")
+                            )) {
+                                smallBoxImage(boxText: "meditation").padding(.trailing, 50)
+                            }
                             
                         }
                         .padding()

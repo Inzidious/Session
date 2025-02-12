@@ -100,11 +100,13 @@ struct CommunityView: View {
                     VStack(spacing: 16) {
                         CommunityImageSection(
                             imageName: "peer_group",
-                            title: "Peer Groups"
+                            title: "Peer Groups",
+                            buttonImage: "PeerGroupButton"
                         )
                         CommunityImageSection(
                             imageName: "facilitated_group",
-                            title: "Facilitated Groups"
+                            title: "Facilitated Groups",
+                            buttonImage: "FacilitatedGroupButton"
                         )
                     }
                     .padding(.horizontal)
@@ -202,24 +204,18 @@ struct ProfileImageButton: View {
     let action: () -> Void
     
     var body: some View {
-        Button(action: action) {
-            ZStack {
-                Circle()
-                    .strokeBorder(Color.primary, lineWidth: 2)
-                    .frame(width: 100, height: 100)
-                
-                if hasSelectedImage {
-                    Image(uiImage: profileImage)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 90, height: 90)
-                        .clipShape(Circle())
-                } else {
-                    Image("add_profile")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 50, height: 50)
-                }
+        NavigationLink(destination: ProfileView()) {
+            if hasSelectedImage {
+                Image(uiImage: profileImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 90, height: 90)
+                    .clipShape(Circle())
+            } else {
+                Image("add_profile")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 90, height: 90)
             }
         }
     }
@@ -228,11 +224,12 @@ struct ProfileImageButton: View {
 struct CommunityImageSection: View {
     let imageName: String
     let title: String
+    let buttonImage: String
     
     var body: some View {
         VStack(spacing: 12) {
             HStack(alignment: .center, spacing: 20) {
-                // Left side artwork - reduced height
+                // Left side artwork
                 Image(imageName)
                     .resizable()
                     .scaledToFit()
@@ -240,16 +237,11 @@ struct CommunityImageSection: View {
                 
                 Spacer()
                 
-                // Right side circle - reduced size
-                Circle()
-                    .strokeBorder(Color.primary, lineWidth: 2)
+                // Right side button image
+                Image(buttonImage)
+                    .resizable()
+                    .scaledToFit()
                     .frame(width: 80, height: 80)
-                    .overlay(
-                        Image(imageName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                    )
                     .padding(.trailing, 8)
             }
             

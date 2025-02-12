@@ -158,16 +158,14 @@ struct boxStackViewNoTitle: View
     }
 }
 
-struct boxStackViewClear: View
-{
+struct boxStackViewClear: View {
     var bodyText = ""
     var iconName = "tram.circle.fill"
-    var boxHeight = 200.0;
+    var boxHeight = 200.0
     var backColor = Color.red
     var answerText = ""
     
-    var body: some View
-    {
+    var body: some View {
         VStack(spacing: 8) {
             ZStack {
                 Rectangle()
@@ -177,17 +175,19 @@ struct boxStackViewClear: View
                 
                 Text(bodyText)
                     .foregroundColor(.black)
-                    .font(Font.custom("OpenSans-Regular", size: 16))
+                    .font(.custom("OpenSans-Regular", size: 16))
                     .padding(8)
                     .frame(width: 200, alignment: .leading)
                     .multilineTextAlignment(.leading)
+                    .lineLimit(3)
             }
             
             if !answerText.isEmpty {
                 Text(answerText)
-                    .font(Font.custom("OpenSans-Regular", size: 14))
+                    .font(.custom("OpenSans-Regular", size: 14))
                     .foregroundColor(.gray)
                     .frame(width: 200, alignment: .leading)
+                    .lineLimit(2)
             }
         }
         .padding(.horizontal)

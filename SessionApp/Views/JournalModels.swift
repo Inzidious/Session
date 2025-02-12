@@ -24,7 +24,7 @@ class PromptCluster : ObservableObject
     enum JournalType {
         case dream
         case generate
-        case reflect // Add your third journal type here
+        case expand // Add your third journal type here
     }
     
     private static func getQuestions(for type: JournalType) -> [String] {
@@ -45,13 +45,13 @@ class PromptCluster : ObservableObject
                 "My thoughts were saying...",
                 "This reminds me of..."
             ]
-        case .reflect:
+        case .expand:
             return [
-                "What am I learning about myself?",
-                "What patterns am I noticing?",
-                "What do I want to remember?",
-                "What would I do differently?",
-                "What am I grateful for?"
+                "Topics we covered today were...",
+                "Emotions I was feeling were...",
+                "Sensations in my body were...",
+                "Dots we connected were...",
+                "This coming week I want to remember..."
             ]
         }
     }

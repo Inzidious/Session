@@ -10,7 +10,7 @@ import AVFoundation
 
 struct BreathView: View {
     
-    @State private var duration:CGFloat = 1.0
+    @State private var duration: CGFloat = 1.0
     @State public var durationUp = 3.0
     @State public var durationDown = 3.0
     @State public var delayUp = 1.0
@@ -19,78 +19,118 @@ struct BreathView: View {
     
     @State private var pValue = 1.0
     
+    @State private var selectedTab: Int = 0
+    
     var body: some View {
-        ZStack
-        {
+        ZStack {
             Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
             
-            VStack
-            {
-                //Spacer().frame(height:150)
-                /*Text("Breath")
-                    .foregroundColor(.black)
-                    .font(Font.custom("Roboto", size:45))
-                    .padding(20)
-                    .frame(width:350, height:50, alignment: .center)*/
-                
-                VStack{
-                    ZStack
-                    {
-                        VStack
-                        {
+            VStack {
+                // Main content
+                HStack(spacing: 20) {
+                    // Left side - Controls
+                    VStack(spacing: 20) {
+                        VStack(alignment: .leading) {
+                            Text("Up duration")
+                                .foregroundColor(.black)
+                                .font(.caption)
+                            TextField("", value: self.$durationUp, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Down duration")
+                                .foregroundColor(.black)
+                                .font(.caption)
+                            TextField("", value: self.$durationDown, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Up hold")
+                                .foregroundColor(.black)
+                                .font(.caption)
+                            TextField("", value: self.$delayUp, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Down hold")
+                                .foregroundColor(.black)
+                                .font(.caption)
+                            TextField("", value: self.$delayDown, format: .number)
+                                .textFieldStyle(RoundedBorderTextFieldStyle())
+                        }
+                    }
+                    .padding()
+                    .frame(width: 150)
+                    
+                    // Right side - Animation
+                    ZStack {
+                        VStack {
                             Image("top_first").offset(x:-12)
-                            RoundedRectangle(cornerRadius: 8).frame(width:30, height:350 ).offset(y:-19)
-                            Image("bot_first").resizable().frame(width:120, height:140).offset(x:2, y:-31)
+                            RoundedRectangle(cornerRadius: 8)
+                                .frame(width:30, height:350)
+                                .offset(y:-19)
+                            Image("bot_first")
+                                .resizable()
+                                .frame(width:120, height:140)
+                                .offset(x:2, y:-31)
                         }
                         
-                        ResetCirc(durationUp:self.durationUp,
-                                  durationDown:self.durationDown,
-                                  delayUp:self.delayUp,
-                                  delayDown:self.delayDown).id(viewID).offset(y:170)
-                    }.offset(y:20)
-                    
-                    Form
-                    {
-                        HStack
-                        {
-                            Section(header: Text("Up duration").foregroundColor(.black))
-                            {
-                                TextField("Upwards duration", value:self.$durationUp, format: .number)
-                            }
-                            
-                            Section(header: Text("Down duration").foregroundColor(.black))
-                            {
-                                TextField("Downwards duration", value:self.$durationDown, format: .number)
-                            }
-                        }
-                        HStack
-                        {
-                            Section(header: Text("Up hold").foregroundColor(.black))
-                            {
-                                TextField("Up Hold", value:self.$delayUp, format: .number)
-                            }
-                            
-                            Section(header: Text("Down hold").foregroundColor(.black))
-                            {
-                                TextField("Down hold", value:self.$delayDown, format: .number)
-                            }
-                        }
-                            
-                        
-                    }.offset(y:-20).frame(height:150)
-                    //Slider(value:$duration, in:0...3).padding(20)
-                    
+                        ResetCirc(durationUp: self.durationUp,
+                                durationDown: self.durationDown,
+                                delayUp: self.delayUp,
+                                delayDown: self.delayDown)
+                            .id(viewID)
+                            .offset(y:170)
+                    }
+                    .offset(y:20)
                 }
-                .onChange(of: [durationUp, durationDown, delayUp, delayDown])
-                {
+                .onChange(of: [durationUp, durationDown, delayUp, delayDown]) {
                     viewID += 1
                 }
                 
+                Spacer()
+                
+                // Bottom Navigation
+                HStack(spacing: 0) {
+                    ForEach(0..<4, id: \.self) { index in
+                        NavigationLink(destination: destinationView(for: index)) {
+                            VStack {
+                                Image(systemName: iconName(for: index))
+                                Text(tabName(for: index))
+                                    .font(.caption)
+                            }
+                            .foregroundColor(selectedTab == index ? .blue : .gray)
+                            .frame(maxWidth: .infinity)
+                        }
+                    }
+                }
+                .padding(.vertical, 8)
+                .background(Color.white)
             }
+        }
+        .navigationBarHidden(true)
+    }
+    
+    private func destinationView(for index: Int) -> some View {
+        switch index {
+        case 0: return AnyView(ViewC())  // Home
+        case 1: return AnyView(Text("Tracking"))
+        case 2: return AnyView(Text("Resources"))
+        case 3: return AnyView(Text("Community"))
+        default: return AnyView(ViewC())
         }
     }
     
+    private func iconName(for index: Int) -> String {
+        ["house", "chart.bar", "book", "globe"][index]
+    }
     
+    private func tabName(for index: Int) -> String {
+        ["Home", "Tracking", "Resources", "Community"][index]
+    }
 }
 
 struct BreathViewOld: View
