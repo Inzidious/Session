@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TestAPIButton: View {
-    @State private var bankUser:BankUser?
+    @State private var bankUser:BankUser? = nil
     var body: some View {
         Button()
         {

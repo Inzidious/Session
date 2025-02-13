@@ -8,6 +8,45 @@
 import SwiftUI
 import CachedAsyncImage
 
+extension String
+{
+    func loadAsync() -> Any
+    {
+        CachedAsyncImage(url:URL(string:self),
+                                   transaction:Transaction(animation: .easeInOut))
+        { phase in
+            if let image = phase.image
+            {
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                
+            }
+            else
+            {}
+        }
+    }
+    
+    func load() -> UIImage {
+        do{
+            guard let url = URL(string:self)
+            else{
+                return UIImage()
+            }
+            
+            let data:Data = try Data(contentsOf: url)
+            
+            return UIImage(data:data) ?? UIImage()
+                    
+        } catch {
+            
+        }
+        
+        return UIImage()
+    }
+}
+
 struct NewsView: View
 {
     @Binding var text:String
@@ -51,27 +90,8 @@ struct NewsViewTopic: View {
     
     var body: some View 
     {
-        VStack(alignment: .leading)
-        {
-            /*HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-            {
-                CachedAsyncImage(url:URL(string:imageUrl),
-                                 transaction:Transaction(animation: .easeInOut))
-                                 { phase in
-                                     if let image = phase.image
-                                     {
-                                         image
-                                             .resizable()
-                                             .scaledToFit()
-                                             .clipShape(RoundedRectangle(cornerRadius: 20))
-                                         
-                                     }
-                                     else
-                                     {}
-                    
-                }
-            }*/
-            
+        //VStack(alignment: .leading)
+        //{
             ZStack
             {
                 RoundedRectangle(cornerRadius: 25)
@@ -81,16 +101,19 @@ struct NewsViewTopic: View {
                         RoundedRectangle(cornerRadius: 20)
                             .stroke(.black, lineWidth: 5)).padding(.horizontal, 20)
                 
-                VStack
+                HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 {
+                    Image(uiImage: imageUrl.load()).resizable().frame(width:50, height:50)
+                    
                     Text(title)
                         .font(.headline)
-                        .padding(.leading, 18)
-                        .padding(.trailing, 18)
+                        //.padding(.leading, 5)
+                        .padding(.horizontal)
+                        .multilineTextAlignment(/*@START_MENU_TOKEN@*/.leading/*@END_MENU_TOKEN@*/)
                         .foregroundColor(Color(.black).opacity(1))
-                }
+                }.frame(width:370)
             }
-        }
+        //}
     }
 }
 

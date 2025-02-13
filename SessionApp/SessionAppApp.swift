@@ -33,7 +33,7 @@ struct SessionAppApp: App
     
     init()
     {
-        container = try! ModelContainer(for: FeelingEntry.self, SessionEntry.self, User.self, CurrentUser.self, configurations: config)
+        container = try! ModelContainer(for: Item.self, FeelingEntry.self, SessionEntry.self, User.self, CurrentUser.self, configurations: config)
     }
     
     var body: some Scene

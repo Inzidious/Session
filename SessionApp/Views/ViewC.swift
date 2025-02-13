@@ -111,8 +111,9 @@ struct ViewC: View
                                 }
                                 label:
                                 {
-                                    NewsViewTopic(title:pageNode.title,
-                                                  imageUrl: "",
+                                    let result = pageNode.title.replacingOccurrences(of: "      ", with: "")
+                                    NewsViewTopic(title:result,
+                                                  imageUrl: pageNode.topic,
                                                   siteName: pageNode.topic,
                                                   summary: pageNode.body)
                                 }
