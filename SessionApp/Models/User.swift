@@ -21,7 +21,7 @@ final class User {
     @Relationship
     var sessions: [SessionEntry]?
     
-    @Relationship
+    @Relationship(deleteRule: .cascade, inverse: \FeelingEntry.user)
     var feelings: [FeelingEntry]?
     
    @Relationship
@@ -33,8 +33,5 @@ final class User {
         self.firstName = firstName
         self.lastName = lastName
         self.authProvider = authProvider
-        self.sessions = []
-        self.feelings = []
-        self.journalEntries = []
     }
 } 

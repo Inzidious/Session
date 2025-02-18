@@ -763,7 +763,7 @@ struct addFeelingSheet : View
     {
         NavigationStack
         {
-            Text("Add some thoughts..").font(.openSansBoldItalic(size: 24))
+            Text("Add some thoughts..")//.font(.openSansBoldItalic(size: 24))
             
             Form
             {
@@ -771,7 +771,7 @@ struct addFeelingSheet : View
                 DatePicker("Timestamp", selection:$data, displayedComponents: .date)
                 
             }
-            .font(.openSansBoldItalic(size: 12))
+            //.font(.openSansBoldItalic(size: 12))
             .toolbar
             {
                 ToolbarItemGroup(placement: .topBarLeading)
@@ -815,7 +815,7 @@ struct FeelingsView: View
         else
         {
             //print("New feeling")
-            curFeeling = FeelingEntry(nameTxt:"New Feeling")
+            curFeeling = FeelingEntry(nameTxt:"New Feeling", user:GlobalUser.shared.user)
             isEditing = false
             //context.insert(curFeeling)
         }
@@ -915,11 +915,11 @@ struct FeelingsView: View
             .frame(maxHeight: .infinity)
         }
     }
-    
-    #Preview {
+}
+
+#Preview {
         
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
         return FeelingsView().modelContainer(container)
     }
-}

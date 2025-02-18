@@ -24,11 +24,9 @@ final class FeelingEntry {
     var feeling: Int
     var triggers: String
     var timestamp: Date
+    var user: User
     
-    @Relationship(inverse: \User.feelings)
-    var user: User?
-    
-    init(nameTxt: String) {
+    init(nameTxt: String, user:User) {
         self.sleep = 0
         self.food = 0
         self.move = 0
@@ -40,6 +38,6 @@ final class FeelingEntry {
         self.name = nameTxt
         self.feelingID = UUID()
         self.timestamp = .now
-        self.user = nil
+        self.user = user
     }
 }
