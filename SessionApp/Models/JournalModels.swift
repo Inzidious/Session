@@ -27,4 +27,6 @@ struct PromptEntry: Identifiable {
         promptID = id
         promptQuestion = question
     }
-} 
+}
+
+@Query var users: [User]  // Array of User objects 

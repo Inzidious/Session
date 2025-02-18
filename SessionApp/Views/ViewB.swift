@@ -20,107 +20,111 @@ struct ViewB: View
     
     var body: some View
     {
-        ZStack
-        {
-            Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
-            
-            VStack
+        NavigationStack {
+            ZStack
             {
-                HStack {
-                    NavigationLink(destination: ProfileView()) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.title2)
-                            .scaleEffect(2.5)
-                            .foregroundColor(Color(.systemBrown).opacity(0.5))
+                Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
+                
+                VStack
+                {
+                    HStack {
+                        NavigationLink {
+                            ProfileView()
+                        } label: {
+                            Image(systemName: "person.circle.fill")
+                                .font(.title2)
+                                .scaleEffect(2.5)
+                                .foregroundColor(Color(.systemBrown).opacity(0.5))
+                        }
+                        .padding(.leading, 60)
+                        
+                        Spacer()
                     }
-                    .padding(.leading, 60)
+                    .padding(.top, 5)
                     
                     Spacer()
-                }
-                .padding(.top, 60)
-                
-                Spacer()
-                Text("Tracking")
-                    .foregroundColor(.black)
-                    .font(.openSansRegular(size: 45))
-                    .padding(20)
-                    .frame(width:350, height:50, alignment: .trailing)
-                
-                Button()
-                {
-                    feelingToEdit = nil
-                    isShowingSheet = true;
-                }
-                label:
-                {
-                    TitleBox()
-                }
-                
-                Spacer().frame(height:20)
-                
-                
-                HStack
-                {
-                    Text("History")
+                    Text("Tracking")
                         .foregroundColor(.black)
-                        .font(.openSansRegular(size: 25))
+                        .font(.openSansRegular(size: 45))
                         .padding(20)
-                        //.frame(width:400, height:45, alignment: .leading)
-                        
-                    Text("\(feelings.count) Items")
-                        .foregroundColor(.black)
-                        .font(.openSansRegular(size: 25))
-                        .padding(20)
-                    
+                        .frame(width:350, height:50, alignment: .trailing)
                     
                     Button()
                     {
-                        print("hrere")
-                        isShowingInsight = true
+                        feelingToEdit = nil
+                        isShowingSheet = true;
                     }
                     label:
                     {
-                        VStack
-                        {
-                            Image("insights")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 35, height: 35)
-                            Text("Insights")
-                                .font(.openSansRegular(size: 15))
-                        }
+                        TitleBox()
                     }
-                }
-                .frame(width:400, height:55)
-                .background(Color("ShGreen").opacity(0.4))
-                
-                List()
-                {
-                    ForEach(feelings) { feeling in
+                    
+                    Spacer().frame(height:20)
+                    
+                    
+                    HStack
+                    {
+                        Text("History")
+                            .foregroundColor(.black)
+                            .font(.openSansRegular(size: 25))
+                            .padding(20)
+                            //.frame(width:400, height:45, alignment: .leading)
+                            
+                        Text("\(feelings.count) Items")
+                            .foregroundColor(.black)
+                            .font(.openSansRegular(size: 25))
+                            .padding(20)
+                        
                         
                         Button()
                         {
-                            feelingToEdit = feeling
-                            isShowingSheet = true;
-                            //context.delete(feeling)
+                            print("hrere")
+                            isShowingInsight = true
                         }
                         label:
                         {
-                            FeelingBoxEntry(feeling : feeling)
+                            VStack
+                            {
+                                Image("insights")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .frame(width: 35, height: 35)
+                                Text("Insights")
+                                    .font(.openSansRegular(size: 15))
+                            }
+                        }
+                    }
+                    .frame(width:400, height:55)
+                    .background(Color("ShGreen").opacity(0.4))
+                    
+                    List()
+                    {
+                        ForEach(feelings) { feeling in
+                            
+                            Button()
+                            {
+                                feelingToEdit = feeling
+                                isShowingSheet = true;
+                                //context.delete(feeling)
+                            }
+                            label:
+                            {
+                                FeelingBoxEntry(feeling : feeling)
+                            }
                         }
                     }
                 }
-            }
-        }.sheet(isPresented: $isShowingInsight, content: {
-            //let config = ModelConfiguration(isStoredInMemoryOnly: true)
-            //let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
-            InsightsView(data:[])
-        })
-        .sheet(isPresented: $isShowingSheet, content: {
-            //let config = ModelConfiguration(isStoredInMemoryOnly: true)
-            //let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
-            FeelingsView(passedFeeling:feelingToEdit)///.modelContainer(container)
-        })
+            }.sheet(isPresented: $isShowingInsight, content: {
+                //let config = ModelConfiguration(isStoredInMemoryOnly: true)
+                //let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
+                InsightsView(data:[])
+            })
+            .sheet(isPresented: $isShowingSheet, content: {
+                //let config = ModelConfiguration(isStoredInMemoryOnly: true)
+                //let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
+                FeelingsView(passedFeeling:feelingToEdit)///.modelContainer(container)
+            })
+        }
     }
 }
 

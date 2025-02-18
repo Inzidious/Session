@@ -12,8 +12,10 @@ struct SplashScreenView: View {
     @State private var isActive:Bool = false;
     @State private var size = 0.8;
     @State private var opacity = 0.5;
-    
-    //var currentUser:CurrentUser
+    @Environment(\.modelContext) var modelContext
+    @Query private var users: [User]
+    @Binding var user: User?
+    //var user:user
     
     var body: some View {
         if(isActive)
@@ -30,7 +32,7 @@ struct SplashScreenView: View {
                     //Image(systemName: "hare.fill")
                         //.font(.system(size:80))
                     
-                    //Text("Hello again," + currentUser.firstName + "!")
+                    //Text("Hello again," + user.firstName + "!")
                         //.font(Font.custom("Baskerville-Bold", size: 26))
                 }
                 .scaleEffect(size)
@@ -56,8 +58,14 @@ struct SplashScreenView: View {
 }
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self, FeelingEntry.self, CurrentUser.self, User.self, configurations: config)
+    let previewUser = User(
+        id: UUID().uuidString,
+        email: "preview@example.com",
+        firstName: "Preview",
+        lastName: "User",
+        authProvider: "preview"
+    )
     
-    return SplashScreenView().modelContainer(container)
+    SplashScreenView(user: .constant(previewUser))
+        .modelContainer(try! ModelContainer(for: User.self))
 }

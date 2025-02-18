@@ -9,7 +9,8 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-    
+    let user: User
+    @Query private var users: [User]
     var body: some View {
         TabView
         {
@@ -41,15 +42,23 @@ struct ContentView: View {
     }
 }
 
+let previewUser = User(
+    id: UUID().uuidString,
+    email: "preview@example.com",
+    firstName: "Preview",
+    lastName: "User",
+    authProvider: "preview"
+)
+
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    if let container = try? ModelContainer(for: SessionEntry.self, 
-                                         FeelingEntry.self, 
-                                         CurrentUser.self,
-                                         configurations: config) {
-        return ContentView()
-            .modelContainer(container)
-    } else {
-        return Text("Failed to create container")
-    }
+    let container = try! ModelContainer(
+        for: User.self,
+        SessionEntry.self,
+        FeelingEntry.self,
+        configurations: config
+    )
+    
+    ContentView(user: previewUser)
+        .modelContainer(container)
 }

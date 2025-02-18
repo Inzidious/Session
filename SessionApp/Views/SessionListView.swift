@@ -27,7 +27,7 @@ struct SessionListView: View {
             VStack(spacing: 0) {
                 // Header
                 HStack {
-                    // User profile icon
+                    // user profile icon
                     Image(systemName: "person.circle.fill")
                         .font(.title2)
                         .foregroundColor(Color(.systemBrown).opacity(0.5))

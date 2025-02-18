@@ -19,124 +19,15 @@ enum Option:Int
     case e = 5
 }
 
-struct FeelingsView: View
-{
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.modelContext) var context
-    
-    //@Query var feelings:[FeelingEntry]
-    @State var isEditing:Bool
-    
-    var curFeeling:FeelingEntry
-    
-    init(passedFeeling:FeelingEntry? = nil)
-    {
-        if let feelingUnwrapped = passedFeeling
-        {
-            print("Existing feeling")
-            curFeeling = feelingUnwrapped
-            isEditing = true
-        }
-        else
-        {
-            //print("New feeling")
-            curFeeling = FeelingEntry(nameTxt:"New Feeling")
-            isEditing = false
-            //context.insert(curFeeling)
-        }
-    }
-    
-    var body: some View
-    {
-        ZStack
-        {
-            Rectangle().fill(Color("ShGreen").opacity(0.4)).ignoresSafeArea()
-            
-            VStack
-            {
-                HStack
-                {
-                    //Text("Count: \(feelings.count)")
-                    Button
-                    {
-                        dismiss()
-                    }
-                    label:
-                    {
-                        Text("Cancel")
-                    }
-                    
-                    Button
-                    {
-                        if(!isEditing)
-                        {
-                            context.insert(curFeeling)
-                            print("inserted!")
-                            isEditing = true
-                        }
-                        
-                        try! context.save()
-                        dismiss()
-                    }
-                    label:
-                    {
-                        Text("Save")
-                    }
-                    
-                    if( isEditing )
-                    {
-                        Button
-                        {
-                            context.delete(curFeeling)
-                            print("deleted")
-                            isEditing = false
-                            try! context.save()
-                            dismiss()
-                        }
-                        label:
-                        {
-                            Text("Delete")
-                        }
-                    }
-                }
-                
-                TitleBoxSelect().environment(curFeeling)
-                   
-                ScrollView()
-                {
-                    FeelingRow(rowTitle:"Sleep")
-                    SleepRow(feeling:curFeeling)
-                    
-                    FeelingRow(rowTitle:"Food")
-                    FoodRow(feeling:curFeeling)
-                    
-                    FeelingRow(rowTitle:"Movement")
-                    MovementRow(feeling:curFeeling)
-                    
-                    FeelingRow(rowTitle:"Irritability")
-                    IrritRow()
-                    
-                    FeelingRow(rowTitle:"Menstrual Cycle")
-                    MenstRow()
-                    
-                    FeelingRow(rowTitle:"Medication")
-                    MediRow()
-                }
-                
-            }
-        }
-    }
-}
-
 struct iOSCheckBoxStyle : ToggleStyle
 {
-    func makeBody(configuration: Configuration) -> some View 
+    func makeBody(configuration: Configuration) -> some View
     {
         Button
         {
             configuration.isOn.toggle()
         }
-        label:
+    label:
         {
             VStack
             {
@@ -436,7 +327,6 @@ struct CheckBox: View
         }
     }
 }
-        
 
 struct TitleBoxSelect: View
 {
@@ -449,17 +339,16 @@ struct TitleBoxSelect: View
             Rectangle()
                 .frame(width:370, height:220)
                 .foregroundColor(Color(.white).opacity(0))
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                .border(Color.black)
             
             VStack
             {
                 Text("How are you feeling?")
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:35))
+                    .font(.openSansRegular(size: 35))
                     .padding(10)
                 
                 ImageRowPicker()
-                //ImageRowSelected(selected:selected)
             }
             
         }.frame(maxWidth:.infinity, alignment: .center)
@@ -486,7 +375,7 @@ struct ButtonBlock: View
                 selected = 0;
             }
         }
-        label:
+    label:
         {
             VStack
             {
@@ -546,8 +435,8 @@ struct ImageRowSelected: View
 
 struct FeelingRow: View
 {
-    var rowTitle:String
-    @State var isShowingFeelingsheet:Bool = false
+    var rowTitle: String
+    @State var isShowingFeelingsheet: Bool = false
     
     var body: some View
     {
@@ -555,27 +444,31 @@ struct FeelingRow: View
         {
             Text(rowTitle)
                 .foregroundColor(.black)
-                .font(Font.custom("Papyrus", size:25))
+                .font(.openSansRegular(size: 25))
                 .padding(20)
-                //.frame(width:400, height:45, alignment: .leading)
-                
+            
             Spacer()
+            
+            Text("Enter Notes")
+                .foregroundColor(.red)
+                .font(.openSansRegular(size: 16))
             
             Button()
             {
                 isShowingFeelingsheet = true
             }
-            label:
+        label:
             {
                 ZStack
                 {
                     Rectangle()
                         .frame(width:70, height:35)
                         .foregroundColor(Color(.gray).opacity(0.1))
-                        .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                        .border(Color.black)
                         .padding(20)
                     
-                    Text("...").font(Font.custom("Papyrus", size:45))
+                    Text("...")
+                        .font(.openSansRegular(size: 45))
                 }
             }
         }
@@ -588,22 +481,22 @@ struct FeelingRow: View
     }
 }
 
-struct RadioButton: View 
+struct RadioButton: View
 {
     @Binding private var isSelected: Bool
     private let label: String
     
-    init(isSelected: Binding<Bool>, label: String = "") 
+    init(isSelected: Binding<Bool>, label: String = "")
     {
-      self._isSelected = isSelected
-      self.label = label
+        self._isSelected = isSelected
+        self.label = label
     }
     
     init<V: Hashable>(tag: V, selection: Binding<V?>, label: String = "")
     {
-          self._isSelected = Binding(
+        self._isSelected = Binding(
             get: { selection.wrappedValue == tag },
-            set: 
+            set:
                 { (check:Bool) in
                     //print("inside closure", tag, "check: ", check)
                     
@@ -616,14 +509,14 @@ struct RadioButton: View
                         selection.wrappedValue = tag
                     }
                 }
-          )
-          self.label = label
+        )
+        self.label = label
     }
-
+    
     var body: some View {
         VStack(spacing: 10) {
-           circleView
-           labelView
+            circleView
+            labelView
         }
         .contentShape(Rectangle())
         .onTapGesture
@@ -642,7 +535,7 @@ struct RadioButton: View
     }
 }
 
-private extension RadioButton 
+private extension RadioButton
 {
     @ViewBuilder var labelView: some View
     {
@@ -651,7 +544,7 @@ private extension RadioButton
             Text(label)
         }
     }
-  
+    
     @ViewBuilder var circleView: some View
     {
         Circle()
@@ -661,7 +554,7 @@ private extension RadioButton
                 Circle()
                     .stroke(outlineColor, lineWidth: 1)
             ) // Circle outline
-       .frame(width: 20, height: 20)
+            .frame(width: 20, height: 20)
     }
 }
 
@@ -681,10 +574,10 @@ private extension RadioButton
         }
         //return isSelected ? Color.blue : Color.clear
     }
-
-   var outlineColor: Color {
-      return isSelected ? Color.blue : Color.gray
-   }
+    
+    var outlineColor: Color {
+        return isSelected ? Color.blue : Color.gray
+    }
 }
 
 struct ImageRadioButton: View
@@ -703,7 +596,7 @@ struct ImageRadioButton: View
     init<V: Hashable>(tag: V, selection: Binding<V?>, label: String = "", imageName:String = "")
     {
         self.imageName = imageName
-          self._isSelected = Binding(
+        self._isSelected = Binding(
             get: { selection.wrappedValue == tag },
             set:
                 { (check:Bool) in
@@ -718,14 +611,14 @@ struct ImageRadioButton: View
                         selection.wrappedValue = tag
                     }
                 }
-          )
-          self.label = label
+        )
+        self.label = label
     }
-
+    
     var body: some View {
         VStack(spacing: 10) {
-           imageView
-           labelView
+            imageView
+            labelView
         }
         .contentShape(Rectangle())
         .onTapGesture
@@ -754,7 +647,7 @@ private extension ImageRadioButton
             Text(label).frame(width:70)
         }
     }
-  
+    
     @ViewBuilder var imageView: some View
     {
         if( isSelected )
@@ -771,9 +664,9 @@ private extension ImageRadioButton
 
 private extension ImageRadioButton
 {
-   var outlineColor: Color {
-      return isSelected ? Color.blue : Color.gray
-   }
+    var outlineColor: Color {
+        return isSelected ? Color.blue : Color.gray
+    }
 }
 
 struct ImageRowPicker: View
@@ -870,7 +763,7 @@ struct addFeelingSheet : View
     {
         NavigationStack
         {
-            Text("Add some thoughts..").font(Font.custom("Papyrus", size:25))
+            Text("Add some thoughts..").font(.openSansBoldItalic(size: 24))
             
             Form
             {
@@ -878,7 +771,7 @@ struct addFeelingSheet : View
                 DatePicker("Timestamp", selection:$data, displayedComponents: .date)
                 
             }
-            .font(Font.custom("Papyrus", size:25))
+            .font(.openSansBoldItalic(size: 12))
             .toolbar
             {
                 ToolbarItemGroup(placement: .topBarLeading)
@@ -901,9 +794,132 @@ struct addFeelingSheet : View
     }
 }
 
-#Preview {
+struct FeelingsView: View
+{
+    @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) var context
     
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
-    return FeelingsView().modelContainer(container)
+    //@Query var feelings:[FeelingEntry]
+    @State var isEditing:Bool
+    
+    var curFeeling:FeelingEntry
+    
+    init(passedFeeling:FeelingEntry? = nil)
+    {
+        if let feelingUnwrapped = passedFeeling
+        {
+            print("Existing feeling")
+            curFeeling = feelingUnwrapped
+            isEditing = true
+        }
+        else
+        {
+            //print("New feeling")
+            curFeeling = FeelingEntry(nameTxt:"New Feeling")
+            isEditing = false
+            //context.insert(curFeeling)
+        }
+    }
+    
+    var body: some View
+    {
+        ZStack
+        {
+            Rectangle()
+                .fill(Color("BGColor"))
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0)
+            {
+                HStack
+                {
+                    Button
+                    {
+                        dismiss()
+                    }
+                label:
+                    {
+                        Text("Cancel")
+                            .font(.openSansRegular(size: 18))
+                    }
+                    
+                    Button
+                    {
+                        if(!isEditing)
+                        {
+                            context.insert(curFeeling)
+                            print("inserted!")
+                            isEditing = true
+                        }
+                        
+                        try! context.save()
+                        dismiss()
+                    }
+                label:
+                    {
+                        Text("Save")
+                            .font(.openSansRegular(size: 18))
+                    }
+                    
+                    if( isEditing )
+                    {
+                        Button
+                        {
+                            context.delete(curFeeling)
+                            print("deleted")
+                            isEditing = false
+                            try! context.save()
+                            dismiss()
+                        }
+                    label:
+                        {
+                            Text("Delete")
+                                .font(.openSansRegular(size: 18))
+                        }
+                    }
+                }
+                
+                TitleBoxSelect()
+                    .environment(curFeeling)
+                    .padding(.bottom, 10)
+                
+                ScrollView(showsIndicators: true) {
+                    VStack(spacing: 15) {
+                        Group {
+                            FeelingRow(rowTitle:"Sleep")
+                            SleepRow(feeling:curFeeling)
+                            
+                            FeelingRow(rowTitle:"Food")
+                            FoodRow(feeling:curFeeling)
+                            
+                            FeelingRow(rowTitle:"Movement")
+                            MovementRow(feeling:curFeeling)
+                            
+                            FeelingRow(rowTitle:"Irritability")
+                            IrritRow()
+                            
+                            FeelingRow(rowTitle:"Menstrual Cycle")
+                            MenstRow()
+                            
+                            FeelingRow(rowTitle:"Medication")
+                            MediRow()
+                        }
+                        .padding(.horizontal)
+                        
+                        Spacer(minLength: 100)
+                    }
+                }
+                .frame(maxWidth: .infinity)
+                .scrollIndicators(.visible)
+            }
+            .frame(maxHeight: .infinity)
+        }
+    }
+    
+    #Preview {
+        
+        let config = ModelConfiguration(isStoredInMemoryOnly: true)
+        let container = try! ModelContainer(for: FeelingEntry.self, configurations: config)
+        return FeelingsView().modelContainer(container)
+    }
 }

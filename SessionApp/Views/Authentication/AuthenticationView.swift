@@ -5,7 +5,7 @@ struct AuthenticationView: View {
     @Environment(\.modelContext) var context
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var currentUser: CurrentUser?
+    @Binding var user: User?
     @Binding var confirmed: Bool
     
     // State for handling authentication flow
@@ -89,7 +89,7 @@ struct AuthenticationView: View {
             }
         }
         .sheet(isPresented: $showEmailSignIn) {
-            EmailSignInView(currentUser: $currentUser, confirmed: $confirmed)
+            EmailSignInView(user: $user, confirmed: $confirmed)
         }
         .alert("Authentication Error", isPresented: $showError) {
             Button("OK", role: .cancel) {}
@@ -125,15 +125,17 @@ struct AuthenticationView: View {
                 let firstName = appleIDCredential.fullName?.givenName
                 let lastName = appleIDCredential.fullName?.familyName
                 
-                // Create user account
-                let newUser = CurrentUser(
-                    firstName: firstName ?? "User",
-                    lastName: lastName ?? "",
+                // Create new User instance - note the capital U
+                let newUser = User(
+                    id: userId,  // Use the Apple ID as the user ID
                     email: email ?? userId,
-                    password: "" // Consider removing password for social auth
+                    firstName: firstName,
+                    lastName: lastName,
+                    authProvider: "apple"  // Indicate this is an Apple sign-in
                 )
                 
-                currentUser = newUser
+                // Assign to the binding
+                user = newUser
                 context.insert(newUser)
                 try? context.save()
                 confirmed = true

@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+// import User
+
 import AuthenticationServices // For Apple Sign In
 // import GoogleSignIn // For Google Sign In
 // import GoogleSignInSwift  // Add this import
@@ -27,17 +29,21 @@ class SignInCoordinator: NSObject, ASAuthorizationControllerDelegate {
         print("Apple Sign In failed: \(error.localizedDescription)")
     }
 }
+    
+    // References to user data
+    var sessions: [SessionEntry]?
+    var feelings: [FeelingEntry]?
+    var journalEntries: [JournalEntry]?
 
 struct LoaderView: View 
 {
-    @Environment(\.modelContext) var context;
-    @Query var userList:[User]
-    @Query var currentUserList:[CurrentUser]
-    @State private var currentUser:CurrentUser? = nil
-    @State private var newUserSheet:Bool = false;
-    @State private var logInSheet:Bool = false;
-    @State private var showView:Bool = false;
-    @State private var showContent:Bool = false
+    @Environment(\.modelContext) var modelContext
+    @Query private var users: [User]
+    @State private var user: User?
+    @State private var newUserSheet = false
+    @State private var logInSheet = false
+    @State private var showView = false
+    @State private var showContent = false
     
     @State private var showDetails = false
 
@@ -48,15 +54,15 @@ struct LoaderView: View
     {
         if(showContent == true)
         {
-            if let unwr = self.currentUser
+            if let currentUser = user
             {
                 let _ = print("showing content")
-                ContentView()
+                ContentView(user: currentUser)
             }
             else
             {
                 // no current user, cant shwo content
-                let _ = print("no current user, cant shwo content")
+                let _ = print("no current user, cant show content")
             }
         }
         else
@@ -155,7 +161,7 @@ struct LoaderView: View
                         }
                         
                         // Show Email Login only if users exist
-                        if(self.userList.count > 0) {
+                        if(self.users.count > 0) {
                             Button() {
                                 logInSheet = true
                             } label: {
@@ -178,15 +184,18 @@ struct LoaderView: View
                 }
             }.sheet(isPresented: $logInSheet)
             {
-                LogInView(currentUser:$currentUser, confirmed:$showContent)
+                EmailSignInView(user: $user, confirmed: $showContent)
             }.sheet(isPresented: $newUserSheet)
             {
-                NewUserView(currentUser:$currentUser, confirmed:$showContent)
+                EmailSignInView(
+                    user: $user,
+                    confirmed: $showContent
+                )
             }.onAppear()
             {
                 //var _ = print("before")
                 
-                if(currentUserList.count == 0)
+                if(users.count == 0)
                 {
                     //  No Login detected, show prompt
                     //var _ = print("sprompt")
@@ -197,8 +206,8 @@ struct LoaderView: View
                 {
                     //  For now, log out user each time
                     //  Eventually we set showContent = true
-                    currentUser = currentUserList[0]
-                    //context.delete(currentUserList[0])
+                    user = users[0]
+                    //context.delete(userList[0])
                     showContent = true
                 }
             }
@@ -227,8 +236,15 @@ struct LoaderView: View
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self, FeelingEntry.self, User.self, CurrentUser.self, configurations: config)
+    let container = try! ModelContainer(
+        for: User.self,
+        SessionEntry.self,
+        FeelingEntry.self,
+        JournalEntry.self,
+        configurations: config
+    )
     
-    return LoaderView().modelContainer(container)
+    return LoaderView()
+        .modelContainer(container)
 }
 

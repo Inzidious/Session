@@ -3,47 +3,34 @@
 //  SessionApp
 //
 //  Created by Shawn McLean on 3/11/24.
-//
+//  Update by Ahmed Shuja on 2/18/25
 
 import SwiftUI
 import SwiftData
 
-/*@main
-struct SessionAppApp: App {
-    
-    var body: some Scene
-    {
-        WindowGroup
-        {
-            //ContentView()
-            SplashScreenView()
-        }.modelContainer(for:SessionEntry.self)
-    }
-}
-*/
-
-
 @main
-struct SessionAppApp: App 
-{
-    @State private var currentUser:CurrentUser? = nil
+struct SessionAppApp: App {
+    let container: ModelContainer
     
-    let config = ModelConfiguration(isStoredInMemoryOnly: false)
-    private var container:ModelContainer
-    
-    init()
-    {
-        container = try! ModelContainer(for: Item.self, FeelingEntry.self, SessionEntry.self, User.self, CurrentUser.self, configurations: config)
+    init() {
+        do {
+            let config = ModelConfiguration(isStoredInMemoryOnly: false)
+            container = try ModelContainer(
+                for: User.self,
+                SessionEntry.self,
+                FeelingEntry.self,
+                JournalEntry.self,
+                configurations: config
+            )
+        } catch {
+            fatalError("Failed to initialize ModelContainer: \(error)")
+        }
     }
     
-    var body: some Scene
-    {
-        WindowGroup
-        {
-            //ContentView()
-            SplashScreenView()
-            //SplashScreenView()
-            
-        }.modelContainer(container)
+    var body: some Scene {
+        WindowGroup {
+            LoaderView()
+        }
+        .modelContainer(container)
     }
 }

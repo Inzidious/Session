@@ -19,13 +19,13 @@ struct ViewC: View
     private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
     @StateObject var data = SpaceAPI()
     
-    @State private var currentUser:CurrentUser? = nil
+    @State private var user:User? = nil
     @State private var newUserSheet:Bool = false;
     @State private var _confirmed:Bool = false;
     @State private var newsSheet:Bool = false;
     @State private var bodyText:String = "";
     
-    @Query var currentUserList:[CurrentUser]
+    @Query var userList:[User]
     @State private var pageNodes:[PageNode]?
     
     var body: some View
@@ -54,9 +54,9 @@ struct ViewC: View
                     {
                         Spacer().frame(height:75)
                         
-                        if(currentUser != nil)
+                        if(user != nil)
                         {
-                            Text("Welcome back, " + currentUser!.firstName + "!")
+                            Text("Welcome back, " + (user?.firstName! ?? "Jane Doe") + "!")
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .font(Font.custom("Roboto", size:28))
                         }
@@ -137,18 +137,18 @@ struct ViewC: View
             .ignoresSafeArea()
             .onAppear()
             {
-                if(currentUserList.count == 0)
+                if(userList.count == 0)
                 {
                     newUserSheet = true
                 }
                 else
                 {
-                    self.currentUser = currentUserList[0]
+                    self.user = userList[0]
                 }
             }
             .sheet(isPresented: $newUserSheet)
             {
-                AuthenticationView(currentUser: $currentUser, confirmed: $_confirmed)
+                AuthenticationView(user: $user, confirmed: $_confirmed)
             }
             .sheet(isPresented: $newsSheet)
             {
@@ -197,7 +197,7 @@ struct smallBoxImage: View
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
         for: SessionEntry.self,
-        CurrentUser.self,
+        User.self,
         configurations: config
     )
     
