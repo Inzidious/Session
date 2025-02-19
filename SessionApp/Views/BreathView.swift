@@ -275,7 +275,8 @@ struct BreathViewOld: View
             
         }.sheet(isPresented: $isShowingPlayer)
         {
-            FullPlayerView()
+            let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
+            FullPlayerView(urlString:urlString)
         }
     }
 }

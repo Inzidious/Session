@@ -12,10 +12,13 @@ struct FullPlayerView: View {
     let audioFile = "s_audioknkn"
     @Environment(\.dismiss) private var dismiss
     
-    @State private var player: AVAudioPlayer?
+    @State private var player: AVPlayer?
+    @State private var playerItem:AVPlayerItem?
     @State private var isplaying = false
     @State private var totalTime: TimeInterval = 0.0
     @State private var currentTime: TimeInterval = 0.0
+    
+    public var urlString:String
     
     var body: some View {
         VStack {
@@ -119,47 +122,70 @@ struct FullPlayerView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color(#colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1)))
-        .onAppear(perform: {
-            setupAudio()
-        })
         .onReceive(Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()) { _ in
             updateProgress()
         }
+        .task{
+            
+            do{
+                try await setupAudio()
+            } catch {
+                
+            }
+            
+            
+        }
     }
     
-    private func setupAudio() {
-        //guard let url = Bundle.main.url(forResource: audioFile, withExtension: "mp3") else { return }
-        if let sound = Bundle.main.path(forResource: "s_audio", ofType: "mp3")
+    private func setupAudio() async throws
+    {
+        let url = URL(string: "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3")
+        playerItem = AVPlayerItem(url: url!)
+        player = AVPlayer(playerItem: playerItem)
+            
+        if let piUnwr = playerItem
         {
-            do {
-                //player = try AVAudioPlayer(contentsOf: url)
-                player = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
-                player?.prepareToPlay()
-                totalTime = player?.duration ?? 0.0
+            do  {
+                let duration : CMTime = try await piUnwr.asset.load(.duration)
+                let seconds : Float64 = CMTimeGetSeconds(duration)
+                totalTime = seconds
             } catch {
-                print("Error loading audio: \(error)")
+                
             }
+        }
+        else
+        {
+            totalTime = 0
         }
     }
     
     private func playAudio() {
-        print("is playing")
         player?.play()
         isplaying = true
     }
     
     private func stopAudio() {
-        player?.stop()
+        player?.pause()
         isplaying = false
     }
     
     private func updateProgress() {
-        guard let player = player else { return }
-        currentTime = player.currentTime
+        if let piUnwr = playerItem
+        {
+            let duration : CMTime = piUnwr.currentTime()
+            let seconds : Float64 = CMTimeGetSeconds(duration)
+            currentTime = seconds
+        }
     }
     
-    private func audioTime(to time: TimeInterval) {
-        player?.currentTime = time
+    private func audioTime(to time: TimeInterval) 
+    {
+        if let plUnwr = player
+        {
+            let seconds : Int64 = Int64(time)
+            let targetTime:CMTime = CMTimeMake(value: seconds, timescale: 1)
+            plUnwr.seek(to: targetTime)
+        }
     }
     
     private func timeString(time: TimeInterval) -> String {
@@ -201,5 +227,6 @@ struct ModifiedButtonView: View {
 }
 
 #Preview {
-    FullPlayerView()
+    let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
+    return FullPlayerView(urlString:urlString)
 }

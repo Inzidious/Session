@@ -110,7 +110,8 @@ struct ResourceAssets: View
             
         }.sheet(isPresented: $isShowingAssets)
         {
-            FullPlayerView()
+            let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
+            FullPlayerView(urlString:urlString)
         }
     }
 }
