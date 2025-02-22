@@ -18,7 +18,6 @@ struct QueryView: View
     
     @State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
-    @State private var isShowingBodySheet = false
     @State private var BodyValue = "None"
     @State private var promptId : Int = 0
     @State private var num:Int = 0
@@ -26,6 +25,10 @@ struct QueryView: View
     
     @Query(filter: #Predicate<SessionEntry> {$0.sessionLabel > 0})
     var sessions:[SessionEntry]
+    
+    @Query private var reminders: [Reminder]
+    @State private var showCreateReminder = false
+    @State private var reminderToEdit: Reminder?
     
     var currentSession:SessionEntry?
     
@@ -43,149 +46,109 @@ struct QueryView: View
     
     var body: some View
     {
-        ZStack
-        {
-            Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
-         
-            VStack
-            {
-                /* Lets disbale the session history view for now
-                if(!isEditing)
-                {
-                    
-                    NavigationLink
-                    {
-                        SessionHistory(sessions:sessions)
-                    }label:
-                    {
-                        let count = sessions.count
-                        Label("Session History count: \(count)", systemImage: "quote.opening")
+        NavigationStack {
+            ZStack {
+                Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
+             
+                VStack {
+                    // Top Navigation Bar
+                    HStack {
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "arrow.left.circle")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            showCreateReminder = true
+                        }) {
+                            Image(systemName: "bell.badge")
+                                .font(.title2)
+                                .foregroundColor(.blue)
+                        }
+                        .padding(.trailing)
                     }
-                    .buttonStyle(.bordered)
-                    .frame(maxWidth:.infinity, alignment: .trailing)
-                    .padding(.horizontal)
-                }
-                else
-                {
-                    let v = currentSession!.timestamp
-                    Text(v, style:.date)
-                }*/
-                
-                VStack
-                {
-                    Text("Generate")
-                        .foregroundColor(.black)
-                        .font(.openSansSemiBold(size: 35))
-                        .frame(width:350, alignment: .leading)
-                        .multilineTextAlignment(.leading)
+                    .padding(.top, 20)
                     
-                    Text("Utilize the events of your week as grist for the mill")
-                        .foregroundColor(.black)
-                        .font(.openSansSemiBold(size: 23))
-                        .frame(width:350, alignment: .trailing)
-                        .multilineTextAlignment(.trailing)
-                }
-                
-                Spacer().frame(height:30)
-                
-                HStack
-                {
-                    HStack
-                    {
-                        Spacer().frame(width:50)
-                        ScrollView()
-                        {
-                            // Reduce the spacing after logo
-                            Image("journal_blank")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 340)
-                                .opacity(0.0)  // Make invisible but preserve space
-                                .frame(height: 80)  // Reduced from 150 to 80
+                    // Content Area
+                    TabView {
+                        // Journal Tab
+                        VStack {
+                            Text("Generate")
+                                .foregroundColor(.black)
+                                .font(.openSansSemiBold(size: 35))
+                                .frame(width:350, alignment: .leading)
+                                .multilineTextAlignment(.leading)
                             
-                            ForEach(globalCluster.promptEntries) { pBox in
-                                HStack {
-                                    Button {
-                                        globalCluster.selectedEntry = pBox
-                                        isShowingEditorSheet = true
-                                    } label: {
-                                        boxStackViewClear(
-                                            bodyText: pBox.promptQuestion,
-                                            iconName: "airplayvideo.circle.fill",
-                                            boxHeight: 70,
-                                            backColor: Color.white,
-                                            answerText: pBox.promptAnswer)
-                                    }
-                                    
-                                    // Add feelings wheel icon for emotion-related prompts
-                                    if pBox.promptQuestion.lowercased().contains("emotions") ||
-                                       pBox.promptQuestion.lowercased().contains("feeling") {
-                                        NavigationLink(destination: 
-                                            FeelingsWheelContainerView(onFeelingSelected: { feeling in
-                                                if let index = globalCluster.promptEntries.firstIndex(where: { $0.id == pBox.id }) {
-                                                    globalCluster.promptEntries[index].promptAnswer = feeling
-                                                }
-                                                dismiss()
-                                            })
-                                        ) {
-                                            Image("feelings_wheel_icon")
-                                                .resizable()
-                                                .frame(width: 25, height: 25)
-                                                .foregroundColor(.black)
+                            Text("Utilize the events of your week as grist for the mill")
+                                .foregroundColor(.black)
+                                .font(.openSansSemiBold(size: 23))
+                                .frame(width:350, alignment: .trailing)
+                                .multilineTextAlignment(.trailing)
+                            
+                            Spacer().frame(height:30)
+                            
+                            // Journal content
+                            ScrollView {
+                                VStack(spacing: 30) {
+                                    ForEach(globalCluster.promptEntries) { pBox in
+                                        Button {
+                                            globalCluster.selectedEntry = pBox
+                                            isShowingEditorSheet = true
+                                        } label: {
+                                            boxStackViewClear(
+                                                bodyText: pBox.promptQuestion,
+                                                answerText: pBox.promptAnswer
+                                            )
                                         }
-                                        .padding(.leading, 8)
+                                        .buttonStyle(PlainButtonStyle())
                                     }
                                 }
-                                
-                                Spacer().frame(height: 25)
+                                .padding(.vertical, 40)
                             }
-                            
-                            Spacer()
-                        }.background()
-                        {
-                            Image("journal_blank").resizable().scaledToFit().frame(width:340)
+                            .background(
+                                Image("journal_blank")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 340)
+                            )
+                        }
+                        
+                        // Reminders List
+                        VStack {
+                            List {
+                                ForEach(reminders) { reminder in
+                                    ReminderRow(reminder: reminder, context: context, reminderToEdit: $reminderToEdit)
+                                }
+                            }
                         }
                     }
-                    
-                    Button()
-                    {
-                        isShowingBodySheet = true
-                    }
-                    label:
-                    {
-                        VStack
-                        {
-                            Image("body_picker").resizable().frame(width:37, height:50)
-                            Text("\(self.BodyValue)")
-                        }.offset(x:-15)
-                    }
+                    .tabViewStyle(.page)  // Change to page style
+                    .indexViewStyle(.page(backgroundDisplayMode: .always))
                 }
-                
-            }.sheet(isPresented : $isShowingBodySheet)
-            {
-                BodyImage(bodyvalue:self.$BodyValue)
             }
-            .sheet(isPresented : $isShowingEditorSheet)
-            {
-                //if let uBox = selectedBox
-                //{
-                //addEditorSheet(boxes:$promptBoxes,
-                               //promptEntry: promptBoxes.selectedEntry,
-                               //currentSession: currentSession)
-                
-                addEditorSheet(promptEntry: globalCluster.selectedEntry,
-                               currentSession: currentSession)
-                
-                
-                //promptBoxes[selectedBox.promptID].promptAnswer = selectedBox.promptAnswer
-                //}
-                //else
-                //{
-                //    addEditorSheet(promptText: "Invalid current box", promptId: $promptId,
-                //               currentSession: currentSession)
-                //}
+            .navigationBarHidden(true)  // This hides the navigation bar
+        }
+        .sheet(isPresented: $isShowingEditorSheet) {
+            NavigationStack {
+                addEditorSheet(
+                    promptEntry: globalCluster.selectedEntry,
+                    currentSession: currentSession
+                )
             }
-        }.onAppear()
+        }
+        .sheet(isPresented: $showCreateReminder) {
+            CreateReminderView()
+        }
+        .sheet(item: $reminderToEdit) { reminder in
+            UpdateReminderView(reminder: reminder)
+        }
+        .onAppear()
         {
             globalCluster.promptEntries[0].promptAnswer = ""
             globalCluster.promptEntries[0].journalEntry = nil
@@ -219,16 +182,6 @@ struct QueryView: View
                 print("Family: \(family) Font names: \(names)")
             }
         }
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Label("Back", systemImage: "arrow.left.circle")
-                        }
-                    }
-                }
     }
 }
 

@@ -11,6 +11,10 @@ struct addEditorSheet: View {
     
     @State private var entry: String = ""
     @State private var data: Date = .now
+    @State private var isShowingFeelingsWheel = false
+    @State private var isShowingBodySheet = false
+    @State private var isShowingReminderSheet = false
+    @State private var bodyValue = "None"
     
     var body: some View {
         NavigationStack {
@@ -23,6 +27,62 @@ struct addEditorSheet: View {
                     .background(Color(.systemGray6))
                     .cornerRadius(12)
                     .padding(.horizontal)
+                
+                // Helper tools row
+                HStack(spacing: 20) {
+                    // Feelings Wheel Button
+                    Button {
+                        isShowingFeelingsWheel = true
+                    } label: {
+                        VStack {
+                            Image("feelings_wheel_icon")
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                            Text("Emotions")
+                                .font(.custom("OpenSans-Regular", size: 12))
+                        }
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(color: .black.opacity(0.1), radius: 2)
+                    
+                    // Body Picker Button
+                    Button {
+                        isShowingBodySheet = true
+                    } label: {
+                        VStack {
+                            Image("body_picker")
+                                .resizable()
+                                .frame(width: 30, height: 40)
+                            Text("Body")
+                                .font(.custom("OpenSans-Regular", size: 12))
+                        }
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(color: .black.opacity(0.1), radius: 2)
+                    
+                    // Add Reminder Button
+                    Button {
+                        isShowingReminderSheet = true
+                    } label: {
+                        VStack {
+                            Image(systemName: "bell.badge.fill")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: 30, height: 30)
+                            Text("Reminder")
+                                .font(.custom("OpenSans-Regular", size: 12))
+                        }
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(color: .black.opacity(0.1), radius: 2)
+                }
+                .padding(.horizontal)
                 
                 // Text input area
                 VStack(alignment: .leading, spacing: 8) {
@@ -88,6 +148,18 @@ struct addEditorSheet: View {
                     .foregroundColor(.blue)
                 }
             }
+        }
+        .sheet(isPresented: $isShowingFeelingsWheel) {
+            FeelingsWheelContainerView(onFeelingSelected: { feeling in
+                entry += feeling.isEmpty ? feeling : "\n" + feeling
+                isShowingFeelingsWheel = false
+            })
+        }
+        .sheet(isPresented: $isShowingBodySheet) {
+            BodyImage(bodyvalue: $bodyValue)
+        }
+        .sheet(isPresented: $isShowingReminderSheet) {
+            CreateReminderView()
         }
         .onAppear {
             if let e = globalCluster.selectedEntry.journalEntry {
@@ -160,37 +232,48 @@ struct boxStackViewNoTitle: View
 
 struct boxStackViewClear: View {
     var bodyText = ""
-    var iconName = "tram.circle.fill"
-    var boxHeight = 200.0
-    var backColor = Color.red
     var answerText = ""
     
     var body: some View {
-        VStack(spacing: 8) {
-            ZStack {
-                Rectangle()
-                    .frame(width: 220, height: 40)
-                    .foregroundColor(Color.gray.opacity(0.2))
-                    .cornerRadius(8)
-                
+        VStack(alignment: .leading, spacing: 4) {
+            // Main white container
+            VStack(alignment: .leading, spacing: 8) {
+                // Question text
                 Text(bodyText)
                     .foregroundColor(.black)
-                    .font(.custom("OpenSans-Regular", size: 16))
-                    .padding(8)
-                    .frame(width: 200, alignment: .leading)
+                    .font(.custom("OpenSans-Regular", size: 18))
                     .multilineTextAlignment(.leading)
-                    .lineLimit(3)
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 12)
+                    .fixedSize(horizontal: false, vertical: true) // Allows text to wrap properly
+                
+                // Answer text (if exists)
+                if !answerText.isEmpty {
+                    Text(answerText)
+                        .font(.custom("OpenSans-Regular", size: 14))
+                        .foregroundColor(.gray)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 12)
+                }
             }
-            
-            if !answerText.isEmpty {
-                Text(answerText)
-                    .font(.custom("OpenSans-Regular", size: 14))
-                    .foregroundColor(.gray)
-                    .frame(width: 200, alignment: .leading)
-                    .lineLimit(2)
-            }
+            .frame(width: 260)  // Narrower to avoid spiral
+            .frame(minHeight: 100)  // Taller minimum height
+            .background(
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color.white)
+            )
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.gray.opacity(0.1), lineWidth: 1)
+            )
+            .shadow(
+                color: Color.black.opacity(0.15),
+                radius: 4,
+                x: 0,
+                y: 2
+            )
         }
-        .padding(.horizontal)
+        .padding(.leading, 60)  // More padding to avoid spiral
     }
 }
 

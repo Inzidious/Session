@@ -20,6 +20,7 @@ struct SessionAppApp: App {
                 SessionEntry.self,
                 FeelingEntry.self,
                 JournalEntry.self,
+                Reminder.self,
                 configurations: config
             )
         } catch {

@@ -44,18 +44,18 @@ struct JournalDreamView: View
     // Extract the prompt row into a separate view
     private func PromptRow(pBox: PromptEntry) -> some View {
         HStack {
-            Button {
-                globalCluster.selectedEntry = pBox
-                isShowingEditorSheet = true
-            } label: {
-                boxStackViewClear(
-                    bodyText: pBox.promptQuestion,
-                    iconName: "airplayvideo.circle.fill",
-                    boxHeight: 70,
-                    backColor: Color.clear,
-                    answerText: pBox.promptAnswer)
-            }
-            .frame(maxWidth: .infinity)
+            //Button {
+            //    globalCluster.selectedEntry = pBox
+            //    isShowingEditorSheet = true
+            //} label: {
+            //    boxStackViewClear(
+            //        bodyText: pBox.promptQuestion,
+            //        iconName: "airplayvideo.circle.fill",
+            //        boxHeight: 70,
+            //        //backColor: Color.clear,
+            //        answerText: pBox.promptAnswer)
+           // }
+            //.frame(maxWidth: .infinity)
             
             // Updated condition to match other journals and include both emotions and sensations
             if pBox.promptQuestion.lowercased().contains("emotions") ||

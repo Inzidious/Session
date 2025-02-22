@@ -1,3 +1,7 @@
+// Font support Extension
+// Allows autocompletion for addding fonts to code
+// 2/14/2025
+
 import SwiftUI
 
 extension Font {

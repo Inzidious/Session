@@ -36,7 +36,9 @@ struct JournalView: View
                 //{
                     VStack
                     {
-                        NavigationLink(destination:QueryView(currentSession: newSession).environmentObject(globalCluster))
+                        NavigationLink(destination:QueryView(currentSession: newSession)
+                            .environmentObject(globalCluster)
+                            .navigationBarBackButtonHidden(true))
                         {
                             ZStack
                             {
