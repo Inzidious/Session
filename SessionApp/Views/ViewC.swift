@@ -126,7 +126,7 @@ struct ViewC: View
                     {
                         do
                         {
-                            try await pageNodes = getPageNodes()
+                            try await pageNodes = getExNodes()
                         }
                         catch
                         {}

@@ -33,7 +33,7 @@ func getExNodes() -> [PageNode]
     var res = [PageNode]()
     
     res.append(PageNode(title: "Make Something Out of Your Mental Health Challenges", topic: "https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_1_288x288/public/field_blog_entry_images/2025-02/256px-Charles_Darwin_01.jpg?itok=02idtZFD",
-                        body: ""))
+                        body: "Today the news occured"))
     
     res.append(PageNode(title: "Kinky Eyes Wide Open in the Film Babygirl", topic:
 "https://cdn2.psychologytoday.com/assets/styles/manual_crop_1_1_288x288/public/teaser_image/blog_entry/2025-02/iStock-Fetishiism.jpg?itok=qEb2SdDn",
@@ -44,8 +44,8 @@ func getExNodes() -> [PageNode]
 
 func getPageNodes() async throws -> [PageNode]
 {
-    //let endpoint = "http://144.126.221.170:3000/newsfeed"
-    let endpoint = "http://localhost:3000/newsfeed"
+    let endpoint = "http://144.126.221.170:3000/newsfeed"
+    //let endpoint = "http://localhost:3000/newsfeed"
     //print("HereAPI1")
     guard let url = URL(string:endpoint) else{
         print("URLError")
