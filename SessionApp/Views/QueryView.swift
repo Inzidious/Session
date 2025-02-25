@@ -53,32 +53,43 @@ struct QueryView: View
                 VStack {
                     // Top Navigation Bar
                     HStack {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Image(systemName: "arrow.left.circle")
+                        NavigationLink(destination: ProfileView()) {
+                            Image(systemName: "person.circle.fill")
+                                .scaleEffect(1.9)
                                 .font(.title2)
-                                .foregroundColor(.blue)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(
+                                    Color(red: 225/255, green: 178/255, blue: 107/255),
+                                    Color(red: 249/255, green: 240/255, blue: 276/255)
+                                )
                         }
-                        .padding(.leading)
-                        
+                        .padding(.leading, 25)
                         Spacer()
                         
-                        Button(action: {
-                            showCreateReminder = true
-                        }) {
-                            Image(systemName: "bell.badge")
+                        NavigationLink(destination: CreateReminderView()) {
+                            Image(systemName: "bell.badge.fill")
+                                .scaleEffect(1.3)
                                 .font(.title2)
-                                .foregroundColor(.blue)
+                                .symbolRenderingMode(.palette)
+                                .foregroundStyle(
+                                    Color(red: 249/255, green: 240/255, blue: 276/255),
+                                    Color(red: 225/255, green: 178/255, blue: 107/255)
+                                )
                         }
-                        .padding(.trailing)
                     }
-                    .padding(.top, 20)
+                    .padding(.horizontal, 10)
+                    //.padding(.top, 5)
+                    .padding(.trailing, 25)
+                    .background(
+                        Color(#colorLiteral(red: 0.9803921569, green: 0.9764705882, blue: 0.9647058824, alpha: 1))
+                            .opacity(0.2)
+                            .ignoresSafeArea(edges: .top)
+                    )
                     
                     // Content Area
                     TabView {
                         // Journal Tab
-                        VStack {
+                        VStack(spacing: 1) {
                             Text("Generate")
                                 .foregroundColor(.black)
                                 .font(.openSansSemiBold(size: 35))
@@ -87,36 +98,38 @@ struct QueryView: View
                             
                             Text("Utilize the events of your week as grist for the mill")
                                 .foregroundColor(.black)
-                                .font(.openSansSemiBold(size: 23))
+                                .font(.openSansSemiBold(size: 22))
                                 .frame(width:350, alignment: .trailing)
                                 .multilineTextAlignment(.trailing)
                             
-                            Spacer().frame(height:30)
+                            //Spacer().frame(height:1)
                             
                             // Journal content
-                            ScrollView {
-                                VStack(spacing: 30) {
-                                    ForEach(globalCluster.promptEntries) { pBox in
-                                        Button {
-                                            globalCluster.selectedEntry = pBox
-                                            isShowingEditorSheet = true
-                                        } label: {
-                                            boxStackViewClear(
-                                                bodyText: pBox.promptQuestion,
-                                                answerText: pBox.promptAnswer
-                                            )
-                                        }
-                                        .buttonStyle(PlainButtonStyle())
-                                    }
-                                }
-                                .padding(.vertical, 40)
-                            }
-                            .background(
+                            ZStack(alignment: .top) {
                                 Image("journal_blank")
                                     .resizable()
                                     .scaledToFit()
-                                    .frame(width: 340)
-                            )
+                                    .frame(width: 330)
+                                    .offset(y: 10)
+                                
+                                ScrollView {
+                                    VStack(spacing: 25) {
+                                        ForEach(globalCluster.promptEntries) { pBox in
+                                            Button {
+                                                globalCluster.selectedEntry = pBox
+                                                isShowingEditorSheet = true
+                                            } label: {
+                                                boxStackViewClear(
+                                                    bodyText: pBox.promptQuestion,
+                                                    answerText: pBox.promptAnswer
+                                                )
+                                            }
+                                            .buttonStyle(PlainButtonStyle())
+                                        }
+                                    }
+                                    .padding(.vertical, 25)
+                                }
+                            }
                         }
                         
                         // Reminders List
@@ -205,6 +218,8 @@ struct QueryPreviewContainer: View {
 #Preview {
     QueryPreviewContainer()
 }
+
+
 
 
 

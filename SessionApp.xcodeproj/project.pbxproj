@@ -220,6 +220,7 @@
 		223A8C922D5579A500CE9734 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				29054D5F2BA4D62F003FA7EB /* ViewA.swift */,
 				22E220B72D5583BF007D9216 /* FeelingsWheelViewModel.swift */,
 			);
 			path = ViewModels;
@@ -317,7 +318,6 @@
 				22F6ADD82D49B6BD001669F5 /* Journal_Dream.swift */,
 				223A8C852D55786700CE9734 /* Features */,
 				22F6ADDA2D49B80E001669F5 /* Authentication */,
-				29054D5F2BA4D62F003FA7EB /* ViewA.swift */,
 				22F6ADFE2D51C8EA001669F5 /* Extensions */,
 				29054D612BA4D651003FA7EB /* ViewB.swift */,
 				29054D632BA4D661003FA7EB /* ViewC.swift */,

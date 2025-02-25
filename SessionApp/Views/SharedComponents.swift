@@ -257,7 +257,7 @@ struct boxStackViewClear: View {
                 }
             }
             .frame(width: 260)  // Narrower to avoid spiral
-            .frame(minHeight: 100)  // Taller minimum height
+            .frame(minHeight: 50)  // Taller minimum height
             .background(
                 RoundedRectangle(cornerRadius: 12)
                     .fill(Color.white)

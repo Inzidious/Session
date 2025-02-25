@@ -92,100 +92,96 @@ struct JournalDreamView: View
     
     var body: some View
     {
-        ZStack
-        {
+        VStack(spacing: 0) { // Zero spacing to control layout precisely
+            // Top Navigation Bar
+            HStack {
+                NavigationLink(destination: ProfileView()) {
+                    Image(systemName: "person.circle.fill")
+                        .scaleEffect(1.9)
+                        .font(.title2)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(
+                            Color(red: 225/255, green: 178/255, blue: 107/255),
+                            Color.white  // Changed to white for dark theme
+                        )
+                }
+                .padding(.leading, 5)
+                Spacer()
+                
+                NavigationLink(destination: CreateReminderView()) {
+                    Image(systemName: "bell.badge.fill")
+                        .scaleEffect(1.3)
+                        .font(.title2)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(
+                            Color.white,  // Changed to white for dark theme
+                            Color(red: 225/255, green: 178/255, blue: 107/255)
+                        )
+                }
+            }
+            .padding(.horizontal, 10)
+            .padding(.top, 50)
+            .background(
+                Color.black.opacity(0.2)
+                    .ignoresSafeArea(edges: .top)
+            )
+            
+            // Title and Subtitle
+            Text("Dream")
+                .foregroundColor(.white)
+                .font(.openSansSemiBold(size: 35))
+                .frame(width: 350, alignment: .leading)
+                .multilineTextAlignment(.leading)
+            
+            Text("Plant seeds for what is growing")
+                .foregroundColor(.white)
+                .font(.openSansSemiBold(size: 22))
+                .frame(width: 350, alignment: .trailing)
+                .multilineTextAlignment(.trailing)
+            
+            // Journal content with notebook background
+            ZStack(alignment: .top) {
+                Image("journal_blank_dark")  // Using dark theme notebook
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 330)
+                    .offset(y: 10)
+                
+                ScrollView {
+                    VStack(spacing: 25) {
+                        ForEach(globalCluster.promptEntries) { pBox in
+                            Button {
+                                globalCluster.selectedEntry = pBox
+                                isShowingEditorSheet = true
+                            } label: {
+                                boxStackViewClear(
+                                    bodyText: pBox.promptQuestion,
+                                    answerText: pBox.promptAnswer
+                                )
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .padding(.vertical, 25)
+                }
+            }
+        }
+        .background(
             Image("Star_Background")
                 .resizable()
                 .scaledToFill()
                 .edgesIgnoringSafeArea(.all)
-         
-            VStack
-            {
-                /* Lets disbale the session history view for now
-                if(!isEditing)
-                {
-                    
-                    NavigationLink
-                    {
-                        SessionHistory(sessions:sessions)
-                    }label:
-                    {
-                        let count = sessions.count
-                        Label("Session History count: \(count)", systemImage: "quote.opening")
-                    }
-                    .buttonStyle(.bordered)
-                    .frame(maxWidth:.infinity, alignment: .trailing)
-                    .padding(.horizontal)
-                }
-                else
-                {
-                    let v = currentSession!.timestamp
-                    Text(v, style:.date)
-                }*/
-                
-                VStack {
-                    Text("Dream")
-                        .foregroundColor(.white)
-                        .font(.openSansSemiBold(size: 35))
-                        .frame(width:350, alignment: .leading)
-                        .multilineTextAlignment(.leading)
-                    
-                    Text("Plant seeds for what is growing")
-                        .foregroundColor(.white)
-                        .font(.openSansSemiBold(size: 23))
-                        .frame(width:350, alignment: .trailing)
-                        .multilineTextAlignment(.trailing)
-                }
-                
-                Spacer().frame(height:10)  // Keep minimal space after title
-                
-                // Notebook section
-                GeometryReader { geometry in
-                    ScrollView {
-                        VStack(spacing: 20) {
-                            // Increase top padding to avoid logo overlap
-                            Spacer().frame(height: 100)  // Increased from 60
-                            
-                            ForEach(globalCluster.promptEntries) { pBox in
-                                PromptRow(pBox: pBox)
-                            }
-                            
-                            Spacer().frame(height: 40)
-                        }
-                    }
-                    .background(
-                        Image("journal_blank_dark")  // Updated image name to match new dark version
-                            .resizable()
-                            .scaledToFit()
-                            .frame(maxHeight: geometry.size.height * 0.95)
-                    )
-                    .frame(width: geometry.size.width * 0.9)
-                }
-            }.sheet(isPresented : $isShowingBodySheet)
-            {
-                BodyImage(bodyvalue:self.$BodyValue)
+        )
+        .navigationBarHidden(true)
+        .sheet(isPresented: $isShowingEditorSheet) {
+            NavigationStack {
+                addEditorSheet(
+                    promptEntry: globalCluster.selectedEntry,
+                    currentSession: currentSession
+                )
             }
-            .sheet(isPresented : $isShowingEditorSheet)
-            {
-                //if let uBox = selectedBox
-                //{
-                //addEditorSheet(boxes:$promptBoxes,
-                               //promptEntry: promptBoxes.selectedEntry,
-                               //currentSession: currentSession)
-                
-                addEditorSheet(promptEntry: globalCluster.selectedEntry,
-                               currentSession: currentSession)
-                
-                
-                //promptBoxes[selectedBox.promptID].promptAnswer = selectedBox.promptAnswer
-                //}
-                //else
-                //{
-                //    addEditorSheet(promptText: "Invalid current box", promptId: $promptId,
-                //               currentSession: currentSession)
-                //}
-            }
-        }.onAppear()
+        }
+        .onAppear()
         {
             globalCluster.promptEntries[0].promptAnswer = ""
             globalCluster.promptEntries[0].journalEntry = nil

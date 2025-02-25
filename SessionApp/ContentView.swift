@@ -17,8 +17,14 @@ struct ContentView: View {
             ViewC()
                 .tabItem
                 {
-                    Image(systemName: "house.circle.fill")
+                    Image(systemName: "heart.circle")
                     Text("Home")
+                }
+            ViewA()
+                .tabItem()
+                {
+                    Image(systemName:"heart.fill")
+                    Text("Resources")
                 }
             ViewB()
                 .tabItem()
@@ -26,18 +32,14 @@ struct ContentView: View {
                     Image(systemName: "map.circle.fill")
                     Text("Tracking")
                 }
-            ViewA()
-                .tabItem()
-                {
-                    Image(systemName:"slider.horizontal.3")
-                    Text("Resources")
-                }
+            
             CommunityView()
                 .tabItem()
                 {
-                    Image(systemName:"person.2.fill")
+                    Image(systemName:"globe.americas.fill")
                     Text("Community")
                 }
+        
         }
     }
 }

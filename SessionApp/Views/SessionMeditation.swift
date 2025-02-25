@@ -20,68 +20,96 @@ struct SessionMeditation: View {
     }
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                // Header
-                HStack {
-                    // Left padding with specific width
-                    Spacer().frame(width: 60)  // This creates 60 points of space from the left edge
-                    
-                    NavigationLink(destination: ProfileView()) {
-                        Image(systemName: "person.circle.fill")
-                            .font(.title2)
-                            .foregroundColor(Color(.systemBrown).opacity(0.5))
-                            .scaleEffect(2.0)
-                    }
-                    
-                    Spacer()
-                    
-                    // Right-aligned logo
-                    Image("header_meditation")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(height: 45)  // Make it larger
-                        .padding(.trailing, 50)  // Push it right but leave space for menu
-                    
-                    // Menu button
-                    Button(action: {}) {
-                        Image(systemName: "line.3.horizontal")
-                            .font(.title2)
-                    }
+        VStack(spacing: 10) {
+            // Top icons HStack - kept in safe area
+            HStack {
+                NavigationLink(destination: ProfileView()) {
+                    Image(systemName: "person.circle.fill")
+                        .scaleEffect(1.9)
+                        .font(.title2)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(
+                            Color(red: 225/255, green: 178/255, blue: 107/255),
+                            Color(red: 249/255, green: 240/255, blue: 276/255)
+                        )
                 }
-                .padding()
-                .background(Color.white)
+                .padding(.leading, 25)
+                Spacer()
                 
-                // Category bar with tan background
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(Category.allCases, id: \.self) { category in
-                            AudioCategoryButton(
-                                title: category.rawValue,
-                                isSelected: category == selectedCategory
-                            ) {
-                                selectedCategory = category
-                            }
-                        }
-                    }
-                    .padding(.horizontal)
+                NavigationLink(destination: CreateReminderView()) {
+                    Image(systemName: "bell.badge.fill")
+                        .scaleEffect(1.3)
+                        .font(.title2)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(
+                            Color(red: 249/255, green: 240/255, blue: 276/255),
+                            Color(red: 225/255, green: 178/255, blue: 107/255)
+                        )
                 }
-                .background(Color(.systemBrown).opacity(0.2))
-                
-                // Session List
-                ScrollView {
-                    LazyVStack(spacing: 15) {
-                        ForEach(filteredAssets) { asset in
-                            AudioSessionCard(asset: asset)
-                        }
-                    }
-                    .padding()
-                }
-
-                
             }
-            .background(Color(#colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1)))
+            .padding(.horizontal, 10)
+            //.padding(.top, 5)
+            .padding(.trailing, 25)
+            .background(
+                Color(#colorLiteral(red: 0.9803921569, green: 0.9764705882, blue: 0.9647058824, alpha: 1))
+                    .opacity(0.2)
+                    .ignoresSafeArea(edges: .top)
+            )
+            
+            // Custom back button below the top icons
+            HStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.left.circle")
+                            .font(.title2)
+                            .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                            .scaleEffect(1.25)
+                    }
+                }
+                .padding(.leading, 10)
+                Spacer()
+            }
+            .padding(.top, 5)
+            
+            // Header image
+            Image("header_meditation")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 45 * 1.25)
+                .scaleEffect(1.25)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .padding(.trailing, 20)
+            
+            // Category bar with tan background
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 20) {
+                    ForEach(Category.allCases, id: \.self) { category in
+                        AudioCategoryButton(
+                            title: category.rawValue,
+                            isSelected: category == selectedCategory
+                        ) {
+                            selectedCategory = category
+                        }
+                    }
+                }
+                .padding(.horizontal)
+            }
+            .background(Color(#colorLiteral(red: 0.631372549, green: 0.7450980392, blue: 0.5843137255, alpha: 1)).opacity(0.2))
+            
+            // Session List
+            ScrollView {
+                LazyVStack(spacing: 15) {
+                    ForEach(filteredAssets) { asset in
+                        AudioSessionCard(asset: asset)
+                    }
+                }
+                .padding(.horizontal)
+            }
         }
+        .navigationBarHidden(true)
+        .background(Color(#colorLiteral(red: 0.9803921569, green: 0.9764705882, blue: 0.9647058824, alpha: 1)))
     }
 }
 

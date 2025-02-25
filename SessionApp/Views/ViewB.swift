@@ -28,19 +28,33 @@ struct ViewB: View
                 VStack
                 {
                     HStack {
-                        NavigationLink {
-                            ProfileView()
-                        } label: {
+                        NavigationLink(destination: ProfileView()) {
                             Image(systemName: "person.circle.fill")
+                                .scaleEffect(1.9)
                                 .font(.title2)
-                                .scaleEffect(2.5)
-                                .foregroundColor(Color(.systemBrown).opacity(0.5))
+                                .symbolRenderingMode(.palette) // Enable multi-color support
+                                .foregroundStyle(
+                                    Color(red: 225/255, green: 178/255, blue: 107/255), // Foreground color
+                                    Color(red: 249/255, green: 240/255, blue: 276/255)  // Background color
+                                )
                         }
-                        .padding(.leading, 60)
-                        
+                        .padding(.leading, 20)
                         Spacer()
+                        
+                        NavigationLink(destination: CreateReminderView()) {
+                            Image(systemName: "bell.badge.fill")
+                                .scaleEffect(1.3)
+                                .font(.title2)
+                                .symbolRenderingMode(.palette) // Enable multi-color support
+                                .foregroundStyle(
+                                    Color(red: 249/255, green: 240/255, blue: 276/255), // Foreground color
+                                    Color(red: 225/255, green: 178/255, blue: 107/255)// Background color
+                                )
+                                    
+                        }
                     }
-                    .padding(.top, 5)
+                    .padding(.horizontal, 20)
+                    .padding(.trailing, 20)
                     
                     Spacer()
                     Text("Tracking")

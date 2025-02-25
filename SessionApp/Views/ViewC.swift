@@ -35,103 +35,113 @@ struct ViewC: View
             ZStack
             {
                 Rectangle().fill(Color("BGRev1"))
-                VStack //NavigationStack
-                {
-                    HStack {
-                        NavigationLink(destination: ProfileView()) {
-                            Image(systemName: "person.circle.fill")
-                                .font(.title2)
-                                .scaleEffect(2.5)
-                                .foregroundColor(Color(.systemBrown).opacity(0.5))
-                        }
-                        .padding(.leading, 60)
-                        
-                        Spacer()
-                    }
-                    .padding(.top, 60)
-                    
-                    VStack
+                ScrollView {
+                    VStack //NavigationStack
                     {
-                        Spacer().frame(height:75)
-                        
-                        if(user != nil)
-                        {
-                            Text("Welcome back, " + (user?.firstName! ?? "Jane Doe") + "!")
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .font(Font.custom("Roboto", size:28))
-                        }
-                        
-                        LazyVGrid(columns:adaptiveColumns,
-                                  spacing:40)
-                        {
-                            /*smallBoxStack()
-                             smallBoxStack(boxText: "Breath")
-                             smallBoxStack(boxText: "Meditation")
-                             smallBoxStack(boxText: "Focus")*/
+                        HStack {
+                            NavigationLink(destination: ProfileView()) {
+                                Image(systemName: "person.circle.fill")
+                                    .scaleEffect(1.9)
+                                    .font(.title2)
+                                    .symbolRenderingMode(.palette) // Enable multi-color support
+                                    .foregroundStyle(
+                                        Color(red: 225/255, green: 178/255, blue: 107/255), // Foreground color
+                                        Color(red: 249/255, green: 240/255, blue: 276/255)  // Background color
+                                    )
+                            }
+                            .padding(.leading, 50)
+                            Spacer()
                             
-                            NavigationLink(destination:JournalView())
+                            NavigationLink(destination: CreateReminderView()) {
+                                Image(systemName: "bell.badge.fill")
+                                    .scaleEffect(1.3)
+                                    .font(.title2)
+                                    .symbolRenderingMode(.palette) // Enable multi-color support
+                                    .foregroundStyle(
+                                        Color(red: 249/255, green: 240/255, blue: 276/255), // Foreground color
+                                        Color(red: 225/255, green: 178/255, blue: 107/255)// Background color
+                                    )
+                                        
+                            }
+                        }
+                        .padding(.horizontal, 30)
+                        .padding(.top, 30)
+                        .padding(.trailing, 50)
+                        
+                        VStack
+                        {
+                            Spacer().frame(height:75)
+                            
+                            if(user != nil)
                             {
-                                smallBoxImage().padding(.leading, 50)
+                                Text("Welcome back, " + (user?.firstName! ?? "Shauna") + "!")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                    .font(.openSansSoftBold(size: 28))
                             }
                             
-                            Spacer().frame(width: 5)
-                            
-                            NavigationLink(destination: SessionListView(
-                                assetCategory: .constant(""),
-                                assetType: .breathing
-                            )) {
-                                smallBoxImage(boxText: "breath").padding(.trailing, 50)
-                            }
-                            
-                            smallBoxImage(boxText: "movement").padding(.leading, 50)
-                            Spacer().frame(width: 5)
-                            
-                            NavigationLink(destination: SessionMeditation(
-                                assetCategory: .constant("")
-                            )) {
-                                smallBoxImage(boxText: "meditation").padding(.trailing, 50)
-                            }
-                            
-                        }
-                        .padding()
-                        .frame(alignment: .top)
-                        
-                        Image("healthnews")
-                        
-                        if(pageNodes != nil)
-                        {
-                            ForEach(pageNodes!, id: \.self)
-                            { pageNode in
+                            LazyVGrid(columns: [
+                                GridItem(.adaptive(minimum: 130), spacing: 20)
+                            ], spacing: 20) {
+                                NavigationLink(destination:JournalView())
+                                {
+                                    smallBoxImage()
+                                }
                                 
-                                Button()
-                                {
-                                    bodyText = pageNode.body
-                                    newsSheet = true;
-                                    
+                                NavigationLink(destination: SessionListView(
+                                    assetCategory: .constant(""),
+                                    assetType: .breathing
+                                )) {
+                                    smallBoxImage(boxText: "breath")
                                 }
-                                label:
-                                {
-                                    let result = pageNode.title.replacingOccurrences(of: "      ", with: "")
-                                    NewsViewTopic(title:result,
-                                                  imageUrl: pageNode.topic,
-                                                  siteName: pageNode.topic,
-                                                  summary: pageNode.body)
+                                
+                                smallBoxImage(boxText: "movement")
+                                
+                                NavigationLink(destination: SessionMeditation(
+                                    assetCategory: .constant("")
+                                )) {
+                                    smallBoxImage(boxText: "meditation")
                                 }
                             }
-                        }
-                        
-                        Spacer()
-                        
-                    }.task
-                    {
-                        do
+                            .padding(.horizontal, 40)
+                            
+                            Image("healthnews")
+                                .padding(.horizontal, 20)
+                                .padding(.top, 30)
+                                
+                            
+                            if(pageNodes != nil)
+                            {
+                                ForEach(pageNodes!, id: \.self)
+                                { pageNode in
+                                    
+                                    Button()
+                                    {
+                                        bodyText = pageNode.body
+                                        newsSheet = true;
+                                        
+                                    }
+                                    label:
+                                    {
+                                        let result = pageNode.title.replacingOccurrences(of: "      ", with: "")
+                                        NewsViewTopic(title:result,
+                                                      imageUrl: pageNode.topic,
+                                                      siteName: pageNode.topic,
+                                                      summary: pageNode.body)
+                                    }
+                                }
+                            }
+                            
+                            Spacer().frame(height: 90)
+                        }.task
                         {
-                            try await pageNodes = getExNodes()
+                            do
+                            {
+                                try await pageNodes = getExNodes()
+                            }
+                            catch
+                            {}
                         }
-                        catch
-                        {}
                     }
-                    .frame(alignment: .top)
                 }
             }
             .ignoresSafeArea()
@@ -188,7 +198,10 @@ struct smallBoxImage: View
     
     var body: some View
     {
-        Image(boxText).resizable().frame(width:130, height:130)
+        Image(boxText)
+            .resizable()
+            .frame(width: 110, height: 110)
+            .scaledToFit()
     }
 }
 

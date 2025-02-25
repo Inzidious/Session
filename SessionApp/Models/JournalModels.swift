@@ -31,17 +31,17 @@ class PromptCluster : ObservableObject
         switch type {
         case .dream:
             return [
-                "What was the story fo your dream?",
+                "What was the story of your dream?",
                 "Emotions present in your dream?",
                 "Sensations in my body upon waking?",
-                "Who were the characters? Do you know them? if not woh do they remind you of? ",
+                "Who were the characters? Do you know them? if not who do they remind you of? ",
                 "Any symbols, colors, shapes or elements?"
             ]
         case .generate:
             return [
                 "What affeccted me today?",
                 "Emotions I was feeling were?",
-                "Senssations in my body?",
+                "Sensations in my body?",
                 "My thoughts were saying...",
                 "This reminds me of..."
             ]
