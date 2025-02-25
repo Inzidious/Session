@@ -57,11 +57,18 @@ struct ViewB: View
                     .padding(.trailing, 20)
                     
                     Spacer()
-                    Text("Tracking")
-                        .foregroundColor(.black)
-                        .font(.openSansRegular(size: 45))
-                        .padding(20)
-                        .frame(width:350, height:50, alignment: .trailing)
+                    HStack {
+                        Image("icon_tracking")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 50, height: 50)
+                        
+                        Text("Tracking")
+                            .foregroundColor(.black)
+                            .font(.openSansSoftBold(size: 40))
+                    }
+                    .padding(20)
+                    .frame(width:350, height:50, alignment: .trailing)
                     
                     Button()
                     {
@@ -102,9 +109,9 @@ struct ViewB: View
                                 Image("insights")
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                    .frame(width: 35, height: 35)
-                                Text("Insights")
-                                    .font(.openSansRegular(size: 15))
+                                    .frame(width: 55, height: 50)
+                                //Text("Insights")
+                                  //  .font(.openSansRegular(size: 15))
                             }
                         }
                     }
@@ -399,7 +406,7 @@ struct ImageRow: View
     {
         HStack
         {
-            Spacer().frame(width: 20)
+            Spacer().frame(width: 31)
             
             VStack
             {
@@ -430,7 +437,7 @@ struct ImageRow: View
                     .foregroundColor(.black)
                     .font(.openSansRegular(size: 15))
                     .padding(1)
-                    .frame(width:60)
+                    .frame(width:40)
             }
             
             Spacer()
@@ -457,7 +464,7 @@ struct ImageRow: View
                     .frame(width:60)
             }
             
-            Spacer().frame(width: 20)
+            Spacer().frame(width: 30)
         }
     }
 }

@@ -25,6 +25,7 @@
 		2271BE1D2D586B360028A13B /* SessionMeditation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2271BE1C2D586B360028A13B /* SessionMeditation.swift */; };
 		2271BE1F2D586E9F0028A13B /* AudioAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2271BE1E2D586E9F0028A13B /* AudioAsset.swift */; };
 		229CFC712D57E617002594F9 /* Expand_Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229CFC702D57E617002594F9 /* Expand_Journal.swift */; };
+		22A9ED9D2D6E1D86009256A0 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9ED9C2D6E1D86009256A0 /* TermsAndConditionsView.swift */; };
 		22BA58F82D5AEFD700F97579 /* AudioComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BA58F62D5AEFD700F97579 /* AudioComponents.swift */; };
 		22BB02572D5B9DEE00D1C3ED /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB02562D5B9DEE00D1C3ED /* ProfileView.swift */; };
 		22CC6AF52D60001F00D84FC8 /* SessionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CC6AF42D60001F00D84FC8 /* SessionEntry.swift */; };
@@ -104,6 +105,7 @@
 		2271BE1C2D586B360028A13B /* SessionMeditation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionMeditation.swift; sourceTree = "<group>"; };
 		2271BE1E2D586E9F0028A13B /* AudioAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioAsset.swift; sourceTree = "<group>"; };
 		229CFC702D57E617002594F9 /* Expand_Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expand_Journal.swift; sourceTree = "<group>"; };
+		22A9ED9C2D6E1D86009256A0 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		22BA58F62D5AEFD700F97579 /* AudioComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioComponents.swift; sourceTree = "<group>"; };
 		22BB02562D5B9DEE00D1C3ED /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		22CC6AF42D60001F00D84FC8 /* SessionEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionEntry.swift; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 		29054D5E2BA4D5E5003FA7EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				22A9ED9C2D6E1D86009256A0 /* TermsAndConditionsView.swift */,
 				224552F12D6693C600255063 /* CreateReminderView.swift */,
 				224552F22D6693C600255063 /* UpdateReminderView.swift */,
 				224552EB2D6692CA00255063 /* ReminderRow.swift */,
@@ -538,6 +541,7 @@
 				29054D742BBDE517003FA7EB /* APIClient.swift in Sources */,
 				224552F32D6693C600255063 /* CreateReminderView.swift in Sources */,
 				224552F42D6693C600255063 /* UpdateReminderView.swift in Sources */,
+				22A9ED9D2D6E1D86009256A0 /* TermsAndConditionsView.swift in Sources */,
 				223A8C892D5578F200CE9734 /* FeelingSection.swift in Sources */,
 				223A8C8A2D5578F200CE9734 /* Item.swift in Sources */,
 				224552EA2D66923100255063 /* Reminder.swift in Sources */,

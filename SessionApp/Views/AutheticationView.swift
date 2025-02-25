@@ -79,7 +79,9 @@ struct AuthenticationView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                     HStack(spacing: 4) {
-                        Link("Terms of Service", destination: URL(string: "https://your-terms-url.com")!)
+                        NavigationLink("Terms of Service") {
+                            TermsAndConditionsView()
+                        }
                         Text("and")
                         Link("Privacy Policy", destination: URL(string: "https://your-privacy-url.com")!)
                     }

@@ -9,6 +9,7 @@ import SwiftUI
 import Charts
 
 struct InsightsView: View {
+    @Environment(\.dismiss) private var dismiss
     @State var firstActive:Bool = true
     @State var secondActive:Bool = true
     @State var thirdActive:Bool = true
@@ -43,9 +44,23 @@ struct InsightsView: View {
             {
                 HStack
                 {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left.circle")
+                                .font(.title2)
+                                .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                                .scaleEffect(1.25)
+                        }
+                    }
+                    .padding(.leading)
+                    
                     Spacer()
-                    Image("insights").resizable().frame(width:70, height:20)
-                    Text("Insights").font(Font.custom("Roboto", size:45))
+                    Image("icon_tracking").resizable().frame(width:50, height:50
+                                                             
+                    )
+                    Text("Insights").font(Font.custom("OpenSans-Bold", size:45))
                     Spacer().frame(width:40)
                 }
                 
@@ -56,7 +71,7 @@ struct InsightsView: View {
                     HStack()
                     {
                         Spacer().frame(width:35)
-                        Text("Select Time Frame").font(Font.custom("Roboto", size:25))
+                        Text("Select Time Frame").font(Font.custom("OpenSans-Soft-Bold", size:25))
                         Spacer()
                     }
                     HStack
@@ -73,7 +88,7 @@ struct InsightsView: View {
                                     .frame(width:50, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Day").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Day").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -86,10 +101,10 @@ struct InsightsView: View {
                             ZStack
                             {
                                 RoundedRectangle(cornerRadius:10)
-                                    .frame(width:55, height:40)
+                                    .frame(width:58, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Week").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Week").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -102,10 +117,10 @@ struct InsightsView: View {
                             ZStack
                             {
                                 RoundedRectangle(cornerRadius:10)
-                                    .frame(width:60, height:40)
+                                    .frame(width:62, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Month").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Month").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -121,7 +136,7 @@ struct InsightsView: View {
                                     .frame(width:50, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Year").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Year").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -137,14 +152,14 @@ struct InsightsView: View {
                                     .frame(width:80, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Custom").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Custom").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                     }
                     HStack()
                     {
                         Spacer().frame(width:35)
-                        Text("Select Variables").font(Font.custom("Roboto", size:25))
+                        Text("Select Variables").font(Font.custom("OpenSans-Soft-Bold", size:25))
                         Spacer()
                     }
                     HStack
@@ -162,7 +177,7 @@ struct InsightsView: View {
                                     .frame(width:55, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Mood").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Mood").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -179,7 +194,7 @@ struct InsightsView: View {
                                     .frame(width:65, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Sleep").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Sleep").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -196,7 +211,7 @@ struct InsightsView: View {
                                     .frame(width:55, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Food").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Food").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                         
@@ -210,10 +225,10 @@ struct InsightsView: View {
                             ZStack
                             {
                                 RoundedRectangle(cornerRadius:10)
-                                    .frame(width:105, height:40)
+                                    .frame(width:106, height:40)
                                     .foregroundColor(Color(.black).opacity(0.2))
                                 
-                                Text("Movement").font(Font.custom("Roboto", size:20)).foregroundColor(.black)
+                                Text("Movement").font(Font.custom("OpenSans-Soft-Bold", size:20)).foregroundColor(.black)
                             }
                         }
                     }

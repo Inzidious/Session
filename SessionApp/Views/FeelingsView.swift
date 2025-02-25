@@ -48,18 +48,13 @@ struct SleepRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 20) {
             RadioButton(tag: .a, selection: $selectedOption, label: "Great")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "Good")
-            Spacer().frame(width: 30)
             RadioButton(tag: .c, selection: $selectedOption, label: "Low")
-            Spacer().frame(width: 30)
             RadioButton(tag: .d, selection: $selectedOption, label: "None")
-            Spacer().frame(width: 90)
-            
-        }.onChange(of: selectedOption)
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption)
         {   oldValue, newValue in
             
             if( newValue == .a)
@@ -113,18 +108,13 @@ struct FoodRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 20) {
             RadioButton(tag: .a, selection: $selectedOption, label: "Great")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "Good")
-            Spacer().frame(width: 30)
             RadioButton(tag: .c, selection: $selectedOption, label: "Low")
-            Spacer().frame(width: 30)
             RadioButton(tag: .d, selection: $selectedOption, label: "None")
-            Spacer().frame(width: 90)
-            
-        }.onChange(of: selectedOption)
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption)
         {   oldValue, newValue in
             
             if( newValue == .a)
@@ -178,18 +168,13 @@ struct MovementRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 20) {
             RadioButton(tag: .a, selection: $selectedOption, label: "Great")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "Good")
-            Spacer().frame(width: 30)
             RadioButton(tag: .c, selection: $selectedOption, label: "Low")
-            Spacer().frame(width: 30)
             RadioButton(tag: .d, selection: $selectedOption, label: "None")
-            Spacer().frame(width: 90)
-            
-        }.onChange(of: selectedOption)
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption)
         {   oldValue, newValue in
             
             if( newValue == .a)
@@ -242,18 +227,13 @@ struct IrritRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 20) {
             RadioButton(tag: .a, selection: $selectedOption, label: "None")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "Low")
-            Spacer().frame(width: 30)
             RadioButton(tag: .c, selection: $selectedOption, label: "Medium")
-            Spacer().frame(width: 30)
             RadioButton(tag: .d, selection: $selectedOption, label: "High")
-            Spacer().frame(width: 90)
-            
-        }.onChange(of: selectedOption){oldValue, newValue in
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption){oldValue, newValue in
             
             //print("Changing from \(oldValue) to \(newValue)")
         }
@@ -268,18 +248,13 @@ struct MenstRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 5) {
             RadioButton(tag: .a, selection: $selectedOption, label: "Folicular")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "Ovulation")
-            Spacer().frame(width: 30)
             RadioButton(tag: .c, selection: $selectedOption, label: "Luteal")
-            Spacer().frame(width: 30)
             RadioButton(tag: .d, selection: $selectedOption, label: "Menstruation")
-            Spacer().frame(width: 20)
-            
-        }.onChange(of: selectedOption){oldValue, newValue in
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption){oldValue, newValue in
             
             //print("Changing from \(oldValue) to \(newValue)")
         }
@@ -294,14 +269,11 @@ struct MediRow: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 20) {
             RadioButton(tag: .a, selection: $selectedOption, label: "Yes")
-            Spacer().frame(width: 30)
             RadioButton(tag: .b, selection: $selectedOption, label: "No")
-            Spacer().frame(width: 280)
-            
-        }.onChange(of: selectedOption){oldValue, newValue in
+            Spacer(minLength: 20)
+        }.padding(.vertical, 10).padding(.horizontal, 15).onChange(of: selectedOption){oldValue, newValue in
             
             //print("Changing from \(oldValue) to \(newValue)")
         }
@@ -337,8 +309,9 @@ struct TitleBoxSelect: View
         ZStack
         {
             Rectangle()
-                .frame(width:370, height:220)
+                .frame(width:360, height:180)
                 .foregroundColor(Color(.white).opacity(0))
+                .cornerRadius(15.0)
                 .border(Color.black)
             
             VStack
@@ -390,7 +363,7 @@ struct ButtonBlock: View
                 
                 Text(txtName)
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:18))
+                    .font(Font.custom("OpenSans-SemiBold", size:18))
                     .padding(1)
             }
         }
@@ -440,40 +413,41 @@ struct FeelingRow: View
     
     var body: some View
     {
-        HStack
-        {
-            Text(rowTitle)
-                .foregroundColor(.black)
-                .font(.openSansRegular(size: 25))
-                .padding(20)
+        ZStack {
+            RoundedRectangle(cornerRadius: 15)
+                .fill(Color.white.opacity(0.7))
+                .shadow(color: .gray.opacity(0.4), radius: 5, x: 0, y: 2)
             
-            Spacer()
-            
-            Text("Enter Notes")
-                .foregroundColor(.red)
-                .font(.openSansRegular(size: 16))
-            
-            Button()
-            {
-                isShowingFeelingsheet = true
-            }
-        label:
-            {
-                ZStack
+            VStack(spacing: 12) {
+                HStack
                 {
-                    Rectangle()
-                        .frame(width:70, height:35)
-                        .foregroundColor(Color(.gray).opacity(0.1))
-                        .border(Color.black)
-                        .padding(20)
+                    Text(rowTitle)
+                        .foregroundColor(.black)
+                        .font(.openSansRegular(size: 25))
+                        .padding(.leading,10)
+                        .padding(.vertical, 8)
                     
-                    Text("...")
-                        .font(.openSansRegular(size: 45))
+                    Spacer()
+                    
+                    Text("+Notes")
+                        .foregroundColor(.black)
+                        .font(.openSansRegular(size: 16))
+                    
+                    Button()
+                    {
+                        isShowingFeelingsheet = true
+                    }
+                label:
+                    {
+                        Image(systemName: "note.text.badge.plus")
+                            .font(.title2)
+                            .foregroundColor(.black)
+                            .padding(20)
+                    }
                 }
             }
         }
-        .frame(width:400, height:45)
-        .background(Color(.gray).opacity(0.4))
+        .frame(width: UIScreen.main.bounds.width - 40, height: 45)
         .sheet(isPresented : $isShowingFeelingsheet)
         {
             addFeelingSheet()
@@ -514,10 +488,12 @@ struct RadioButton: View
     }
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: 12) {
             circleView
             labelView
+                .padding(.horizontal, 4)
         }
+        .frame(minWidth: 60)
         .contentShape(Rectangle())
         .onTapGesture
         {
@@ -678,25 +654,12 @@ struct ImageRowPicker: View
     
     var body: some View
     {
-        HStack
-        {
+        HStack(spacing: 1) {
             ImageRadioButton(tag: .a, selection: $selectedOption, label: "Stellar", imageName:"stellar")
-            Spacer().frame(width: 1)
             ImageRadioButton(tag: .b, selection: $selectedOption, label: "Great", imageName:"great")
-            Spacer().frame(width: 1)
             ImageRadioButton(tag: .c, selection: $selectedOption, label: "Fair", imageName:"fair")
-            Spacer().frame(width: 1)
             ImageRadioButton(tag: .d, selection: $selectedOption, label: "Bad", imageName:"bad")
-            Spacer().frame(width: 1)
             ImageRadioButton(tag: .e, selection: $selectedOption, label: "Abysmal", imageName:"abysmal")
-            Spacer().frame(width: 1)
-            //RadioButton(tag: .b, selection: $selectedOption, label: "Ovulation")
-            //Spacer().frame(width: 30)
-            //RadioButton(tag: .c, selection: $selectedOption, label: "Luteal")
-            //Spacer().frame(width: 30)
-            //RadioButton(tag: .d, selection: $selectedOption, label: "Menstruation")
-            //Spacer().frame(width: 20)
-            
         }.onChange(of: selectedOption)
         {   oldValue, newValue in
             
@@ -826,85 +789,139 @@ struct FeelingsView: View
         ZStack
         {
             Rectangle()
-                .fill(Color("BGColor"))
+                .fill(Color(#colorLiteral(red: 0.631372549, green: 0.7450980392, blue: 0.5843137255, alpha: 0.8)))
                 .ignoresSafeArea()
             
             VStack(spacing: 0)
             {
                 HStack
                 {
-                    Button
-                    {
+                    Button(action: {
                         dismiss()
+                    }) {
+                        Image(systemName: "trash.fill")
+                            .scaleEffect(1.3)
+                            .font(.title2)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(
+                                Color(red: 249/255, green: 240/255, blue: 276/255),
+                                Color(red: 225/255, green: 178/255, blue: 107/255)
+                            )
                     }
-                label:
-                    {
-                        Text("Cancel")
-                            .font(.openSansRegular(size: 18))
-                    }
+                    .padding(.leading, 75)
+                    .padding(.top, 5)
                     
-                    Button
-                    {
-                        if(!isEditing)
-                        {
+                    Spacer()
+                    
+                    Button {
+                        if(!isEditing) {
                             context.insert(curFeeling)
                             print("inserted!")
                             isEditing = true
                         }
-                        
                         try! context.save()
                         dismiss()
+                    } label: {
+                        Image(systemName: "chart.line.text.clipboard.fill")
+                            .scaleEffect(1.3)
+                            .font(.title2)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(
+                                Color(red: 249/255, green: 240/255, blue: 276/255),
+                                Color(red: 225/255, green: 178/255, blue: 107/255)
+                            )
                     }
-                label:
-                    {
-                        Text("Save")
-                            .font(.openSansRegular(size: 18))
-                    }
-                    
-                    if( isEditing )
-                    {
-                        Button
-                        {
-                            context.delete(curFeeling)
-                            print("deleted")
-                            isEditing = false
-                            try! context.save()
-                            dismiss()
-                        }
-                    label:
-                        {
-                            Text("Delete")
-                                .font(.openSansRegular(size: 18))
-                        }
-                    }
+                    .padding(.trailing, 75)
+                    .padding(.top, 5)
                 }
+                .padding(.bottom, 10)
                 
                 TitleBoxSelect()
                     .environment(curFeeling)
                     .padding(.bottom, 10)
                 
                 ScrollView(showsIndicators: true) {
-                    VStack(spacing: 15) {
+                    VStack(spacing: 20) {
                         Group {
-                            FeelingRow(rowTitle:"Sleep")
-                            SleepRow(feeling:curFeeling)
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Sleep")
+                                SleepRow(feeling: curFeeling)
+                                    .padding(.leading, 20)
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                             
-                            FeelingRow(rowTitle:"Food")
-                            FoodRow(feeling:curFeeling)
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Food")
+                                FoodRow(feeling: curFeeling)
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                             
-                            FeelingRow(rowTitle:"Movement")
-                            MovementRow(feeling:curFeeling)
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Movement")
+                                MovementRow(feeling: curFeeling)
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                             
-                            FeelingRow(rowTitle:"Irritability")
-                            IrritRow()
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Irritability")
+                                IrritRow()
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                             
-                            FeelingRow(rowTitle:"Menstrual Cycle")
-                            MenstRow()
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Menstrual Cycle")
+                                MenstRow()
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                             
-                            FeelingRow(rowTitle:"Medication")
-                            MediRow()
+                            VStack(spacing: 8) {
+                                FeelingRow(rowTitle: "Medication")
+                                MediRow()
+                                    .padding(.horizontal, 30)
+                                    .padding(.bottom, 10)
+                            }
+                            .background(
+                                RoundedRectangle(cornerRadius: 15)
+                                    .fill(Color.white.opacity(0.3))
+                                    .shadow(color: .gray.opacity(0.3), radius: 5, x: 0, y: 2)
+                            )
+                            .padding(.horizontal, 20)
                         }
-                        .padding(.horizontal)
                         
                         Spacer(minLength: 100)
                     }
