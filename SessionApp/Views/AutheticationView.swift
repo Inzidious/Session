@@ -1,17 +1,21 @@
+// Test sync: [current timestamp]
 import SwiftUI
 import AuthenticationServices
+import SwiftData
 
 struct AuthenticationView: View {
-    @Environment(\.modelContext) var context
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var currentUser: CurrentUser?
+    @Binding var user: User
     @Binding var confirmed: Bool
     
     // State for handling authentication flow
     @State private var showEmailSignIn = false
     @State private var authError: Error?
     @State private var showError = false
+    @State private var showTerms = false
+    @State private var showPrivacy = false
     
     var body: some View {
         ZStack {
@@ -79,11 +83,15 @@ struct AuthenticationView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                     HStack(spacing: 4) {
-                        NavigationLink("Terms of Service") {
-                            TermsAndConditionsView()
+                        Button("Terms of Service") {
+                            showTerms = true
                         }
+                        .foregroundColor(.blue)
                         Text("and")
-                        Link("Privacy Policy", destination: URL(string: "https://your-privacy-url.com")!)
+                        Button("Privacy Policy") {
+                            showPrivacy = true
+                        }
+                        .foregroundColor(.blue)
                     }
                     .font(.caption)
                 }
@@ -91,7 +99,13 @@ struct AuthenticationView: View {
             }
         }
         .sheet(isPresented: $showEmailSignIn) {
-            EmailSignInView(currentUser: $currentUser, confirmed: $confirmed)
+            EmailSignInView(user: $user, confirmed: $confirmed)
+        }
+        .sheet(isPresented: $showTerms) {
+            TermsAndConditionsView()
+        }
+        .sheet(isPresented: $showPrivacy) {
+            PrivacyPolicyView()
         }
         .alert("Authentication Error", isPresented: $showError) {
             Button("OK", role: .cancel) {}
@@ -104,23 +118,23 @@ struct AuthenticationView: View {
         switch result {
         case .success(let authorization):
             if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-                // Handle successful sign in
-                let userId = appleIDCredential.user
-                let email = appleIDCredential.email
-                let firstName = appleIDCredential.fullName?.givenName
-                let lastName = appleIDCredential.fullName?.familyName
-                
-                // Create user account
-                let newUser = CurrentUser(
-                    firstName: firstName ?? "User",
-                    lastName: lastName ?? "",
-                    email: email ?? userId,
-                    password: "" // Consider removing password for social auth
+                // Create new User and update GlobalUser
+                let newUser = User(
+                    id: appleIDCredential.user,
+                    email: appleIDCredential.email ?? appleIDCredential.user,
+                    firstName: appleIDCredential.fullName?.givenName,
+                    lastName: appleIDCredential.fullName?.familyName,
+                    authProvider: "apple"
                 )
                 
-                currentUser = newUser
+                // Update both the binding and global user
+                user = newUser
+                GlobalUser.shared.user = newUser
+                
+                // Save to SwiftData
                 context.insert(newUser)
                 try? context.save()
+                
                 confirmed = true
                 dismiss()
             }

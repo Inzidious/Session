@@ -1,17 +1,21 @@
+// Test sync: [current timestamp]
 import SwiftUI
 import AuthenticationServices
+import SwiftData
 
 struct AuthenticationView: View {
-    @Environment(\.modelContext) var context
+    @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var user: User?
+    @Binding var user: User
     @Binding var confirmed: Bool
     
     // State for handling authentication flow
     @State private var showEmailSignIn = false
     @State private var authError: Error?
     @State private var showError = false
+    @State private var showTerms = false
+    @State private var showPrivacy = false
     
     var body: some View {
         ZStack {
@@ -79,9 +83,15 @@ struct AuthenticationView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
                     HStack(spacing: 4) {
-                        Link("Terms of Service", destination: URL(string: "https://your-terms-url.com")!)
+                        Button("Terms of Service") {
+                            showTerms = true
+                        }
+                        .foregroundColor(.blue)
                         Text("and")
-                        Link("Privacy Policy", destination: URL(string: "https://your-privacy-url.com")!)
+                        Button("Privacy Policy") {
+                            showPrivacy = true
+                        }
+                        .foregroundColor(.blue)
                     }
                     .font(.caption)
                 }
@@ -91,27 +101,16 @@ struct AuthenticationView: View {
         .sheet(isPresented: $showEmailSignIn) {
             EmailSignInView(user: $user, confirmed: $confirmed)
         }
+        .sheet(isPresented: $showTerms) {
+            TermsAndConditionsView()
+        }
+        .sheet(isPresented: $showPrivacy) {
+            PrivacyPolicyView()
+        }
         .alert("Authentication Error", isPresented: $showError) {
             Button("OK", role: .cancel) {}
         } message: {
             Text(authError?.localizedDescription ?? "An unknown error occurred")
-        }
-        
-        Button()
-        {
-            dismiss()
-        }
-        label:
-        {
-            ZStack
-            {
-                Rectangle()
-                    .frame(maxWidth:.infinity)
-                    .foregroundColor(Color(.black).opacity(0.5))
-                    .padding(.horizontal, 20)
-                
-                Text("Cancel").font(Font.custom("Roboto", size:25)).foregroundColor(.white)
-            }.frame(height:50)
         }
     }
     
@@ -119,25 +118,23 @@ struct AuthenticationView: View {
         switch result {
         case .success(let authorization):
             if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-                // Handle successful sign in
-                let userId = appleIDCredential.user
-                let email = appleIDCredential.email
-                let firstName = appleIDCredential.fullName?.givenName
-                let lastName = appleIDCredential.fullName?.familyName
-                
-                // Create new User instance - note the capital U
+                // Create new User and update GlobalUser
                 let newUser = User(
-                    id: userId,  // Use the Apple ID as the user ID
-                    email: email ?? userId,
-                    firstName: firstName,
-                    lastName: lastName,
-                    authProvider: "apple"  // Indicate this is an Apple sign-in
+                    id: appleIDCredential.user,
+                    email: appleIDCredential.email ?? appleIDCredential.user,
+                    firstName: appleIDCredential.fullName?.givenName,
+                    lastName: appleIDCredential.fullName?.familyName,
+                    authProvider: "apple"
                 )
                 
-                // Assign to the binding
+                // Update both the binding and global user
                 user = newUser
+                GlobalUser.shared.user = newUser
+                
+                // Save to SwiftData
                 context.insert(newUser)
                 try? context.save()
+                
                 confirmed = true
                 dismiss()
             }
@@ -146,4 +143,4 @@ struct AuthenticationView: View {
             showError = true
         }
     }
-} 
+}

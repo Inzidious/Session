@@ -6,7 +6,7 @@ struct EmailSignInView: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     
-    @Binding var user: User?
+    @Binding var user: User
     @Binding var confirmed: Bool
     
     // Break state into separate declarations
