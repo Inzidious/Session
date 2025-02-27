@@ -3,13 +3,10 @@ import SwiftData
 
 
 struct EmailSignInView: View {
-    @Environment(\.modelContext) var modelContext
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var context
+    @Environment(\.dismiss) private var dismiss
+    @Binding var isAuthenticated: Bool
     
-    @Binding var user: User
-    @Binding var confirmed: Bool
-    
-    // Break state into separate declarations
     @State private var email = ""
     @State private var password = ""
     @State private var showError = false
@@ -55,9 +52,11 @@ struct EmailSignInView: View {
             authProvider: "email"
         )
         
-        user = newUser
-        modelContext.insert(newUser)
-        confirmed = true
+        GlobalUser.shared.user = newUser
+        context.insert(newUser)
+        try? context.save()
+        
+        isAuthenticated = true
         dismiss()
     }
 }

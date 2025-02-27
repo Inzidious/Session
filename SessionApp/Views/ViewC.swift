@@ -19,7 +19,7 @@ struct ViewC: View
     private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
     @StateObject var data = SpaceAPI()
     
-    @State private var user:User? = nil
+    @State private var user: User = GlobalUser.shared.user
     @State private var newUserSheet:Bool = false;
     @State private var _confirmed:Bool = false;
     @State private var newsSheet:Bool = false;
@@ -72,12 +72,9 @@ struct ViewC: View
                         {
                             Spacer().frame(height:75)
                             
-                            if(user != nil)
-                            {
-                                Text("Welcome back, " + (user?.firstName! ?? "Shauna") + "!")
-                                    .frame(maxWidth: .infinity, alignment: .center)
-                                    .font(.openSansSoftBold(size: 28))
-                            }
+                            Text("Welcome back, " + (user.firstName ?? "Guest") + "!")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .font(.openSansSoftBold(size: 28))
                             
                             LazyVGrid(columns: [
                                 GridItem(.adaptive(minimum: 130), spacing: 20)
@@ -147,18 +144,19 @@ struct ViewC: View
             .ignoresSafeArea()
             .onAppear()
             {
-                if(userList.count == 0)
+                if(userList.isEmpty)
                 {
                     newUserSheet = true
                 }
                 else
                 {
-                    self.user = userList[0]
+                    user = userList[0]
+                    GlobalUser.shared.user = userList[0]
                 }
             }
             .sheet(isPresented: $newUserSheet)
             {
-                AuthenticationView(user: $user, confirmed: $_confirmed)
+                AuthenticationView()
             }
             .sheet(isPresented: $newsSheet)
             {

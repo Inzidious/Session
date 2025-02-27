@@ -1,8 +1,3 @@
-// 2/26/2026 Ahmed was working on User Authentication
-// Global User single source of truth
-// User not optional - make sure this does not conflict with Shawn's work
-
-// Test sync: [current timestamp]
 import SwiftUI
 import SwiftData
 import AuthenticationServices

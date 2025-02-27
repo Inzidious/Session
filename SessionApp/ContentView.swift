@@ -11,35 +11,30 @@ import SwiftData
 struct ContentView: View {
     let user: User
     @Query private var users: [User]
+    
     var body: some View {
-        TabView
-        {
+        TabView {
             ViewC()
-                .tabItem
-                {
+                .tabItem {
                     Image(systemName: "heart.circle")
                     Text("Home")
                 }
             ViewA()
-                .tabItem()
-                {
+                .tabItem {
                     Image(systemName:"heart.fill")
                     Text("Resources")
                 }
             ViewB()
-                .tabItem()
-                {
+                .tabItem {
                     Image(systemName: "map.circle.fill")
                     Text("Tracking")
                 }
             
             CommunityView()
-                .tabItem()
-                {
+                .tabItem {
                     Image(systemName:"globe.americas.fill")
                     Text("Community")
                 }
-        
         }
     }
 }

@@ -27,6 +27,10 @@ final class User {
    @Relationship
    var journalEntries: [JournalEntry]?
     
+    // Notification preferences
+    var notificationsEnabled: Bool = false
+    var homescreenNotificationsEnabled: Bool = false
+    
     init(id: String, email: String, firstName: String? = nil, lastName: String? = nil, authProvider: String) {
         self.id = id
         self.email = email

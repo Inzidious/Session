@@ -1,0 +1,30 @@
+{
+    "firstName": "Demo",
+    "lastName": "User",
+    "email": "demo@example.com",
+    "location": "San Francisco, CA",
+    "journalEntries": [
+        {
+            "promptId": 1,
+            "promptAnswer": "Today I felt very productive...",
+            "date": "2024-03-15T10:30:00Z",
+            "sessionID": "session1"
+        }
+    ],
+    "feelingEntries": [
+        {
+            "feeling": "Happy",
+            "intensity": 8,
+            "date": "2024-03-15T15:45:00Z",
+            "notes": "Had a great meditation session"
+        }
+    ],
+    "notifications": [
+        {
+            "title": "Time to Journal",
+            "body": "Take a moment to reflect on your day",
+            "scheduledDate": "2024-03-16T20:00:00Z",
+            "type": "journal"
+        }
+    ]
+} 

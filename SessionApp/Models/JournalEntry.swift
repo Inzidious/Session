@@ -15,6 +15,7 @@ final class JournalEntry
     var promptId:Int
     var promptAnswer:String
     var sessionEntry:SessionEntry?
+    var timestamp: Date
     
     @Relationship(inverse: \User.journalEntries) var user: User?
     
@@ -25,6 +26,7 @@ final class JournalEntry
         self.sessionId = sessionID
         self.sessionEntry = sessionEntry
         self.user = nil
+        self.timestamp = .now
     }
 }
 

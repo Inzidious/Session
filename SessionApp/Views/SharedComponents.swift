@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UserNotifications
 
 struct addEditorSheet: View {
     @EnvironmentObject var globalCluster: PromptCluster
@@ -15,6 +16,7 @@ struct addEditorSheet: View {
     @State private var isShowingBodySheet = false
     @State private var isShowingReminderSheet = false
     @State private var bodyValue = "None"
+    @State private var entryDate: Date = .now
     
     var body: some View {
         NavigationStack {
@@ -171,6 +173,7 @@ struct addEditorSheet: View {
     private func saveEntry() {
         if let currentEntry = promptEntry.journalEntry {
             currentEntry.promptAnswer = entry
+            currentEntry.timestamp = entryDate
             globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
         } else {
             let newEntry = JournalEntry(
@@ -179,12 +182,48 @@ struct addEditorSheet: View {
                 sessionID: currentSession!.sessionID,
                 sessionEntry: currentSession
             )
+            newEntry.timestamp = entryDate
             
             if(globalCluster.selectedEntry.promptID >= 0 && globalCluster.selectedEntry.promptID < 5) {
                 globalCluster.promptEntries[globalCluster.selectedEntry.promptID].promptAnswer = entry
             }
             
             context.insert(newEntry)
+        }
+    }
+    
+    private func scheduleNotification(for reminder: Date, title: String) {
+        guard GlobalUser.shared.user.notificationsEnabled else { return }
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Journal Reminder"
+        content.body = title
+        content.sound = .default
+        // Use active interruption level for non-urgent reminders
+        content.interruptionLevel = .active
+        
+        // Create time-based trigger
+        let triggerDate = Calendar.current.dateComponents(
+            [.year, .month, .day, .hour, .minute],
+            from: reminder
+        )
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: triggerDate,
+            repeats: false
+        )
+        
+        // Create request
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: trigger
+        )
+        
+        // Schedule notification
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            }
         }
     }
 }
