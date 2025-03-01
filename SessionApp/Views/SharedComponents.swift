@@ -19,6 +19,17 @@ struct addEditorSheet: View {
     @State private var entryDate: Date = .now
     
     var body: some View {
+        VStack{
+            if let sesUnwr = GlobalUser.shared.user.sessions
+            {
+                let s:String = "Sessions:" + String(sesUnwr.count)
+                Text(s)
+            }
+            else
+            {
+                Text("no Sessions:")
+            }
+        }
         NavigationStack {
             VStack(spacing: 20) {
                 // Question display
@@ -162,6 +173,17 @@ struct addEditorSheet: View {
         }
         .sheet(isPresented: $isShowingReminderSheet) {
             CreateReminderView()
+        }
+        .onChange(of:bodyValue)
+        {
+            if(entry.isEmpty)
+            {
+                entry += bodyValue
+            }
+            else
+            {
+                entry += " " + bodyValue
+            }
         }
         .onAppear {
             if let e = globalCluster.selectedEntry.journalEntry {

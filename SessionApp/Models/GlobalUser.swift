@@ -14,11 +14,17 @@
 //
 
 import Foundation
+import SwiftData
 
 class GlobalUser {
     static let shared = GlobalUser()
     var user:User
 
+    public func setContext(context:ModelContext)
+    {
+        context.insert(self.user)
+    }
+    
     private init() {
         let defaultUser = User(
             id:"empty",

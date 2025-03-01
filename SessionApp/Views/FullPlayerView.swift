@@ -18,7 +18,9 @@ struct FullPlayerView: View {
     @State private var totalTime: TimeInterval = 0.0
     @State private var currentTime: TimeInterval = 0.0
     
-    public var urlString:String
+    public var assetToPlay:LoadedAsset
+    
+    //public var urlString:String
     
     var body: some View {
         VStack {
@@ -49,13 +51,13 @@ struct FullPlayerView: View {
                 .shadow(color: Color.white, radius: 10, x: -10, y: -10)
                 .padding(.top, 35)
             
-            Text("Inner Space")
+            Text(assetToPlay.title)
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(.black.opacity(0.8))
                 .padding(.top, 25)
             
-            Text("Shauna Berg")
+            Text(assetToPlay.author)
                 .font(.caption)
                 .foregroundColor(.black.opacity(0.8))
                 .padding(.top, 2)
@@ -139,7 +141,7 @@ struct FullPlayerView: View {
     
     private func setupAudio() async throws
     {
-        let url = URL(string: "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3")
+        let url = URL(string: self.assetToPlay.url)
         playerItem = AVPlayerItem(url: url!)
         player = AVPlayer(playerItem: playerItem)
             
@@ -227,6 +229,6 @@ struct ModifiedButtonView: View {
 }
 
 #Preview {
-    let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
-    return FullPlayerView(urlString:urlString)
+    //let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
+    FullPlayerView(assetToPlay:GlobalManifest.shared.manifest[5])
 }

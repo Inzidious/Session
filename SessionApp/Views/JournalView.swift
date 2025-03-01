@@ -20,9 +20,9 @@ struct JournalView: View
     
     init()
     {
-        newSession = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"First")
-        newSession2 = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"Second")
-        newSession3 = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"Third")
+        newSession = SessionEntry(timestamp: .now, sessionLabel: 1, name:"First", user:GlobalUser.shared.user)
+        newSession2 = SessionEntry(timestamp: .now, sessionLabel: 1, name:"Second", user:GlobalUser.shared.user)
+        newSession3 = SessionEntry(timestamp: .now, sessionLabel: 1, name:"Third", user:GlobalUser.shared.user)
     }
     
     var body: some View
@@ -205,7 +205,12 @@ struct boxStackView: View
 
 #Preview {
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
+    let container = try! ModelContainer(for: SessionEntry.self, Reminder.self, configurations: config)
     
-    return JournalView().modelContainer(container)
+    var _ = GlobalUser.shared.setContext(context:container.mainContext)
+    
+    return NavigationView
+    {
+        JournalView()
+    }.modelContainer(container)
 }

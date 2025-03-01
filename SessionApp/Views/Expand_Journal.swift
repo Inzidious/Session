@@ -148,7 +148,7 @@ struct ExpandPreviewContainer: View {
     var body: some View {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try! ModelContainer(for: SessionEntry.self, configurations: config)
-        let session = SessionEntry(timestamp: .now, sessionLabel: 1, entries: [], name:"First")
+        let session = SessionEntry(timestamp: .now, sessionLabel: 1, name:"First", user:GlobalUser.shared.user)
         container.mainContext.insert(session)
         
         return NavigationStack {

@@ -18,7 +18,7 @@ final class User {
     var preferences: String? // Store as JSON string
     
     // Relationships
-    @Relationship
+    @Relationship(deleteRule: .cascade, inverse: \SessionEntry.user)
     var sessions: [SessionEntry]?
     
     @Relationship(deleteRule: .cascade, inverse: \FeelingEntry.user)

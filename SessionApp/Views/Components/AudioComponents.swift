@@ -68,8 +68,7 @@ struct AudioSessionCard: View {
             showingPlayer = true
         }
         .sheet(isPresented: $showingPlayer) {
-            let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
-            FullPlayerView(urlString:urlString)
+            FullPlayerView(assetToPlay:GlobalManifest.shared.manifest[0])
         }
     }
     

@@ -19,6 +19,7 @@ struct ResourceAssets: View
     @Environment(\.dismiss) private var dismiss
     
     @State private var isShowingAssets = false
+    @State private var assetToPlay:LoadedAsset? = nil
     
     @Binding var assetCategory:String
     
@@ -53,15 +54,16 @@ struct ResourceAssets: View
             {
                 List()
                 {
-                    ForEach(0..<11)
-                    { indexer in
+                    ForEach(GlobalManifest.shared.manifest) { asset in
                         Button()
                         {
+                            self.assetToPlay = asset
+                            print("asset:", self.assetToPlay!.url)
                             isShowingAssets = true
                         }
                     label:
                         {
-                            MediaBoxEntry(bodyText: txtString[indexer%4],
+                            MediaBoxEntry(bodyText: asset.title,
                                           imageName:imgString[indexer%4],
                                           boxHeight:110,
                                           backColor:.white)
@@ -108,10 +110,9 @@ struct ResourceAssets: View
             
             Spacer()
             
-        }.sheet(isPresented: $isShowingAssets)
-        {
-            let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
-            FullPlayerView(urlString:urlString)
+        }
+        .sheet(item: $assetToPlay) { asset in
+            FullPlayerView(assetToPlay:asset)
         }
     }
 }
