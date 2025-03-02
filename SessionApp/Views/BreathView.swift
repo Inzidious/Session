@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct BreathView: View {
+    @Environment(\.dismiss) private var dismiss
     
     @State private var duration: CGFloat = 1.0
     @State public var durationUp = 3.0
@@ -26,6 +27,21 @@ struct BreathView: View {
             Rectangle().fill(Color("BGRev1")).ignoresSafeArea()
             
             VStack {
+                // Back button
+                HStack {
+                    Button(action: {
+                        dismiss()
+                    }) {
+                        Image(systemName: "arrow.left.circle")
+                            .font(.title2)
+                            .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                            .scaleEffect(1.25)
+                    }
+                    .padding(.leading, 10)
+                    Spacer()
+                }
+                .padding(.top, 5)
+                
                 // Main content
                 HStack(spacing: 20) {
                     // Left side - Controls
@@ -92,290 +108,52 @@ struct BreathView: View {
                 }
                 
                 Spacer()
-                
-                // Bottom Navigation
-                HStack(spacing: 0) {
-                    ForEach(0..<4, id: \.self) { index in
-                        NavigationLink(destination: destinationView(for: index)) {
-                            VStack {
-                                Image(systemName: iconName(for: index))
-                                Text(tabName(for: index))
-                                    .font(.caption)
-                            }
-                            .foregroundColor(selectedTab == index ? .blue : .gray)
-                            .frame(maxWidth: .infinity)
-                        }
-                    }
-                }
-                .padding(.vertical, 8)
-                .background(Color.white)
             }
-        }
-        .navigationBarHidden(true)
-    }
-    
-    private func destinationView(for index: Int) -> some View {
-        switch index {
-        case 0: return AnyView(ViewC())  // Home
-        case 1: return AnyView(Text("Tracking"))
-        case 2: return AnyView(Text("Resources"))
-        case 3: return AnyView(Text("Community"))
-        default: return AnyView(ViewC())
-        }
-    }
-    
-    private func iconName(for index: Int) -> String {
-        ["house", "chart.bar", "book", "globe"][index]
-    }
-    
-    private func tabName(for index: Int) -> String {
-        ["Home", "Tracking", "Resources", "Community"][index]
-    }
-}
-
-struct BreathViewOld: View
-{
-    @State private var isShowingTop = true
-    @State private var isShowingTrack = false
-    @State private var isShowingCourses = false
-    @State private var isShowingSessions = false
-    @State private var isShowingGroups = false
-    @State private var isShowingPlayer = false
-    
-    var txtString:[String] = ["3 Minutes to Calm",
-                              "Sama Vritti - Even Breath",
-                              "Alternate Nostril Breathing",
-                              "Box Breathing"]
-    
-    var imgString:[String] = ["waves",
-                              "woman_calm",
-                              "medi_sphere",
-                              "box_breathing"]
-    
-    var indexer:Int = 0
-    
-    var body: some View
-    {
-        VStack
-        {
-            Spacer().frame(height:40)
-            
-            ScrollView(.horizontal)
-            {
-                HStack
-                {
-                    Button("Top")
-                    {
-                        isShowingTop = true
-                        isShowingTrack = false
-                        isShowingCourses = false
-                        isShowingSessions = false
-                        isShowingGroups = false
-                    }
-                    Button("Track")
-                    {
-                        isShowingTop = false
-                        isShowingTrack = true
-                        isShowingCourses = false
-                        isShowingSessions = false
-                        isShowingGroups = false
-                    }
-                    Button("Courses")
-                    {
-                        isShowingTop = false
-                        isShowingTrack = false
-                        isShowingCourses = true
-                        isShowingSessions = false
-                        isShowingGroups = false
-                    }
-                    Button("Sessions")
-                    {
-                        isShowingTop = false
-                        isShowingTrack = false
-                        isShowingCourses = false
-                        isShowingSessions = true
-                        isShowingGroups = false
-                    }
-                    Button("Groups")
-                    {
-                        isShowingTop = false
-                        isShowingTrack = false
-                        isShowingCourses = false
-                        isShowingSessions = false
-                        isShowingGroups = true
-                    }
-                    Button("Entertainment")
-                    {}
-                    Button("History")
-                    {}
-                    Button("Entertainment")
-                    {}
-                }
-            }.padding()
-            
-            
-            if(isShowingTop)
-            {
-                List()
-                {
-                    ForEach(0..<11)
-                    { indexer in
-                        Button()
-                        {
-                            isShowingPlayer = true
-                        }
-                    label:
-                        {
-                            MediaBoxEntry(bodyText: txtString[indexer%4],
-                                          imageName:imgString[indexer%4],
-                                          boxHeight:70,
-                                          backColor:.white)
-                        }
-                    }
-                }
-            }
-            
-            if(isShowingTrack)
-            {
-                List()
-                {
-                    ForEach(1..<6)
-                    { _ in
-                        Button()
-                        {
-                            isShowingPlayer = true
-                        }
-                    label:
-                        {
-                            boxStackViewNoTitle(boxHeight:70, backColor:Color("ShGreen"))
-                        }
-                    }
-                }
-            }
-            
-            if(isShowingCourses)
-            {
-                List()
-                {
-                    ForEach(1..<4)
-                    { _ in
-                        Button()
-                        {
-                            isShowingPlayer = true
-                        }
-                    label:
-                        {
-                            boxStackViewNoTitle(boxHeight:70, backColor:Color("ShRed"))
-                        }
-                    }
-                }
-            }
-            
-            Spacer()
-            
-        }.sheet(isPresented: $isShowingPlayer)
-        {
-            let urlString = "https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3"
-            FullPlayerView(urlString:urlString)
         }
     }
 }
 
-struct PlayerView: View {
-    @Environment(\.dismiss) private var dismiss
-    @StateObject var audioPlayerViewModel = AudioPlayerViewModel()
+struct MediaBoxEntry: View {
+    var bodyText = ""
+    var imageName = "play.circle"
+    var boxHeight = 200.0
+    var backColor = Color.red
+    var answerText = ""
     
     var body: some View {
-        VStack {
-              Button(action: {
-                audioPlayerViewModel.playOrPause()
-              }) {
-                Image(systemName: audioPlayerViewModel.isPlaying ? "pause.circle" : "play.circle")
-                  .resizable()
-                  .frame(width: 64, height: 64)
-              }
+        ZStack {
+            Rectangle()
+                .foregroundColor(backColor)
+                .cornerRadius(10)
+                .border(Color.black)
+            
+            HStack {
+                Text(bodyText)
+                    .foregroundColor(.black)
+                    .font(Font.custom("Papyrus", size: 20))
+                    .padding(.leading, 7)
+                
+                Spacer()
+                    
+                VStack {
+                    Image(systemName: "play.circle")
+                    Spacer().frame(height: 10)
+                    Text("2 Min")
+                        .foregroundColor(.black)
+                        .font(Font.custom("Papyrus", size: 15))
+                        .frame(width: 60)
+                }
+                
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .padding(.trailing, 10)
             }
-        Button("Cancel"){ dismiss()}
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 }
 
 #Preview {
     BreathView()
-}
-
-class AudioPlayerViewModel: ObservableObject {
-  var audioPlayer: AVAudioPlayer?
-
-  @Published var isPlaying = false
-
-  init() {
-    if let sound = Bundle.main.path(forResource: "sample-15s", ofType: "mp3") {
-      do {
-        self.audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: sound))
-      } catch {
-        print("AVAudioPlayer could not be instantiated.")
-      }
-    } else {
-      print("Audio file could not be found.")
-    }
-  }
-
-  func playOrPause() {
-    guard let player = audioPlayer else { return }
-
-    if player.isPlaying {
-      player.pause()
-      isPlaying = false
-    } else {
-      player.play()
-      isPlaying = true
-    }
-  }
-}
-
-struct MediaBoxEntry: View
-{
-    var bodyText = ""
-    var imageName = "play.circle"
-    var boxHeight = 200.0;
-    var backColor = Color.red
-    var answerText = ""
-    
-    var body: some View
-    {
-        ZStack
-        {
-            Rectangle()
-            //.frame(width:350, height:boxHeight)
-                .foregroundColor(backColor)
-                .cornerRadius(10)
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
-            
-            HStack
-            {
-                Text(bodyText)
-                    .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:20))
-                    .padding(.leading, 7)
-                    //.frame(width:250, alignment: .bottomLeading)
-                    //.multilineTextAlignment(.leading)
-                
-                Spacer()
-                    
-                VStack
-                {
-                    Image(systemName: "play.circle")
-                    Spacer().frame(height:10)
-                    Text("2 Min")
-                        .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size:15))
-                        .frame(width:60)
-                        
-                }
-                
-                Image(imageName).resizable().frame(width:50, height:50).padding(.trailing, 10)
-            }
-            
-        }.frame(maxWidth:.infinity, alignment: .center)
-    }
 }

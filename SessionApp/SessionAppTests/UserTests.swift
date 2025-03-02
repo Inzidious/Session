@@ -2,21 +2,22 @@ import XCTest
 import SwiftData
 @testable import SessionApp
 
+@MainActor
 final class UserTests: XCTestCase {
     var context: ModelContext!
+    var container: ModelContainer!
     
-    override func setUp() {
-        super.setUp()
+    override func setUp() async throws {
         // Create an in-memory container for testing
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
-        let container = try! ModelContainer(
+        container = try! ModelContainer(
             for: User.self,
             configurations: config
         )
-        context = ModelContainer.shared.mainContext
+        context = container.mainContext
     }
     
-    func testCreateUser() {
+    func testCreateUser() async throws {
         // Given
         let user = User(
             id: "test_id",
@@ -35,7 +36,7 @@ final class UserTests: XCTestCase {
         XCTAssertEqual(user.firstName, "Test")
     }
     
-    func testDemoDataLoading() {
+    func testDemoDataLoading() async throws {
         // Given
         DemoDataLoader.loadDemoUser(context: context)
         
@@ -49,4 +50,4 @@ final class UserTests: XCTestCase {
         XCTAssertEqual(users?.first?.firstName, "Demo")
         XCTAssertNotNil(users?.first?.journalEntries)
     }
-} 
+}

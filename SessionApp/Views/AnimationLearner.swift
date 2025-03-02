@@ -42,7 +42,7 @@ struct InnerCirc:View {
     @State private var color:Color = .blue
     
     var body: some View {
-        Circle().fill(color).frame(width:100)
+        Circle().fill(color).frame(width:50)
         .onAppear()
         {
             withAnimation(.easeIn(duration:durationUp).delay(id == 0 ? 0 : delayUp)){
