@@ -114,46 +114,7 @@ struct BreathView: View {
     }
 }
 
-struct MediaBoxEntry: View {
-    var bodyText = ""
-    var imageName = "play.circle"
-    var boxHeight = 200.0
-    var backColor = Color.red
-    var answerText = ""
-    
-    var body: some View {
-        ZStack {
-            Rectangle()
-                .foregroundColor(backColor)
-                .cornerRadius(10)
-                .border(Color.black)
-            
-            HStack {
-                Text(bodyText)
-                    .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size: 20))
-                    .padding(.leading, 7)
-                
-                Spacer()
-                    
-                VStack {
-                    Image(systemName: "play.circle")
-                    Spacer().frame(height: 10)
-                    Text("2 Min")
-                        .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size: 15))
-                        .frame(width: 60)
-                }
-                
-                Image(imageName)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .padding(.trailing, 10)
-            }
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-}
+
 
 #Preview {
     BreathView()
