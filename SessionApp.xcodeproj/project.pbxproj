@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2225279D2D5FA94D005870FC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2225279C2D5FA94D005870FC /* User.swift */; };
+		22379D8B2D7A4B3600038F7E /* GlobalManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22379D8A2D7A4B3600038F7E /* GlobalManifest.swift */; };
+		22379D8D2D7A4B9F00038F7E /* LoadedAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22379D8C2D7A4B9F00038F7E /* LoadedAsset.swift */; };
 		223A8C892D5578F200CE9734 /* FeelingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A8C872D5578F200CE9734 /* FeelingSection.swift */; };
 		223A8C8A2D5578F200CE9734 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A8C882D5578F200CE9734 /* Item.swift */; };
 		223A8C8F2D55798700CE9734 /* FeelingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A8C8C2D55798700CE9734 /* FeelingDetailView.swift */; };
@@ -97,6 +99,8 @@
 
 /* Begin PBXFileReference section */
 		2225279C2D5FA94D005870FC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		22379D8A2D7A4B3600038F7E /* GlobalManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalManifest.swift; sourceTree = "<group>"; };
+		22379D8C2D7A4B9F00038F7E /* LoadedAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedAsset.swift; sourceTree = "<group>"; };
 		223A8C872D5578F200CE9734 /* FeelingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingSection.swift; sourceTree = "<group>"; };
 		223A8C882D5578F200CE9734 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		223A8C8C2D55798700CE9734 /* FeelingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingDetailView.swift; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 		293517722D4029000089276C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				22379D8A2D7A4B3600038F7E /* GlobalManifest.swift */,
+				22379D8C2D7A4B9F00038F7E /* LoadedAsset.swift */,
 				22D4A7BD2D70F8F80036D704 /* DemoData.swift */,
 				224552E92D66923100255063 /* Reminder.swift */,
 				224552DD2D66888F00255063 /* GlobalUser.swift */,
@@ -577,6 +583,7 @@
 				299BFBE22BDE9CCD00F533A9 /* SessionHistory.swift in Sources */,
 				29054D782BC44510003FA7EB /* NewsView.swift in Sources */,
 				29054D762BC1E84E003FA7EB /* QueryView.swift in Sources */,
+				22379D8B2D7A4B3600038F7E /* GlobalManifest.swift in Sources */,
 				298B04282CAB11DA00954591 /* ResourceAssets.swift in Sources */,
 				299BFBE42BED6D8000F533A9 /* BreathView.swift in Sources */,
 				22BB02572D5B9DEE00D1C3ED /* ProfileView.swift in Sources */,
@@ -585,6 +592,7 @@
 				29054D352B9F88C2003FA7EB /* SessionAppApp.swift in Sources */,
 				22F774452D6FCBE400287F32 /* PersonalInformationView.swift in Sources */,
 				22F6ADDB2D49B80E001669F5 /* AuthenticationView.swift in Sources */,
+				22379D8D2D7A4B9F00038F7E /* LoadedAsset.swift in Sources */,
 				22E220B82D5583CF007D9216 /* FeelingsWheelViewModel.swift in Sources */,
 				22F6ADDD2D49B867001669F5 /* EmailSignInView.swift in Sources */,
 				22A9ED9F2D6ED878009256A0 /* PrivacyPolicyView.swift in Sources */,
