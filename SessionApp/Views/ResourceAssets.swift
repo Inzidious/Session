@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CachedAsyncImage
 import Observation
 
 struct ResourceAssets: View
@@ -58,13 +59,12 @@ struct ResourceAssets: View
                         Button()
                         {
                             self.assetToPlay = asset
-                            print("asset:", self.assetToPlay!.url)
-                            isShowingAssets = true
+                            //isShowingAssets = true
                         }
                     label:
                         {
                             MediaBoxEntry(bodyText: asset.title,
-                                          imageName:imgString[indexer%4],
+                                          imageName:asset.thumbnail,
                                           boxHeight:110,
                                           backColor:.white)
                         }
@@ -116,6 +116,67 @@ struct ResourceAssets: View
         }
     }
 }
+
+struct MediaBoxEntry: View
+{
+    var bodyText = ""
+    var imageName = "play.circle"
+    var boxHeight = 200.0;
+    var backColor = Color.red
+    var answerText = ""
+    
+    var body: some View
+    {
+        ZStack
+        {
+            Rectangle()
+            //.frame(width:350, height:boxHeight)
+                .foregroundColor(backColor)
+                .cornerRadius(10)
+                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+            
+            HStack
+            {
+                Text(bodyText)
+                    .foregroundColor(.black)
+                    .font(Font.custom("Papyrus", size:20))
+                    .padding(.leading, 7)
+                    //.frame(width:250, alignment: .bottomLeading)
+                    //.multilineTextAlignment(.leading)
+                
+                Spacer()
+                    
+                VStack
+                {
+                    Image(systemName: "play.circle")
+                    Spacer().frame(height:10)
+                    Text("2 Min")
+                        .foregroundColor(.black)
+                        .font(Font.custom("Papyrus", size:15))
+                        .frame(width:60)
+                        
+                }
+                
+                CachedAsyncImage(url: URL(string: imageName)) { phase in
+                    if let image = phase.image {
+                        image
+                            .resizable()
+                            //.aspectRatio(contentMode: .fit)
+                    } else if phase.error != nil {
+                        Text("No image available")
+                    } else {
+                        Image(systemName: "photo")
+                    }
+                }
+                .frame(width:50, height:50)
+                .border(Color.gray)
+                .padding(.horizontal, 6)
+            }
+            
+        }.frame(maxWidth:.infinity, alignment: .center)
+    }
+}
+
 
 #Preview {
     struct PreviewWrapper: View {

@@ -22,7 +22,7 @@ class GlobalManifest {
         
         let a2 = LoadedAsset(id:2,
                              title:"Anxiety Reduction",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Anxiety_Reduction.mp3")
@@ -31,7 +31,7 @@ class GlobalManifest {
         
         let a3 = LoadedAsset(id:3,
                              title:"Bedtime Wind Down",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Bedtime_Wind_Down.mp4")
@@ -40,7 +40,7 @@ class GlobalManifest {
         
         let a4 = LoadedAsset(id:4,
                              title:"Container Meditation",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Container_Meditation.m4a")
@@ -49,7 +49,7 @@ class GlobalManifest {
         
         let a5 = LoadedAsset(id:5,
                              title:"Focus Meditation",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Focus_Meditation.mp3")
@@ -58,16 +58,16 @@ class GlobalManifest {
         
         let a6 = LoadedAsset(id:6,
                              title:"Safe Place Sensory Meditation",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
-                             author:"Author",
+                             author:"Shauna Berg",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Safe_Place_Sensory_Meditation.m4a")
         
         manifest.append(a6)
         
         let a7 = LoadedAsset(id:7,
                              title:"Sama Vritti",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Sama_Vritti.m4a")
@@ -76,7 +76,7 @@ class GlobalManifest {
         
         let a8 = LoadedAsset(id:8,
                              title:"Speedy Vinyasa Flow",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/Speedy_vinyasa_flow.mp4")
@@ -85,7 +85,7 @@ class GlobalManifest {
         
         let a9 = LoadedAsset(id:9,
                              title:"Fully Body Strech",
-                             thumbnail:"",
+                             thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                              size:0,
                              author:"Author",
                              url:"https://thereapymuse.sfo2.digitaloceanspaces.com/fully_body_strech.mp4")
@@ -94,7 +94,7 @@ class GlobalManifest {
         
         let a10 = LoadedAsset(id:10,
                             title:"Morning Meditation",
-                            thumbnail:"",
+                            thumbnail:"https://thereapymuse.sfo2.digitaloceanspaces.com/joshua.jpg",
                             size:0,
                             author:"Author",
                             url:"https://thereapymuse.sfo2.digitaloceanspaces.com/morning_meditation.mp4")

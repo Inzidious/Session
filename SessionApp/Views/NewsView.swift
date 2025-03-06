@@ -22,6 +22,8 @@ extension String
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 20))
                 
+                //return image
+                
             }
             else
             {}
@@ -51,6 +53,7 @@ struct NewsView: View
 {
     @Binding var text:String
     @Environment(\.dismiss) private var dismiss
+    @State public var converted:AttributedString?
     
     var body: some View
     {
@@ -75,8 +78,19 @@ struct NewsView: View
         {
             ScrollView
             {
-                Text(text)
+                if let convertedUnwr = converted
+                {
+                    Text(converted!)
+                }
+                else
+                {
+                    
+                }
             }.padding(1)
+        }.onAppear()
+        {
+            let nsresult = GetFormattedBodyString(body:text)
+            converted = AttributedString.init(nsresult!)
         }
     }
 }
@@ -103,7 +117,19 @@ struct NewsViewTopic: View {
                 
                 HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 {
-                    Image(uiImage: imageUrl.load()).resizable().frame(width:50, height:50)
+                    CachedAsyncImage(url: URL(string: imageUrl)) { phase in
+                        if let image = phase.image {
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                        } else if phase.error != nil {
+                            Text("No image available")
+                        } else {
+                            Image(systemName: "photo")
+                        }
+                    }
+                    .frame(width:50, height:50)
+                    .border(Color.gray)
                     
                     Text(title)
                         .font(.headline)

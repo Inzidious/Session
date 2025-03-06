@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AVKit
+import CachedAsyncImage
 
 struct FullPlayerView: View {
     let audioFile = "s_audioknkn"
@@ -25,13 +26,13 @@ struct FullPlayerView: View {
     var body: some View {
         VStack {
             ZStack {
-                HStack {
+                /*HStack {
                     ModifiedButtonView(image: "arrow.left")
                     
                     Spacer()
                     
                     ModifiedButtonView(image: "line.horizontal.3.decrease")
-                }
+                }*/
                 
                 Text("Now Playing")
                     .fontWeight(.bold)
@@ -39,7 +40,30 @@ struct FullPlayerView: View {
             }
             .padding(.all)
             
-            Image("tree")
+            CachedAsyncImage(url: URL(string: assetToPlay.thumbnail)) { phase in
+                if let image = phase.image {
+                    image
+                        .resizable()
+                        .frame(width:150, height:150)
+                        .aspectRatio(contentMode: .fill)
+                        //.padding(.horizontal, 55)
+                        .clipShape(Circle())
+                        .padding(.all, 4)
+                        .background(Color(#colorLiteral(red: 0.8980392157, green: 0.9333333333, blue: 1, alpha: 1)))
+                        .clipShape(Circle())
+                        .shadow(color: Color.black.opacity(0.35), radius: 8, x: 8, y: 8)
+                        .shadow(color: Color.white, radius: 10, x: -10, y: -10)
+                        //.padding(.top, 35)
+                } else if phase.error != nil {
+                    Text("No image available")
+                } else {
+                    Image(systemName: "photo")
+                }
+            }
+            //.frame(width:50, height:50)
+            //.border(Color.gray)
+            
+            /*Image("tree")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .padding(.horizontal, 55)
@@ -49,10 +73,11 @@ struct FullPlayerView: View {
                 .clipShape(Circle())
                 .shadow(color: Color.black.opacity(0.35), radius: 8, x: 8, y: 8)
                 .shadow(color: Color.white, radius: 10, x: -10, y: -10)
-                .padding(.top, 35)
+                .padding(.top, 35)*/
             
             Text(assetToPlay.title)
                 .font(.title)
+                .multilineTextAlignment(.center)
                 .fontWeight(.bold)
                 .foregroundColor(.black.opacity(0.8))
                 .padding(.top, 25)
@@ -81,7 +106,15 @@ struct FullPlayerView: View {
             }
             
             HStack(spacing: 20) {
-                Button(action: {}, label: {
+                Button(action: {
+                    var newTime = currentTime - 20
+                    if newTime < 0 {
+                        newTime = 0
+                    }
+                    
+                    audioTime(to: newTime)
+                    
+                }, label: {
                     ModifiedButtonView(image: "backward.fill")
                 })
                 
@@ -113,13 +146,21 @@ struct FullPlayerView: View {
                     
                 }
                 
-                Button(action: {}, label: {
+                Button {
+                    var newTime = currentTime + 20
+                    if newTime > totalTime{
+                        newTime = totalTime
+                    }
+                    
+                    audioTime(to: newTime)
+                } label: {
                     ModifiedButtonView(image: "forward.fill")
-                })
+                }
+
             }
             .padding(.top, 25)
             Spacer()
-            Button("Cancel"){ dismiss()}
+            Button("Cancel"){dismiss()}
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -201,7 +242,7 @@ struct ModifiedButtonView: View {
     var image: String
     
     var body: some View {
-        Button(action: {}, label: {
+        //Button(action: {}, label: {
             Image(systemName: image)
                 .font(.system(size: 14, weight: .bold))
                 .padding(.all, 25)
@@ -224,7 +265,7 @@ struct ModifiedButtonView: View {
                         .shadow(color: Color(#colorLiteral(red: 0.7608050108, green: 0.8164883852, blue: 0.9259157777, alpha: 1)), radius: 20, x: 20, y: 20)
                         .shadow(color: Color.white, radius: 20, x: -20, y: -20)
                 )
-        })
+        //})
     }
 }
 
