@@ -215,7 +215,7 @@ struct JournalDreamView: View
                 print("Family: \(family) Font names: \(names)")
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(false)
         .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button(action: {

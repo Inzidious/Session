@@ -46,7 +46,7 @@ struct ResourceAssets: View
                 
                 Text("Depression " + assetCategory)
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .font(Font.custom("Papyrus", size:25))
+                    .font(Font.custom("OpenSans", size:25))
             }
         
             Spacer()
@@ -139,7 +139,7 @@ struct MediaBoxEntry: View
             {
                 Text(bodyText)
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:20))
+                    .font(Font.custom("OpenSans", size:18))
                     .padding(.leading, 7)
                     //.frame(width:250, alignment: .bottomLeading)
                     //.multilineTextAlignment(.leading)
@@ -152,7 +152,7 @@ struct MediaBoxEntry: View
                     Spacer().frame(height:10)
                     Text("2 Min")
                         .foregroundColor(.black)
-                        .font(Font.custom("Papyrus", size:15))
+                        .font(Font.custom("OpenSans", size:12))
                         .frame(width:60)
                         
                 }

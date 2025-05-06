@@ -35,8 +35,9 @@ struct ResourceDetails: View {
         VStack
         {
             Text("Depression Resources")
-                .frame(maxWidth: .infinity, alignment: .center)
-                .font(Font.custom("Papyrus", size:28))
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .font(Font.custom("OpenSans-SemiBold", size:24))
+                .padding()
         
             Spacer()
             
@@ -56,7 +57,7 @@ struct ResourceDetails: View {
                     {
                         Text("Top")
                             
-                            .font(Font.custom("Papyrus", size:19))
+                            .font(Font.custom("OpenSans-SemiBold", size:19))
                     }.padding(5)
                     
                     Button
@@ -71,7 +72,7 @@ struct ResourceDetails: View {
                     {
                         Text("Calm")
                             
-                            .font(Font.custom("Papyrus", size:19))
+                            .font(Font.custom("OpenSans-SemiBold", size:19))
                     }
                     
                     Button
@@ -86,7 +87,7 @@ struct ResourceDetails: View {
                     {
                         Text("Energize")
                             
-                            .font(Font.custom("Papyrus", size:19))
+                            .font(Font.custom("OpenSans-SemiBold", size:19))
                     }
                     
                     Button
@@ -101,7 +102,7 @@ struct ResourceDetails: View {
                     {
                         Text("Guided")
                             
-                            .font(Font.custom("Papyrus", size:19))
+                            .font(Font.custom("OpenSans-SemiBold", size:19))
                     }
                     
                     Button
@@ -116,7 +117,7 @@ struct ResourceDetails: View {
                     {
                         Text("Animations")
                             
-                            .font(Font.custom("Papyrus", size:19))
+                            .font(Font.custom("OpenSans-SemiBold", size:19))
                     }
                     
                 }.foregroundStyle(
@@ -219,7 +220,7 @@ struct CategoryBoxEntry: View
             {
                 Text(bodyText)
                     .foregroundColor(.black)
-                    .font(Font.custom("Papyrus", size:30))
+                    .font(Font.custom("OpenSans-SemiBold", size:30))
                     //.frame(alignment: .leading)
                     .padding(10)
                     //.frame(width:250, alignment: .bottomLeading)
