@@ -10,6 +10,7 @@ import AuthenticationServices
 struct AuthenticationView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var authManager: AuthManager
     
     // State for handling authentication flow
     @State private var showEmailSignIn = false
@@ -76,24 +77,21 @@ struct AuthenticationView: View {
                     showEmailSignIn = true
                 } label: {
                     Text("Sign in with Email")
-                        .font(.body.weight(.medium))
-                        .foregroundColor(.primary)
-                }
-                .padding(.top)
-                
-                // Continue as Guest button
-                Button {
-                    showGuestAlert = true
-                } label: {
-                    Text("Continue As Guest")
-                        .font(.body.weight(.medium))
-                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color.blue)
+                        .foregroundColor(.white)
                         .cornerRadius(8)
                 }
                 .padding(.horizontal, 20)
+                
+                // Guest access
+                Button {
+                    showGuestAlert = true
+                } label: {
+                    Text("Continue as Guest")
+                        .foregroundColor(.secondary)
+                }
                 .padding(.top, 20)
                 
                 Spacer()
@@ -139,6 +137,7 @@ struct AuthenticationView: View {
     
     private func createDemoUser() {
         DemoDataLoader.loadDemoUser(context: context)
+        authManager.isLoggedIn = true
         isAuthenticated = true
         dismiss()
     }
@@ -158,6 +157,7 @@ struct AuthenticationView: View {
         context.insert(guestUser)
         try? context.save()
         
+        authManager.isLoggedIn = true
         isAuthenticated = true
         dismiss()
     }
@@ -180,6 +180,7 @@ struct AuthenticationView: View {
                 context.insert(newUser)
                 try? context.save()
                 
+                authManager.isLoggedIn = true
                 isAuthenticated = true
                 dismiss()
             }

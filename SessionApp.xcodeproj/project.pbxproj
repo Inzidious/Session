@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22172B052DCB0321005D7344 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22172B032DCB0321005D7344 /* EventKitUI.framework */; };
+		22172B062DCB0321005D7344 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22172B042DCB0321005D7344 /* EventKit.framework */; };
 		2225279D2D5FA94D005870FC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2225279C2D5FA94D005870FC /* User.swift */; };
 		22379D8B2D7A4B3600038F7E /* GlobalManifest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22379D8A2D7A4B3600038F7E /* GlobalManifest.swift */; };
 		22379D8D2D7A4B9F00038F7E /* LoadedAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22379D8C2D7A4B9F00038F7E /* LoadedAsset.swift */; };
@@ -98,6 +100,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22172B032DCB0321005D7344 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		22172B042DCB0321005D7344 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		2225279C2D5FA94D005870FC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		22379D8A2D7A4B3600038F7E /* GlobalManifest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalManifest.swift; sourceTree = "<group>"; };
 		22379D8C2D7A4B9F00038F7E /* LoadedAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadedAsset.swift; sourceTree = "<group>"; };
@@ -185,6 +189,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22172B052DCB0321005D7344 /* EventKitUI.framework in Frameworks */,
+				22172B062DCB0321005D7344 /* EventKit.framework in Frameworks */,
 				2262C6012D5722BA005B5B58 /* GoogleSignInSwift in Frameworks */,
 				29054D7A2BC44724003FA7EB /* CachedAsyncImage in Frameworks */,
 				2262C5FF2D5722BA005B5B58 /* GoogleSignIn in Frameworks */,
@@ -208,6 +214,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22172B022DCB0321005D7344 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22172B042DCB0321005D7344 /* EventKit.framework */,
+				22172B032DCB0321005D7344 /* EventKitUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		223A8C852D55786700CE9734 /* Features */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +288,7 @@
 				29054D332B9F88C2003FA7EB /* SessionApp */,
 				29054D442B9F88C4003FA7EB /* SessionAppTests */,
 				29054D4E2B9F88C4003FA7EB /* SessionAppUITests */,
+				22172B022DCB0321005D7344 /* Frameworks */,
 				29054D322B9F88C2003FA7EB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -776,15 +792,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMPILER_INDEX_STORE_ENABLE = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1e;
 				DEVELOPMENT_ASSET_PATHS = "\"SessionApp/Preview Content\"";
-				DEVELOPMENT_TEAM = C59RKZM3HY;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SessionApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = mytherapymuse;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -794,9 +811,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = MediaOptimized.SessionApp;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mytherapymuse.SessionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Automatic ";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -808,15 +826,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMPILER_INDEX_STORE_ENABLE = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 1e;
 				DEVELOPMENT_ASSET_PATHS = "\"SessionApp/Preview Content\"";
-				DEVELOPMENT_TEAM = C59RKZM3HY;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = SessionApp/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_CFBundleDisplayName = mytherapymuse;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -826,9 +845,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = MediaOptimized.SessionApp;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mytherapymuse.SessionApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "Automatic ";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

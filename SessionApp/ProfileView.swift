@@ -1,5 +1,6 @@
 import SwiftUI
 import UserNotifications
+import EventKit
 
 struct ProfileView: View {
     // Get the current user from GlobalUser
@@ -7,6 +8,8 @@ struct ProfileView: View {
     @State private var isEditing = false
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @AppStorage("homescreenNotificationsEnabled") private var homescreenNotificationsEnabled = false
+    @State private var calendarAccessGranted: Bool = false
+    private let eventStore = EKEventStore()
     
     var body: some View {
         NavigationView {
@@ -101,6 +104,39 @@ struct ProfileView: View {
                     )
                 }
                 
+                // Calendar & Reminders Section
+                Section {
+                    DisclosureGroup(
+                        content: {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Toggle("Enable Calendar & Reminders", isOn: $calendarAccessGranted)
+                                    .onChange(of: calendarAccessGranted) { newValue in
+                                        if newValue {
+                                            requestCalendarAccess()
+                                        }
+                                    }
+                                
+                                Text("Calendar & Reminders will be used for:")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 8)
+                                
+                                BulletPoint(text: "Syncing reminders with your device")
+                                BulletPoint(text: "Adding journal reminders to your calendar")
+                                
+                                Text("Note: Calendar & Reminders can be customized in device Settings")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 8)
+                            }
+                            .padding(.vertical, 8)
+                        },
+                        label: {
+                            ProfileMenuRow(icon: "calendar", title: "Calendar & Reminders")
+                        }
+                    )
+                }
+                
                 // Menu Items
                 NavigationLink(destination: Text("Wishlist")) {
                     ProfileMenuRow(icon: "globe", title: "Wishlist")
@@ -139,6 +175,14 @@ struct ProfileView: View {
                 DispatchQueue.main.async {
                     notificationsEnabled = false
                 }
+            }
+        }
+    }
+    
+    private func requestCalendarAccess() {
+        eventStore.requestAccess(to: .reminder) { granted, error in
+            DispatchQueue.main.async {
+                calendarAccessGranted = granted
             }
         }
     }

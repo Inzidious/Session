@@ -35,37 +35,69 @@ class SignInCoordinator: NSObject, ASAuthorizationControllerDelegate {
     var feelings: [FeelingEntry]?
     var journalEntries: [JournalEntry]?
 
-struct LoaderView: View 
-{
-    @Environment(\.modelContext) var modelContext
+struct LoaderView: View {
+    @Environment(\.modelContext) private var modelContext
+    @EnvironmentObject var authManager: AuthManager
     @Query private var users: [User]
-    @State private var user: User = GlobalUser.shared.user
-    @State private var newUserSheet = false
-    @State private var logInSheet = false
-    @State private var showView = false
-    @State private var showContent = false
+    @State private var isLoading = true
+    @State private var showError = false
+    @State private var errorMessage = ""
     
-    @State private var showDetails = false
-
-    // Add this property
+    // Add signInCoordinator as a property
     private let signInCoordinator = SignInCoordinator()
-
-    var body: some View
-    {
-        ZStack {
-            if showContent {
-                // We can directly use the user since it's non-optional now
-                ContentView(user: user)
+    
+    var body: some View {
+        Group {
+            if isLoading {
+                // Show loading screen
+                VStack {
+                    Image("res_therapy")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 200)
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .scaleEffect(1.5)
+                        .padding()
+                }
             } else {
-                // Show loading animation
-                LoadingAnimation()
-                    .onAppear {
-                        // Add any initialization logic here
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            self.showContent = true
-                        }
-                    }
+                // Show main content
+                ContentView(user: GlobalUser.shared.user)
+                    .environmentObject(authManager)
             }
+        }
+        .task {
+            do {
+                // Initialize GlobalUser if needed
+                if users.isEmpty {
+                    // Create a default guest user if no users exist
+                    let guestUser = User(
+                        id: "guest_" + UUID().uuidString,
+                        email: "guest@example.com",
+                        firstName: "Guest",
+                        lastName: "User",
+                        authProvider: "guest"
+                    )
+                    GlobalUser.shared.user = guestUser
+                    modelContext.insert(guestUser)
+                    try modelContext.save()
+                } else {
+                    // Use the first user found
+                    GlobalUser.shared.user = users[0]
+                }
+                
+                // Simulate loading time
+                try await Task.sleep(nanoseconds: 2_000_000_000)
+                isLoading = false
+            } catch {
+                errorMessage = "Failed to load: \(error.localizedDescription)"
+                showError = true
+            }
+        }
+        .alert("Error", isPresented: $showError) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(errorMessage)
         }
     }
 

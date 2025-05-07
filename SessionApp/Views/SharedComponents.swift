@@ -1,6 +1,8 @@
 import SwiftUI
 import SwiftData
 import UserNotifications
+import EventKit
+import EventKitUI
 
 struct addEditorSheet: View {
     @EnvironmentObject var globalCluster: PromptCluster

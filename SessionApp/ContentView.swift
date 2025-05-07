@@ -11,30 +11,42 @@ import SwiftData
 struct ContentView: View {
     let user: User
     @Query private var users: [User]
+    @EnvironmentObject var authManager: AuthManager
+    @State private var selectedTab = 0
     
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             ViewC()
+                .environmentObject(authManager)
                 .tabItem {
                     Image(systemName: "heart.circle")
                     Text("Home")
                 }
+                .tag(0)
+            
             ViewA()
+                .environmentObject(authManager)
                 .tabItem {
                     Image(systemName:"heart.fill")
                     Text("Resources")
                 }
+                .tag(1)
+            
             ViewB()
+                .environmentObject(authManager)
                 .tabItem {
                     Image(systemName: "map.circle.fill")
                     Text("Tracking")
                 }
+                .tag(2)
             
             CommunityView()
+                .environmentObject(authManager)
                 .tabItem {
                     Image(systemName:"globe.americas.fill")
                     Text("Community")
                 }
+                .tag(3)
         }
     }
 }
@@ -56,6 +68,7 @@ let previewUser = User(
         configurations: config
     )
     
-    ContentView(user: previewUser)
+    return ContentView(user: previewUser)
         .modelContainer(container)
+        .environmentObject(AuthManager())
 }

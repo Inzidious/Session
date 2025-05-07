@@ -5,6 +5,7 @@ import SwiftData
 struct EmailSignInView: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var authManager: AuthManager
     @Binding var isAuthenticated: Bool
     
     @State private var email = ""
@@ -56,6 +57,7 @@ struct EmailSignInView: View {
         context.insert(newUser)
         try? context.save()
         
+        authManager.isLoggedIn = true
         isAuthenticated = true
         dismiss()
     }

@@ -1,5 +1,6 @@
 import Foundation
 import SwiftData
+import Combine
 
 @Model
 final class User {
@@ -38,4 +39,9 @@ final class User {
         self.lastName = lastName
         self.authProvider = authProvider
     }
+}
+
+class AuthManager: ObservableObject {
+    @Published var isLoggedIn: Bool = false
+    // Optionally, you can add more user/session info here
 } 

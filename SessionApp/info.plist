@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-	<key>GIDClientID</key>
-	<string>59069652308-j3d31qm9gnef849e7400h7fqh8j2234i.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -18,6 +11,13 @@
 			</array>
 		</dict>
 	</array>
+	<key>GIDClientID</key>
+	<string>59069652308-j3d31qm9gnef849e7400h7fqh8j2234i.apps.googleusercontent.com</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AbrilFatface-Regular.ttf</string>

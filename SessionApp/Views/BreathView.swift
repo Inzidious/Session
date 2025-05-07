@@ -38,7 +38,7 @@ struct BreathView: View {
                             .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
                             .scaleEffect(1.25)
                     }
-                    .padding(.leading, 10)
+                    .padding(.leading, 20)
                     Spacer()
                 }
                 .padding(.top, 5)

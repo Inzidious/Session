@@ -11,6 +11,7 @@ import SwiftData
 @main
 struct SessionAppApp: App {
     let container: ModelContainer
+    @StateObject private var authManager = AuthManager()
     
     init() {
         do {
@@ -31,6 +32,7 @@ struct SessionAppApp: App {
     var body: some Scene {
         WindowGroup {
             LoaderView()
+                .environmentObject(authManager)
         }
         .modelContainer(container)
     }
