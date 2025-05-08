@@ -135,17 +135,27 @@ struct JournalView: View
                 Button(action: {
                     dismiss()
                 }) {
-                    Label("Back", systemImage: "arrow.left.circle")
+                    HStack {
+                        Image(systemName: "arrow.left.circle")
+                            .font(.title2)
+                            .foregroundStyle(Color(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745))
+                            
+                    }
                 }
+                .padding(.leading, 10)
             }
             
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink(destination: ProfileView()) {
                     Image(systemName: "person.circle.fill")
+                        .scaleEffect(1.2)
                         .font(.title2)
-                        .scaleEffect(2.5)
-                        .foregroundColor(Color(.systemBrown).opacity(0.5))
-                        .padding(.trailing, 30)
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(
+                            Color(red: 225/255, green: 178/255, blue: 107/255),
+                            Color(red: 249/255, green: 240/255, blue: 276/255)
+                        )
+                        .padding()
                 }
             }
         }

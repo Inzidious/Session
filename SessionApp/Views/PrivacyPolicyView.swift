@@ -8,7 +8,6 @@ struct PrivacyPolicyView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 24) {
                     // Overview Section
-                    
                     Group {
                         SectionView(
                             title: "1. What information do we collect and what do we do with it?",
@@ -56,7 +55,7 @@ struct PrivacyPolicyView: View {
                             For these providers, we recommend that you read their privacy policies so you can understand the manner in which your personal information will be handled by these providers.
                             Certain providers may be located in or have facilities that are located in a different jurisdiction than either you or us. If you elect to proceed with a transaction that involves the services of a third-party service provider, then your information may become subject to the laws of the jurisdiction(s) in which that service provider or its facilities are located.
                             As an example, if you are located in Canada and your transaction is processed by a payment gateway located in the United States, then your personal information used in completing that transaction may be subject to disclosure under United States legislation, including the Patriot Act.
-                            Once you leave our website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website’s Terms of Service.
+                            Once you leave our website or are redirected to a third-party website or application, you are no longer governed by this Privacy Policy or our website's Terms of Service.
                             """
                         )
                         
@@ -82,12 +81,12 @@ struct PrivacyPolicyView: View {
                         SectionView(
                             title: "9. Cookies",
                             content: """
-                            We collect cookies or similar tracking technologies. This means information that our website’s server transfers to your computer. This information can be used to track your session on our website. Cookies may also be used to customize our website content for you as an individual. If you are using one of the common Internet web browsers, you can set up your browser to either let you know when you receive a cookie or to deny cookie access to your computer.
+                            We collect cookies or similar tracking technologies. This means information that our website's server transfers to your computer. This information can be used to track your session on our website. Cookies may also be used to customize our website content for you as an individual. If you are using one of the common Internet web browsers, you can set up your browser to either let you know when you receive a cookie or to deny cookie access to your computer.
                             We uses cookies to recognize your device and provide you with a personalized experience. 
                             
                             We may also use automated tracking methods on our websites, in communications with you, and in our products and services, to measure performance and engagement.
                             
-                            Please note that because there is no consistent industry understanding of how to respond to “Do Not Track” signals, we do not alter our data collection and usage practices when we detect such a signal from your browser.
+                            Please note that because there is no consistent industry understanding of how to respond to "Do Not Track" signals, we do not alter our data collection and usage practices when we detect such a signal from your browser.
                             """
                         )
                     }
@@ -135,30 +134,22 @@ struct PrivacyPolicyView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Close") {
+                    Button(action: {
                         dismiss()
+                    }) {
+                        HStack {
+                            Image(systemName: "arrow.left.circle")
+                                .font(.title2)
+                                .foregroundStyle(Color(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745))
+                        }
                     }
+                    .padding(.leading, 10)
                 }
             }
         }
     }
-    
-    // Helper view for sections
-    struct SectionView: View {
-        let title: String
-        let content: String
-        
-        var body: some View {
-            VStack(alignment: .leading, spacing: 8) {
-                Text(title)
-                    .font(.headline)
-                Text(content)
-                    .font(.body)
-            }
-            .padding(.vertical, 8)
-        }
-    }
 }
+
 #Preview {
     PrivacyPolicyView()
 } 

@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            ViewC()
+            HomeView()
                 .environmentObject(authManager)
                 .tabItem {
                     Image(systemName: "heart.circle")

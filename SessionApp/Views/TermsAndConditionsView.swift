@@ -290,27 +290,18 @@ struct TermsAndConditionsView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button("Close") {
+                Button(action: {
                     dismiss()
+                }) {
+                    HStack {
+                        Image(systemName: "arrow.left.circle")
+                            .font(.title2)
+                            .foregroundStyle(Color(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745))
+                    }
                 }
+                .padding(.leading, 10)
             }
         }
-    }
-}
-
-// Helper view for sections
-struct SectionView: View {
-    let title: String
-    let content: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text(title)
-                .font(.headline)
-            Text(content)
-                .font(.body)
-        }
-        .padding(.vertical, 8)
     }
 }
 

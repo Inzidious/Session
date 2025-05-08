@@ -15,12 +15,17 @@ struct SplashScreenView: View {
     @Environment(\.modelContext) var modelContext
     @Query private var users: [User]
     @Binding var user: User?
-    //var user:user
+    @EnvironmentObject var authManager: AuthManager
     
     var body: some View {
         if(isActive)
         {
-            LoaderView()
+            if authManager.isLoggedIn {
+                ContentView(user: user ?? previewUser)
+                    .environmentObject(authManager)
+            } else {
+                LoaderView()
+            }
         }
         else
         {
@@ -68,4 +73,5 @@ struct SplashScreenView: View {
     
     SplashScreenView(user: .constant(previewUser))
         .modelContainer(try! ModelContainer(for: User.self))
+        .environmentObject(AuthManager())
 }

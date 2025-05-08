@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "journal_blank_dark.png",
+      "filename" : "Journal_blank_dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "journal_blank_dark@2x.png",
+      "filename" : "Journal_blank_dark@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "journal_blank_dark@3x.png",
+      "filename" : "Journal_blank_dark@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

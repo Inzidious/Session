@@ -90,6 +90,24 @@ struct QueryView: View
                     TabView {
                         // Journal Tab
                         VStack(spacing: 1) {
+                            HStack {
+                                Button(action: {
+                                    // Navigate back to ViewC
+                                    dismiss()
+                                }) {
+                                    Image(systemName: "house.fill")
+                                        .scaleEffect(1.3)
+                                        .font(.title2)
+                                        .symbolRenderingMode(.palette)
+                                        .foregroundStyle(
+                                            Color(red: 225/255, green: 178/255, blue: 107/255),
+                                            Color(red: 249/255, green: 240/255, blue: 276/255)
+                                        )
+                                }
+                                .padding(.leading, 25)
+                                Spacer()
+                            }
+                            
                             Text("Generate")
                                 .foregroundColor(.black)
                                 .font(.openSansSemiBold(size: 35))

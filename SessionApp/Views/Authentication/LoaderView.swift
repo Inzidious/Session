@@ -48,7 +48,9 @@ struct LoaderView: View {
     
     var body: some View {
         Group {
-            if isLoading {
+            if !authManager.isLoggedIn {
+                AuthenticationView()
+            } else if isLoading {
                 // Show loading screen
                 VStack {
                     Image("res_therapy")
@@ -65,6 +67,9 @@ struct LoaderView: View {
                 ContentView(user: GlobalUser.shared.user)
                     .environmentObject(authManager)
             }
+        }
+        .onAppear {
+            print("AuthManager isLoggedIn:", authManager.isLoggedIn)
         }
         .task {
             do {
