@@ -784,6 +784,31 @@ struct FeelingsView: View
         }
     }
     
+    func tryEncode(feeling:FeelingEntry)
+    {
+        /*
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        
+        let data = feelingJSONString.data(using: .utf8)!
+        let journaldata = promptEntryExamples.data(using: .utf8)!
+        
+        do {
+            let feelingDemoEntries:[FeelingEntry] = try decoder.decode([FeelingEntry].self, from:data)
+            let feelingDemoData = try! encoder.encode(feelingDemoEntries)
+            //let feelingDemoDataString = String(data: feelingDemoData, encoding: .utf8)!
+            
+            let journalDemoEntries:[JournalEntry] = try decoder.decode([JournalEntry].self, from:journaldata)
+            let journalDemoData = try! encoder.encode(journalDemoEntries)
+            let journalDemoDataString = String(data: journalDemoData, encoding: .utf8)!
+            //print("journalDemoDataString:", journalDemoDataString)
+        } catch let jsonError as NSError {
+            //print("really?")
+            print("JSON decode failed: \(jsonError)")
+            //throw APIError.invalidData
+        }*/
+    }
+    
     var body: some View
     {
         ZStack
