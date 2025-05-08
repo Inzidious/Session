@@ -4,9 +4,18 @@ import SwiftData
 class DemoDataLoader {
     static func loadDemoUser(context: ModelContext) {
         guard let url = Bundle.main.url(forResource: "demo_user", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let demoUser = try? JSONDecoder().decode(DemoUser.self, from: data) else {
+              let data = try? Data(contentsOf: url) else {
             print("Failed to load demo data")
+            return
+        }
+        
+        var demoUser:DemoUser!
+        
+        do{
+            demoUser = try JSONDecoder().decode(DemoUser.self, from: data)
+        } catch let jsonError as NSError {
+            //print("really?")
+            print("JSON decode failed: \(jsonError)")
             return
         }
         
@@ -19,6 +28,7 @@ class DemoDataLoader {
             authProvider: "demo"
         )
         user.location = demoUser.location
+        context.insert(user)
         
         // Create journal entries
         for entry in demoUser.journalEntries {
@@ -29,11 +39,9 @@ class DemoDataLoader {
                 sessionEntry: nil
             )
             journalEntry.timestamp = entry.date
+            journalEntry.user = user
             
-            if user.journalEntries == nil {
-                user.journalEntries = []
-            }
-            user.journalEntries?.append(journalEntry)
+            context.insert(journalEntry)
         }
         
         // Create feeling entries
@@ -50,15 +58,16 @@ class DemoDataLoader {
             feelingEntry.triggers = entry.notes ?? ""
             feelingEntry.timestamp = entry.date
             
-            if user.feelings == nil {
-                user.feelings = []
-            }
-            user.feelings?.append(feelingEntry)
+            feelingEntry.user = user
+            
+            context.insert(feelingEntry)
         }
         
         // Save everything
-        context.insert(user)
+        //context.insert(user)
         try? context.save()
+        
+        print("made it")
         
         // Update GlobalUser
         GlobalUser.shared.user = user
