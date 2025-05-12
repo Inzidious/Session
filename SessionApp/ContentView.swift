@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SendbirdSwiftUI
 
 struct ContentView: View {
     let user: User
@@ -40,13 +41,17 @@ struct ContentView: View {
                 }
                 .tag(2)
             
-            CommunityView()
+            OpenChannelListView()
                 .environmentObject(authManager)
                 .tabItem {
                     Image(systemName:"globe.americas.fill")
                     Text("Community")
                 }
                 .tag(3)
+        }
+        .onAppear()
+        {
+            InitializeChat()
         }
     }
 }

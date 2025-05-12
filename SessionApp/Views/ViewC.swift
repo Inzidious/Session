@@ -187,5 +187,7 @@ struct smallBoxImage: View
         configurations: config
     )
     
-    return ViewC().modelContainer(container)
+    var authManager = AuthManager()
+    
+    return ViewC().modelContainer(container).environmentObject(authManager)
 }
