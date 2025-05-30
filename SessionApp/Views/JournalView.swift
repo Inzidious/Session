@@ -36,7 +36,7 @@ struct JournalView: View
                 //{
                     VStack
                     {
-                        NavigationLink(destination:QueryView(currentSession: newSession)
+                        NavigationLink(destination:Generate_Journal(currentSession: newSession)
                             .environmentObject(globalCluster)
                             .navigationBarBackButtonHidden(true))
                         {
@@ -182,7 +182,7 @@ struct boxStackView: View
     
     var body: some View
     {
-        NavigationLink(destination:QueryView(currentSession: newSession))
+        NavigationLink(destination:Generate_Journal(currentSession: newSession))
         {
             ZStack
             {

@@ -9,6 +9,38 @@ import SwiftUI
 import CachedAsyncImage
 import Observation
 
+struct ComingSoonView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text("Coming Soon")
+                .font(.title)
+                .fontWeight(.bold)
+            
+            Text("This content will be provided by community members who become content partners. Please stay tuned as we update this content.")
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Button(action: {
+                // Add action for content partner signup
+            }) {
+                Text("Become a Content Provider Partner")
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+            }
+            
+            Button("Close") {
+                dismiss()
+            }
+            .padding()
+        }
+        .padding()
+    }
+}
+
 struct ResourceAssets: View
 {
     @State private var isShowingTop = true
@@ -21,6 +53,7 @@ struct ResourceAssets: View
     
     @State private var isShowingAssets = false
     @State private var assetToPlay:LoadedAsset? = nil
+    @State private var showComingSoon = false
     
     @Binding var assetCategory:String
     
@@ -42,12 +75,21 @@ struct ResourceAssets: View
         {
             HStack
             {
-                Button("Cancel"){ dismiss()}.padding()
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "arrow.left.circle")
+                        .font(.title2)
+                        .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                        .scaleEffect(1.25)
+                }
+                .padding(.leading, 20)
                 
-                Text("Depression " + assetCategory)
+                Text(assetCategory)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .font(Font.custom("OpenSans", size:25))
             }
+            .padding(.top, 5)
         
             Spacer()
             
@@ -58,8 +100,7 @@ struct ResourceAssets: View
                     ForEach(GlobalManifest.shared.manifest) { asset in
                         Button()
                         {
-                            self.assetToPlay = asset
-                            //isShowingAssets = true
+                            showComingSoon = true
                         }
                     label:
                         {
@@ -80,7 +121,7 @@ struct ResourceAssets: View
                     { _ in
                         Button()
                         {
-                            isShowingAssets = true
+                            showComingSoon = true
                         }
                     label:
                         {
@@ -98,7 +139,7 @@ struct ResourceAssets: View
                     { _ in
                         Button()
                         {
-                            isShowingAssets = true
+                            showComingSoon = true
                         }
                     label:
                         {
@@ -111,8 +152,10 @@ struct ResourceAssets: View
             Spacer()
             
         }
-        .sheet(item: $assetToPlay) { asset in
-            FullPlayerView(assetToPlay:asset)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
+        .sheet(isPresented: $showComingSoon) {
+            ComingSoonView()
         }
     }
 }
@@ -130,10 +173,9 @@ struct MediaBoxEntry: View
         ZStack
         {
             Rectangle()
-            //.frame(width:350, height:boxHeight)
                 .foregroundColor(backColor)
                 .cornerRadius(10)
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                .border(Color(red: 250/255, green: 249/255, blue: 246/255))
             
             HStack
             {
@@ -141,8 +183,6 @@ struct MediaBoxEntry: View
                     .foregroundColor(.black)
                     .font(Font.custom("OpenSans", size:18))
                     .padding(.leading, 7)
-                    //.frame(width:250, alignment: .bottomLeading)
-                    //.multilineTextAlignment(.leading)
                 
                 Spacer()
                     
@@ -161,7 +201,6 @@ struct MediaBoxEntry: View
                     if let image = phase.image {
                         image
                             .resizable()
-                            //.aspectRatio(contentMode: .fit)
                     } else if phase.error != nil {
                         Text("No image available")
                     } else {
@@ -169,7 +208,7 @@ struct MediaBoxEntry: View
                     }
                 }
                 .frame(width:50, height:50)
-                .border(Color.gray)
+                .border(Color(red: 250/255, green: 249/255, blue: 246/255))
                 .padding(.horizontal, 6)
             }
             

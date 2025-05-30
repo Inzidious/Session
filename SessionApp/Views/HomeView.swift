@@ -14,6 +14,7 @@ struct HomeView: View {
     @State private var pageNodes:[PageNode]?
     @State private var newsSheet:Bool = false
     @State private var bodyText:String = ""
+    @State private var isShowingReminderSheet = false
     
     private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
     @StateObject var data = SpaceAPI()
@@ -37,7 +38,7 @@ struct HomeView: View {
                             }
                             .padding(.leading, 50)
                             Spacer()
-                            NavigationLink(destination: CreateReminderView()) {
+                            Button(action: { isShowingReminderSheet = true }) {
                                 Image(systemName: "bell.badge.fill")
                                     .scaleEffect(1.3)
                                     .font(.title2)
@@ -105,6 +106,9 @@ struct HomeView: View {
             .ignoresSafeArea()
             .sheet(isPresented: $newsSheet) {
                 NewsView(text: $bodyText)
+            }
+            .sheet(isPresented: $isShowingReminderSheet) {
+                CreateReminderView()
             }
         }
     }

@@ -23,7 +23,7 @@ struct SessionHistory: View {
                 //let _ = print("looping")
                 NavigationLink
                 {
-                    QueryView(currentSession: session, isEditing:true)
+                    Generate_Journal(currentSession: session, isEditing:true)
                 }
                 label:
                 {

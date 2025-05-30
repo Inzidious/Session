@@ -17,6 +17,9 @@ struct ResourceDetails: View {
     @State private var isShowingAssets = false
     
     @State private var assetCategory:String = "None"
+    @Environment(\.dismiss) private var dismiss
+    
+    let selectedTopic: String
     
     var txtString:[String] = ["Education",
                               "Tracks",
@@ -34,7 +37,22 @@ struct ResourceDetails: View {
     {
         VStack
         {
-            Text("Depression Resources")
+            // Custom back button
+            HStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "arrow.left.circle")
+                        .font(.title2)
+                        .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                        .scaleEffect(1.25)
+                }
+                .padding(.leading, 20)
+                Spacer()
+            }
+            .padding(.top, 5)
+            
+            Text(selectedTopic + " Resources")
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .font(Font.custom("OpenSans-SemiBold", size:24))
                 .padding()
@@ -195,6 +213,8 @@ struct ResourceDetails: View {
         {
             ResourceAssets(assetCategory:$assetCategory)
         }
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
 
@@ -214,17 +234,14 @@ struct CategoryBoxEntry: View
             .frame(width:340, height:boxHeight)
                 .foregroundColor(backColor)
                 .cornerRadius(10)
-                .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/)
+                .border(Color(red: 250/255, green: 249/255, blue: 246/255))
             
             HStack
             {
                 Text(bodyText)
                     .foregroundColor(.black)
                     .font(Font.custom("OpenSans-SemiBold", size:30))
-                    //.frame(alignment: .leading)
                     .padding(10)
-                    //.frame(width:250, alignment: .bottomLeading)
-                    //.multilineTextAlignment(.leading)
                 
                 Spacer()
                 Image(imageName).resizable().frame(width:50, height:50).padding(10)
@@ -235,5 +252,5 @@ struct CategoryBoxEntry: View
 }
 
 #Preview {
-    ResourceDetails()
+    ResourceDetails(selectedTopic: "Depression")
 }

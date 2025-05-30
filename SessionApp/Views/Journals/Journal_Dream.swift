@@ -1,5 +1,5 @@
 //
-//  QueryView.swift
+//  Journal_Dream.swift
 //  SessionApp
 //
 //  Updates 2/6/2025 - Update UI/UX desing
@@ -19,6 +19,7 @@ struct JournalDreamView: View
     // Unused variables - kept for future features
     //@State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
+    @State private var isShowingReminderSheet = false;
     @State private var isShowingBodySheet = false
     @State private var BodyValue = "None"
     //@State private var promptId : Int = 0
@@ -28,9 +29,25 @@ struct JournalDreamView: View
     @Query(filter: #Predicate<SessionEntry> {$0.sessionLabel > 0})
     var sessions:[SessionEntry]
     
-    var currentSession:SessionEntry?
-    var isEditing:Bool = false
+    var currentSession: SessionEntry?
+    var isEditing: Bool = false
     //var reflectionText:String = ""
+    
+    init(currentSession: SessionEntry? = nil, isEditing: Bool = false) {
+        // Configure TabBar appearance specifically for this view
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(red: 47/255, green: 49/255, blue: 49/255, alpha: 1) // #2f3131
+        
+        // Set the selected and unselected item colors
+        appearance.stackedLayoutAppearance.selected.iconColor = .white
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.stackedLayoutAppearance.normal.iconColor = .white
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+    }
     
     /*init(activeSession:SessionEntry, editing:Bool = false)
     {
@@ -95,6 +112,18 @@ struct JournalDreamView: View
         VStack(spacing: 0) { // Zero spacing to control layout precisely
             // Top Navigation Bar
             HStack {
+                // Custom back arrow (dismiss)
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "arrow.left.circle")
+                        .font(.title2)
+                        .foregroundColor(Color(red: 0.882, green: 0.694, blue: 0.416))
+                        .scaleEffect(1.25)
+                }
+                .padding(.leading, 10)
+                Spacer()
+                // Profile icon (navigate to ProfileView)
                 NavigationLink(destination: ProfileView()) {
                     Image(systemName: "person.circle.fill")
                         .scaleEffect(1.9)
@@ -102,25 +131,13 @@ struct JournalDreamView: View
                         .symbolRenderingMode(.palette)
                         .foregroundStyle(
                             Color(red: 225/255, green: 178/255, blue: 107/255),
-                            Color.white  // Changed to white for dark theme
+                            Color.white
                         )
                 }
-                .padding(.leading, 5)
-                Spacer()
-                
-                NavigationLink(destination: CreateReminderView()) {
-                    Image(systemName: "bell.badge.fill")
-                        .scaleEffect(1.3)
-                        .font(.title2)
-                        .symbolRenderingMode(.palette)
-                        .foregroundStyle(
-                            Color.white,  // Changed to white for dark theme
-                            Color(red: 225/255, green: 178/255, blue: 107/255)
-                        )
-                }
+                .padding(.trailing, 10)
             }
-            .padding(.horizontal, 10)
             .padding(.top, 50)
+            .padding(.bottom, 10)
             .background(
                 Color.black.opacity(0.2)
                     .ignoresSafeArea(edges: .top)
@@ -167,12 +184,22 @@ struct JournalDreamView: View
             }
         }
         .background(
-            Image("Star_Background")
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
+            ZStack {
+                Image("Star_Background")
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                
+                // Dark overlay for the bottom area
+                Rectangle()
+                    .fill(Color(red: 47/255, green: 49/255, blue: 49/255))
+                    .frame(height: 83) // Standard TabView height
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .edgesIgnoringSafeArea(.bottom)
+            }
         )
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(false)
         .sheet(isPresented: $isShowingEditorSheet) {
             NavigationStack {
                 addEditorSheet(
@@ -215,16 +242,18 @@ struct JournalDreamView: View
                 print("Family: \(family) Font names: \(names)")
             }
         }
-        .navigationBarBackButtonHidden(false)
-        .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button(action: {
-                            dismiss()
-                        }) {
-                            Label("Back", systemImage: "arrow.left.circle")
-                        }
-                    }
-                }
+        .onDisappear {
+            // Reset to default tab bar appearance
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = UIColor(red: 250/255, green: 249/255, blue: 246/255, alpha: 1) // #faf9f6
+            appearance.stackedLayoutAppearance.selected.iconColor = .black
+            appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.black]
+            appearance.stackedLayoutAppearance.normal.iconColor = .black
+            appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+            UITabBar.appearance().standardAppearance = appearance
+            UITabBar.appearance().scrollEdgeAppearance = appearance
+        }
     }
 }
 

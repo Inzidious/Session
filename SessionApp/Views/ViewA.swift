@@ -75,7 +75,7 @@ struct ViewA: View {
                 // New grid layout with floating rectangles
                 LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(Array(zip(resourceTopics, topicColors)), id: \.0) { topic, color in
-                        NavigationLink(destination: ResourceDetails()) {
+                        NavigationLink(destination: ResourceDetails(selectedTopic: topic)) {
                             ResourceBox(title: topic, backgroundColor: color)
                         }
                     }

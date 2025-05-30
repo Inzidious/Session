@@ -1,6 +1,7 @@
 import SwiftUI
 import UserNotifications
 import EventKit
+import Photos
 
 struct ProfileView: View {
     // Get the current user from GlobalUser
@@ -9,6 +10,7 @@ struct ProfileView: View {
     @AppStorage("notificationsEnabled") private var notificationsEnabled = false
     @AppStorage("homescreenNotificationsEnabled") private var homescreenNotificationsEnabled = false
     @State private var calendarAccessGranted: Bool = false
+    @State private var photoLibraryAccessGranted: Bool = false
     private let eventStore = EKEventStore()
     
     var body: some View {
@@ -137,6 +139,39 @@ struct ProfileView: View {
                     )
                 }
                 
+                // Photo Library Access Section
+                Section {
+                    DisclosureGroup(
+                        content: {
+                            VStack(alignment: .leading, spacing: 16) {
+                                Toggle("Enable Photo Library Access", isOn: $photoLibraryAccessGranted)
+                                    .onChange(of: photoLibraryAccessGranted) { newValue in
+                                        if newValue {
+                                            requestPhotoLibraryAccess()
+                                        }
+                                    }
+                                
+                                Text("Photo Library will be used for:")
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 8)
+                                
+                                BulletPoint(text: "Adding photos to reminders")
+                                BulletPoint(text: "Attaching images to journal entries")
+                                
+                                Text("Note: Photo Library access can be customized in device Settings")
+                                    .font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .padding(.top, 8)
+                            }
+                            .padding(.vertical, 8)
+                        },
+                        label: {
+                            ProfileMenuRow(icon: "photo.fill", title: "Photo Library")
+                        }
+                    )
+                }
+                
                 // Menu Items
                 NavigationLink(destination: Text("Wishlist")) {
                     ProfileMenuRow(icon: "globe", title: "Wishlist")
@@ -183,6 +218,14 @@ struct ProfileView: View {
         eventStore.requestAccess(to: .reminder) { granted, error in
             DispatchQueue.main.async {
                 calendarAccessGranted = granted
+            }
+        }
+    }
+    
+    private func requestPhotoLibraryAccess() {
+        PHPhotoLibrary.requestAuthorization { status in
+            DispatchQueue.main.async {
+                photoLibraryAccessGranted = status == .authorized
             }
         }
     }

@@ -1,5 +1,5 @@
 //
-//  QueryView.swift
+//  Generate_Journal.swift
 //  SessionApp
 //
 //  Created by Shawn McLean on 4/6/24.
@@ -10,7 +10,7 @@ import SwiftData
 import CoreData
 import Foundation
 
-struct QueryView: View
+struct Generate_Journal: View
 {
     @Environment(\.modelContext) var context;
     @EnvironmentObject var globalCluster:PromptCluster
@@ -18,6 +18,7 @@ struct QueryView: View
     
     @State private var pText : String = "filler"
     @State private var isShowingEditorSheet = false;
+    @State private var isShowingReminderSheet = false;
     @State private var BodyValue = "None"
     @State private var promptId : Int = 0
     @State private var num:Int = 0
@@ -53,6 +54,18 @@ struct QueryView: View
                 VStack {
                     // Top Navigation Bar
                     HStack {
+                        // Custom back arrow (dismiss)
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Image(systemName: "arrow.left.circle")
+                                .font(.title2)
+                                .foregroundColor(Color(red: 0.882, green: 0.694, blue: 0.416))
+                                .scaleEffect(1.25)
+                        }
+                        .padding(.leading, 10)
+                        Spacer()
+                        // Profile icon (navigate to ProfileView)
                         NavigationLink(destination: ProfileView()) {
                             Image(systemName: "person.circle.fill")
                                 .scaleEffect(1.9)
@@ -63,26 +76,12 @@ struct QueryView: View
                                     Color(red: 249/255, green: 240/255, blue: 276/255)
                                 )
                         }
-                        .padding(.leading, 25)
-                        Spacer()
-                        
-                        NavigationLink(destination: CreateReminderView()) {
-                            Image(systemName: "bell.badge.fill")
-                                .scaleEffect(1.3)
-                                .font(.title2)
-                                .symbolRenderingMode(.palette)
-                                .foregroundStyle(
-                                    Color(red: 249/255, green: 240/255, blue: 276/255),
-                                    Color(red: 225/255, green: 178/255, blue: 107/255)
-                                )
-                        }
+                        .padding(.trailing, 10)
                     }
-                    .padding(.horizontal, 10)
-                    //.padding(.top, 5)
-                    .padding(.trailing, 25)
+                    .padding(.top, 50)
+                    .padding(.bottom, 10)
                     .background(
-                        Color(#colorLiteral(red: 0.9803921569, green: 0.9764705882, blue: 0.9647058824, alpha: 1))
-                            .opacity(0.2)
+                        Color(red: 250/255, green: 249/255, blue: 246/255)
                             .ignoresSafeArea(edges: .top)
                     )
                     
@@ -90,23 +89,6 @@ struct QueryView: View
                     TabView {
                         // Journal Tab
                         VStack(spacing: 1) {
-                            HStack {
-                                Button(action: {
-                                    // Navigate back to ViewC
-                                    dismiss()
-                                }) {
-                                    Image(systemName: "house.fill")
-                                        .scaleEffect(1.3)
-                                        .font(.title2)
-                                        .symbolRenderingMode(.palette)
-                                        .foregroundStyle(
-                                            Color(red: 225/255, green: 178/255, blue: 107/255),
-                                            Color(red: 249/255, green: 240/255, blue: 276/255)
-                                        )
-                                }
-                                .padding(.leading, 25)
-                                Spacer()
-                            }
                             
                             Text("Generate")
                                 .foregroundColor(.black)
@@ -163,7 +145,19 @@ struct QueryView: View
                     .indexViewStyle(.page(backgroundDisplayMode: .always))
                 }
             }
-            .navigationBarHidden(true)  // This hides the navigation bar
+            .navigationBarHidden(true)
+            .onDisappear {
+                // Reset to default tab bar appearance
+                let appearance = UITabBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.backgroundColor = UIColor(red: 250/255, green: 249/255, blue: 246/255, alpha: 1) // #faf9f6
+                appearance.stackedLayoutAppearance.selected.iconColor = .black
+                appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: UIColor.black]
+                appearance.stackedLayoutAppearance.normal.iconColor = .black
+                appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.black]
+                UITabBar.appearance().standardAppearance = appearance
+                UITabBar.appearance().scrollEdgeAppearance = appearance
+            }
         }
         .sheet(isPresented: $isShowingEditorSheet) {
             NavigationStack {
@@ -173,8 +167,10 @@ struct QueryView: View
                 )
             }
         }
-        .sheet(isPresented: $showCreateReminder) {
-            CreateReminderView()
+        .sheet(isPresented: $isShowingReminderSheet) {
+            NavigationStack {
+                CreateReminderView()
+            }
         }
         .sheet(item: $reminderToEdit) { reminder in
             UpdateReminderView(reminder: reminder)
@@ -225,7 +221,7 @@ struct QueryPreviewContainer: View {
     var body: some View {
     
         return NavigationStack {
-            QueryView(currentSession: session).environmentObject(globalCluster)
+            Generate_Journal(currentSession: session).environmentObject(globalCluster)
                 
         }
     }
