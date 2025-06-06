@@ -3,7 +3,7 @@
 //  SessionApp
 //
 //  Created by Shawn McLean on 4/20/25.
-//
+//  Updated by Ahhmed Shuja on 6/3/25 to spread the dates over 180 days
 
 var feelingJSONString:String = """
 [
@@ -17,7 +17,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 2,
         "sleep": 4,
-        "timestamp": 1692773730.175612,
+        "timestamp": 1738643948.4683647,
         "triggers": "overthinking"
     },
     {
@@ -30,7 +30,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 3,
         "sleep": 1,
-        "timestamp": 1692774001.783214,
+        "timestamp": 1748475353.8460486,
         "triggers": "stress"
     },
     {
@@ -43,7 +43,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 2,
         "sleep": 3,
-        "timestamp": 1692774257.632125,
+        "timestamp": 1746482632.347667,
         "triggers": "stress eating"
     },
     {
@@ -56,7 +56,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 4,
         "sleep": 1,
-        "timestamp": 1692774519.243327,
+        "timestamp": 1745338833.3497074,
         "triggers": "excitement"
     },
     {
@@ -69,7 +69,7 @@ var feelingJSONString:String = """
         "feeling": 4,
         "cycle": 0,
         "sleep": 3,
-        "timestamp": 1692774771.859332,
+        "timestamp": 1746032491.9834383,
         "triggers": "lack of motivation"
     },
     {
@@ -82,7 +82,7 @@ var feelingJSONString:String = """
         "feeling": 4,
         "cycle": 3,
         "sleep": 0,
-        "timestamp": 1692775008.594188,
+        "timestamp": 1738183872.3927405,
         "triggers": "exercise"
     },
     {
@@ -95,7 +95,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 1,
         "sleep": 2,
-        "timestamp": 1692775220.741672,
+        "timestamp": 1737846891.74707,
         "triggers": "social interaction"
     },
     {
@@ -108,7 +108,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 4,
         "sleep": 1,
-        "timestamp": 1692775489.374554,
+        "timestamp": 1739021829.1402698,
         "triggers": "happiness"
     },
     {
@@ -121,7 +121,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 0,
         "sleep": 4,
-        "timestamp": 1692775706.294127,
+        "timestamp": 1738652893.02463,
         "triggers": "reflection"
     },
     {
@@ -134,7 +134,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 1,
         "sleep": 2,
-        "timestamp": 1692775943.904200,
+        "timestamp": 1746066160.7795634,
         "triggers": "anxiety"
     },
     {
@@ -147,7 +147,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 4,
         "sleep": 0,
-        "timestamp": 1692776410.141982,
+        "timestamp": 1742998952.6400466,
         "triggers": "family issues"
     },
     {
@@ -160,7 +160,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 3,
         "sleep": 1,
-        "timestamp": 1692776740.524378,
+        "timestamp": 1742065979.135424,
         "triggers": "new job"
     },
     {
@@ -173,7 +173,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 1,
         "sleep": 4,
-        "timestamp": 1692776979.273321,
+        "timestamp": 1750419142.142108,
         "triggers": "travel"
     },
     {
@@ -186,7 +186,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 0,
         "sleep": 1,
-        "timestamp": 1692777264.907239,
+        "timestamp": 1742081563.8871112,
         "triggers": "feeling lost"
     },
     {
@@ -199,7 +199,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 2,
         "sleep": 1,
-        "timestamp": 1692777489.614287,
+        "timestamp": 1740951933.4195597,
         "triggers": "friendship issues"
     },
     {
@@ -212,7 +212,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 4,
         "sleep": 0,
-        "timestamp": 1692777783.844193,
+        "timestamp": 1735960875.5270193,
         "triggers": "performance anxiety"
     },
     {
@@ -225,7 +225,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 1,
         "sleep": 4,
-        "timestamp": 1692778048.093722,
+        "timestamp": 1745729238.9247172,
         "triggers": "feeling accomplished"
     },
     {
@@ -238,7 +238,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 2,
         "sleep": 0,
-        "timestamp": 1692778376.007459,
+        "timestamp": 1746485894.9281232,
         "triggers": "feeling grateful"
     },
     {
@@ -251,7 +251,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 0,
         "sleep": 3,
-        "timestamp": 1692778560.084350,
+        "timestamp": 1750873512.9940386,
         "triggers": "feeling motivated"
     },
     {
@@ -264,7 +264,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 1,
         "sleep": 2,
-        "timestamp": 1692778827.269177,
+        "timestamp": 1746904945.2413836,
         "triggers": "feeling relaxed"
     },
     {
@@ -277,7 +277,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 0,
         "sleep": 4,
-        "timestamp": 1692779053.174425,
+        "timestamp": 1750679082.106216,
         "triggers": "feeling peaceful"
     },
     {
@@ -290,7 +290,7 @@ var feelingJSONString:String = """
         "feeling": 4,
         "cycle": 1,
         "sleep": 2,
-        "timestamp": 1692779336.003049,
+        "timestamp": 1738543673.9147737,
         "triggers": "feeling inspired"
     },
     {
@@ -303,7 +303,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 4,
         "sleep": 0,
-        "timestamp": 1692779599.983492,
+        "timestamp": 1736902690.523825,
         "triggers": "feeling hopeful"
     },
     {
@@ -316,7 +316,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 1,
         "sleep": 3,
-        "timestamp": 1692779830.210671,
+        "timestamp": 1738488898.2000859,
         "triggers": "feeling challenged"
     },
     {
@@ -329,7 +329,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 0,
         "sleep": 2,
-        "timestamp": 1692780195.136482,
+        "timestamp": 1747261595.531438,
         "triggers": "feeling energized"
     },
     {
@@ -342,7 +342,7 @@ var feelingJSONString:String = """
         "feeling": 4,
         "cycle": 1,
         "sleep": 0,
-        "timestamp": 1692780438.082760,
+        "timestamp": 1738339945.0800848,
         "triggers": "feeling enlightened"
     },
     {
@@ -355,7 +355,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 2,
         "sleep": 1,
-        "timestamp": 1692780680.712774,
+        "timestamp": 1740114572.438091,
         "triggers": "feeling determined"
     },
     {
@@ -368,7 +368,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 1,
         "sleep": 4,
-        "timestamp": 1692780941.626320,
+        "timestamp": 1747649525.6435912,
         "triggers": "feeling connected"
     },
     {
@@ -381,7 +381,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 0,
         "sleep": 2,
-        "timestamp": 1692781173.544738,
+        "timestamp": 1736060342.0585487,
         "triggers": "feeling focused"
     },
     {
@@ -394,7 +394,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 1,
         "sleep": 0,
-        "timestamp": 1692781437.729960,
+        "timestamp": 1738313041.625407,
         "triggers": "feeling balanced"
     },
     {
@@ -407,7 +407,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 2,
         "sleep": 2,
-        "timestamp": 1692781683.210549,
+        "timestamp": 1740657790.6426227,
         "triggers": "feeling motivated"
     },
     {
@@ -420,7 +420,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 0,
         "sleep": 3,
-        "timestamp": 1692781932.873956,
+        "timestamp": 1750635353.499781,
         "triggers": "feeling caring"
     },
     {
@@ -433,7 +433,7 @@ var feelingJSONString:String = """
         "feeling": 2,
         "cycle": 1,
         "sleep": 0,
-        "timestamp": 1692782189.480827,
+        "timestamp": 1749493320.9088495,
         "triggers": "feeling calm"
     },
     {
@@ -446,7 +446,7 @@ var feelingJSONString:String = """
         "feeling": 3,
         "cycle": 2,
         "sleep": 1,
-        "timestamp": 1692782440.450428,
+        "timestamp": 1744901628.0180752,
         "triggers": "feeling free"
     },
     {
@@ -459,7 +459,7 @@ var feelingJSONString:String = """
         "feeling": 4,
         "cycle": 1,
         "sleep": 4,
-        "timestamp": 1692782683.862739,
+        "timestamp": 1744219693.0077102,
         "triggers": "feeling satisfied"
     },
     {
@@ -472,7 +472,7 @@ var feelingJSONString:String = """
         "feeling": 1,
         "cycle": 0,
         "sleep": 2,
-        "timestamp": 1692782927.206442,
+        "timestamp": 1743713859.3619144,
         "triggers": "feeling accomplished"
     },
     {
@@ -485,7 +485,7 @@ var feelingJSONString:String = """
         "feeling": 0,
         "cycle": 1,
         "sleep": 3,
-        "timestamp": 1692783200.134138,
+        "timestamp": 1746886276.0443375,
         "triggers": "feeling enthusiastic"
     }
 ]
@@ -510,7 +510,7 @@ var promptEntryExamples:String =
   {"sessionId":"98D1AF12-4B68-4F68-841B-4459A227A2E3","timestamp":768852974.125736,"promptAnswer":"Hope shines bright despite the darkness","promptId":3},
   {"sessionId":"BC4830CA-F61F-424E-9349-36856C4809E7","timestamp":779322563.971442,"promptAnswer":"My mind is restless and filled with anxiety","promptId":2},
   {"sessionId":"5CE0B4AA-157A-4ABB-BDD0-DB91ECB4B868","timestamp":795246739.128368,"promptAnswer":"Calmness envelops me like a warm blanket","promptId":4},
-  {"sessionId":"24E44D91-D41C-4A58-B6FD-34F02FCF1A7A","timestamp":781223827.812653,"promptAnswer":"I’m excited about the opportunities ahead","promptId":3},
+  {"sessionId":"24E44D91-D41C-4A58-B6FD-34F02FCF1A7A","timestamp":781223827.812653,"promptAnswer":"I'm excited about the opportunities ahead","promptId":3},
   {"sessionId":"7A21F9DB-14EB-4FCA-8ED7-8A18E8D679E0","timestamp":776889123.531872,"promptAnswer":"A deep sadness weighs heavy on my chest","promptId":1},
   {"sessionId":"B030E4F0-FB63-4242-9579-48CC8DB5AAF4","timestamp":789785639.128965,"promptAnswer":"I feel a strong connection to those around me","promptId":4},
   {"sessionId":"3401E7D6-7A81-4C4B-8E23-36B6D04F9BC9","timestamp":772553021.404185,"promptAnswer":"Nervousness makes it hard to focus","promptId":2},
@@ -519,7 +519,7 @@ var promptEntryExamples:String =
   {"sessionId":"CFB1A3B3-5D05-4A94-AAAD-D8A212DD079F","timestamp":774417968.914528,"promptAnswer":"I feel a pang of jealousy gnawing at me","promptId":1},
   {"sessionId":"BD2FF4BB-E26B-4650-B0F5-17A1F2E803BD","timestamp":799285614.754381,"promptAnswer":"A sense of dread fills every thought","promptId":2},
   {"sessionId":"86550DC8-7785-4E2E-B4F2-2C1CDE8DF27E","timestamp":770183007.687238,"promptAnswer":"I am overwhelmed with gratitude","promptId":3},
-  {"sessionId":"0473F914-BE15-49F0-8A2D-8C4782E3BCE1","timestamp":798421902.513729,"promptAnswer":"I’m proud of what I have accomplished","promptId":4},
+  {"sessionId":"0473F914-BE15-49F0-8A2D-8C4782E3BCE1","timestamp":798421902.513729,"promptAnswer":"I'm proud of what I have accomplished","promptId":4},
   {"sessionId":"54B3AFB0-3F1A-4C8B-A71B-951C4E3513DB","timestamp":765973527.429168,"promptAnswer":"I experience frustration like a tightening grip","promptId":2},
   {"sessionId":"BBEE6F50-6E24-4D85-9249-ECD9E12F7A39","timestamp":783004721.253194,"promptAnswer":"Warmth and happiness fill my heart","promptId":4},
   {"sessionId":"F2BF3BEF-8B20-4B20-8B79-F06C0DEBD69C","timestamp":775013560.723981,"promptAnswer":"A feeling of hopelessness surrounds me","promptId":1},
@@ -563,7 +563,7 @@ var promptEntryExamples:String =
   {"sessionId":"5A2C57C3-D3B6-4D27-8CE0-96941E4B0E04","timestamp":771082659.275654,"promptAnswer":"Loneliness pulls at my heart","promptId":1},
   {"sessionId":"BD372BB8-8D7F-4B87-996C-6F8C8D6B6C9B","timestamp":792436538.143720,"promptAnswer":"Peace fills my mind","promptId":4},
   {"sessionId":"4EA1644D-C6D8-4490-B7D2-0D09A3A5B6CE","timestamp":776940531.629821,"promptAnswer":"Anxiety clouds my thoughts","promptId":2},
-  {"sessionId":"0B12F65E-C7BE-4BC5-8B23-1D4E6229AE04","timestamp":785657914.184739,"promptAnswer":"I’m proud of my achievements","promptId":3},
+  {"sessionId":"0B12F65E-C7BE-4BC5-8B23-1D4E6229AE04","timestamp":785657914.184739,"promptAnswer":"I'm proud of my achievements","promptId":3},
   {"sessionId":"648A8D55-475F-4B28-B8E1-6BC0FA3D9C2D","timestamp":801392835.467193,"promptAnswer":"Love warms every part of me","promptId":4},
   {"sessionId":"9FFDF9A2-701A-4180-8515-B4B15162A3A7","timestamp":765445217.862193,"promptAnswer":"Fear shadows my steps","promptId":0},
   {"sessionId":"E34B3D3F-C492-4DFF-8549-843E7857ADE7","timestamp":780874523.435627,"promptAnswer":"Hope shines like a beacon","promptId":3},
@@ -572,7 +572,7 @@ var promptEntryExamples:String =
   {"sessionId":"6F10F35B-05A6-435E-9CA7-7A8D09C08F0E","timestamp":771946189.409135,"promptAnswer":"I feel lonely and forgotten","promptId":1},
   {"sessionId":"D7C4EACB-BC0E-44CC-9C19-FD7C7FFF28A5","timestamp":793870915.723481,"promptAnswer":"Peace flows through me","promptId":4},
   {"sessionId":"45FA5361-879C-4D4B-B409-97A79F854C53","timestamp":778124593.592874,"promptAnswer":"Anxiety grips me tight","promptId":2},
-  {"sessionId":"2E243F98-5AB0-44F5-91F5-E6BC25B9EC4D","timestamp":786578784.418370,"promptAnswer":"I’m proud beyond words","promptId":3},
+  {"sessionId":"2E243F98-5AB0-44F5-91F5-E6BC25B9EC4D","timestamp":786578784.418370,"promptAnswer":"I'm proud beyond words","promptId":3},
   {"sessionId":"A9444884-9795-4EC4-9A8F-0F47C1625135","timestamp":794014233.298712,"promptAnswer":"Love fills my every breath","promptId":4},
   {"sessionId":"6D70E63A-4F2C-4C92-8150-FD57B6F0C1B0","timestamp":767104549.794832,"promptAnswer":"Fear tightens its hold","promptId":0},
   {"sessionId":"13D4328D-D469-4669-9AA9-32767673183A","timestamp":781847501.382674,"promptAnswer":"Hope fuels my soul","promptId":3},

@@ -12,6 +12,7 @@ import SwiftData
 struct SessionAppApp: App {
     let container: ModelContainer
     @StateObject private var authManager = AuthManager()
+    @State private var currentUser: User? = nil
     
     init() {
         do {
@@ -31,8 +32,13 @@ struct SessionAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LoaderView()
-                .environmentObject(authManager)
+            if authManager.isLoggedIn {
+                ContentView(user: currentUser ?? GlobalUser.shared.user)
+                    .environmentObject(authManager)
+            } else {
+                SplashScreenView(user: $currentUser)
+                    .environmentObject(authManager)
+            }
         }
         .modelContainer(container)
     }

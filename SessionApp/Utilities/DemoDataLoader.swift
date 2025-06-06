@@ -4,9 +4,16 @@ import SwiftData
 class DemoDataLoader {
     static func loadDemoUser(context: ModelContext) {
         guard let url = Bundle.main.url(forResource: "demo_user", withExtension: "json"),
-              let data = try? Data(contentsOf: url),
-              let demoUser = try? JSONDecoder().decode(DemoUser.self, from: data) else {
+              let data = try? Data(contentsOf: url) else {
             print("Failed to load demo data")
+            return
+        }
+
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .secondsSince1970
+
+        guard let demoUser = try? decoder.decode(DemoUser.self, from: data) else {
+            print("Failed to decode demo data")
             return
         }
         
@@ -38,7 +45,7 @@ class DemoDataLoader {
         
         // Create feeling entries
         for entry in demoUser.feelingEntries {
-            let feelingEntry = FeelingEntry(nameTxt: entry.feeling, user: user)
+            let feelingEntry = FeelingEntry(nameTxt: entry.name ?? "New Feeling", user: user)
             // Set additional properties after initialization
             feelingEntry.sleep = entry.sleep ?? 0
             feelingEntry.food = entry.food ?? 0
@@ -46,9 +53,9 @@ class DemoDataLoader {
             feelingEntry.irrit = entry.irrit ?? 0
             feelingEntry.cycle = entry.cycle ?? 0
             feelingEntry.medi = entry.medi ?? 0
-            feelingEntry.feeling = entry.intensity
-            feelingEntry.triggers = entry.notes ?? ""
-            feelingEntry.timestamp = entry.date
+            feelingEntry.feeling = entry.feeling ?? 0
+            feelingEntry.triggers = entry.triggers ?? ""
+            feelingEntry.timestamp = entry.timestamp ?? Date()
             
             if user.feelings == nil {
                 user.feelings = []

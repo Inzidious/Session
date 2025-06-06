@@ -1,5 +1,5 @@
 //
-//  ViewA.swift
+//  ResourceView.swift
 //  SessionApp
 //
 //  Created by Shawn McLean on 3/15/24.
@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ViewA: View {
+struct ResourceView: View {
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -133,7 +133,7 @@ struct ResourceBox: View {
     if let container = try? ModelContainer(for: SessionEntry.self,
                                          FeelingEntry.self,
                                          configurations: config) {
-        return ViewA().modelContainer(container)
+        return ResourceView().modelContainer(container)
     } else {
         return Text("Failed to create container")
     }

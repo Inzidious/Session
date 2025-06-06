@@ -9,30 +9,26 @@ import SwiftUI
 import SwiftData
 
 struct SplashScreenView: View {
-    @State private var isActive:Bool = false;
-    @State private var size = 0.8;
-    @State private var opacity = 0.5;
+    @State private var isActive: Bool = false
+    @State private var size = 0.8
+    @State private var opacity = 0.5
     @Environment(\.modelContext) var modelContext
     @Query private var users: [User]
     @Binding var user: User?
     @EnvironmentObject var authManager: AuthManager
     
     var body: some View {
-        if(isActive)
-        {
+        if isActive {
             if authManager.isLoggedIn {
-                ContentView(user: user ?? previewUser)
+                ContentView(user: user ?? GlobalUser.shared.user)
                     .environmentObject(authManager)
             } else {
                 LoaderView()
+                    .environmentObject(authManager)
             }
-        }
-        else
-        {
-            VStack
-            {
-                VStack
-                {
+        } else {
+            VStack {
+                VStack {
                     Image("res_therapy")
                     //Image(systemName: "hare.fill")
                         //.font(.system(size:80))
@@ -42,20 +38,16 @@ struct SplashScreenView: View {
                 }
                 .scaleEffect(size)
                 .opacity(opacity)
-                .onAppear
-                {
-                    withAnimation(.easeIn(duration: 1.2))
-                    {
-                        self.size = 1.8;
-                        self.opacity = 1.0;
+                .onAppear {
+                    withAnimation(.easeIn(duration: 1.2)) {
+                        self.size = 1.8
+                        self.opacity = 1.0
                     }
                 }
             }
-            .onAppear
-            {
-                DispatchQueue.main.asyncAfter(deadline: .now()+2.0)
-                {
-                    self.isActive = true;
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    self.isActive = true
                 }
             }
         }
@@ -71,7 +63,7 @@ struct SplashScreenView: View {
         authProvider: "preview"
     )
     
-    SplashScreenView(user: .constant(previewUser))
+    return SplashScreenView(user: .constant(previewUser))
         .modelContainer(try! ModelContainer(for: User.self))
         .environmentObject(AuthManager())
 }

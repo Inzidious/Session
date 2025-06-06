@@ -33,5 +33,7 @@
 		<string>OpenSans-SemiBoldItalic.ttf</string>
 		<string>OpenSans-Soft-Bold.ttf</string>
 	</array>
+	<key>CFBundleDisplayName</key>
+	<string>Therapy Muse</string>
 </dict>
 </plist>

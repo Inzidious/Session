@@ -9,6 +9,24 @@ import SwiftUI
 import SwiftData
 import CoreData
 
+enum Mood: Int, CaseIterable {
+    case stellar = 0
+    case great = 1
+    case fair = 2
+    case bad = 3
+    case abysmal = 4
+
+    var description: String {
+        switch self {
+        case .stellar: return "Stellar"
+        case .great: return "Great"
+        case .fair: return "Fair"
+        case .bad: return "Bad"
+        case .abysmal: return "Abysmal"
+        }
+    }
+}
+
 enum Option:Int
 {
     case z = 0
@@ -766,6 +784,8 @@ struct FeelingsView: View
     @State var isEditing:Bool
     
     var curFeeling:FeelingEntry
+    
+    @State private var selectedMood: Mood? = nil
     
     init(passedFeeling:FeelingEntry? = nil)
     {

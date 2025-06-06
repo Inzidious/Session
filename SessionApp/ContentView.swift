@@ -42,7 +42,7 @@ struct ContentView: View {
                 }
                 .tag(0)
             
-            ViewA()
+            ResourceView()
                 .environmentObject(authManager)
                 .tabItem {
                     Image(systemName:"heart.fill")
@@ -50,7 +50,7 @@ struct ContentView: View {
                 }
                 .tag(1)
             
-            ViewB()
+            MoodTracking()
                 .environmentObject(authManager)
                 .tabItem {
                     Image(systemName: "map.circle.fill")
