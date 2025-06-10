@@ -13,7 +13,7 @@ import Foundation
 struct Expand_Journal: View
 {
     @Environment(\.modelContext) var context;
-    @EnvironmentObject var globalCluster:PromptCluster
+    @StateObject private var globalCluster = PromptCluster(journalType: .expand)
     @Environment(\.dismiss) var dismiss
     
     @State private var pText : String = "filler"

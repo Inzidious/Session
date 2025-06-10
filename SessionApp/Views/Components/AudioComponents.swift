@@ -80,26 +80,28 @@ struct AudioSessionCard: View {
 
 struct BreathingToolButton: View {
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Breathing Tool")
-                    .font(.custom("OpenSans-SemiBold", size: 18))
-                    .foregroundColor(.black)
+        ZStack(alignment: .topTrailing) {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text("Breathing Tool")
+                        .font(.custom("OpenSans-SemiBold", size: 18))
+                        .foregroundColor(.black)
+                }
+                .padding()
+                Spacer()
             }
-            .padding()
+            .frame(height: 100)
+            .background(Color.white)
+            .cornerRadius(12)
+            .shadow(radius: 2)
             
-            Spacer()
-            
-            Image("breathwoman")
+            // Your custom image in the top-right
+            Image("Breath_a159")
                 .resizable()
-                .scaledToFill()
-                .frame(width: 100, height: 100)
-                .clipped()
+                .frame(width: 53, height: 53) // or adjust as needed
+                .padding(8)
         }
         .frame(height: 100)
-        .background(Color.white)
-        .cornerRadius(12)
-        .shadow(radius: 2)
     }
 }
 
