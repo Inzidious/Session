@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftData
 import Combine
+import CachedAsyncImage
 
 let sqsize:CGFloat = 100
 let fontSize:CGFloat = 20
@@ -15,6 +16,7 @@ struct HomeView: View {
     @State private var newsSheet:Bool = false
     @State private var bodyText:String = ""
     @State private var isShowingReminderSheet = false
+    @State private var title: String = ""
     
     private let adaptiveColumns = [GridItem(.adaptive(minimum:sqsize))]
     @StateObject var data = SpaceAPI()
@@ -53,45 +55,86 @@ struct HomeView: View {
                         .padding(.top, 80)
                         .padding(.trailing, 50)
                         VStack {
-                            Spacer().frame(height:75)
+                            Spacer().frame(height:25)
                             Text("Welcome back, " + (user.firstName ?? "Guest") + "!")
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .font(.openSansSoftBold(size: 28))
+                                .padding(.bottom,30)
                             LazyVGrid(columns: [
                                 GridItem(.adaptive(minimum: 130), spacing: 20)
-                            ], spacing: 20) {
+                            ], spacing: 40) {
                                 NavigationLink(destination:JournalView()) {
-                                    smallBoxImage()
+                                    smallBoxImage(boxText: "journal")
+                                            .scaleEffect(0.75)
                                 }
                                 NavigationLink(destination: SessionListView(
                                     assetCategory: .constant(""),
                                     assetType: .breathing
                                 )) {
                                     smallBoxImage(boxText: "breath")
+                                        .scaleEffect(0.75)
                                 }
                                 smallBoxImage(boxText: "movement")
+                                    .scaleEffect(0.75)
                                 NavigationLink(destination: SessionMeditation(
                                     assetCategory: .constant("")
                                 )) {
                                     smallBoxImage(boxText: "meditation")
+                                    .scaleEffect(0.75)
                                 }
                             }
                             .padding(.horizontal, 40)
                             Image("healthnews")
                                 .padding(.horizontal, 20)
                                 .padding(.top, 30)
+                                .padding(.leading, 20)
                             if(pageNodes != nil) {
                                 ForEach(pageNodes!, id: \.self) { pageNode in
-                                    Button() {
+                                    Button(action: {
+                                        title = pageNode.title
                                         bodyText = pageNode.body
                                         newsSheet = true
-                                    } label: {
-                                        let result = pageNode.title.replacingOccurrences(of: "      ", with: "")
-                                        NewsViewTopic(title:result,
-                                                      imageUrl: pageNode.topic,
-                                                      siteName: pageNode.topic,
-                                                      summary: pageNode.body)
+                                    }) {
+                                        VStack(alignment: .leading, spacing: 8) {
+                                            HStack(alignment: .top, spacing: 12) {
+                                                // Article image
+                                                CachedAsyncImage(url: URL(string: pageNode.topic)) { phase in
+                                                    if let image = phase.image {
+                                                        image
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fill)
+                                                    } else {
+                                                        Image(systemName: "photo")
+                                                            .resizable()
+                                                            .aspectRatio(contentMode: .fit)
+                                                            .foregroundColor(.gray)
+                                                    }
+                                                }
+                                                .frame(width: 60, height: 60)
+                                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                                .background(Color(.systemGray5))
+                                                .clipped()
+
+                                                VStack(alignment: .leading, spacing: 4) {
+                                                    Text(pageNode.title)
+                                                        .font(.headline)
+                                                        .foregroundColor(.primary)
+                                                        .lineLimit(2)
+                                                    Text(pageNode.body)
+                                                        .font(.subheadline)
+                                                        .foregroundColor(.secondary)
+                                                        .lineLimit(3)
+                                                }
+                                            }
+                                        }
+                                        .padding()
+                                        .background(Color(.systemGray6))
+                                        .cornerRadius(20)
+                                        .shadow(color: Color(.black).opacity(0.05), radius: 4, x: 0, y: 2)
+                                        .padding(.horizontal, 50)
+                                        .padding(.vertical, 6)
                                     }
+                                    .buttonStyle(PlainButtonStyle())
                                 }
                             }
                             Spacer().frame(height: 90)
@@ -105,7 +148,7 @@ struct HomeView: View {
             }
             .ignoresSafeArea()
             .sheet(isPresented: $newsSheet) {
-                NewsView(text: $bodyText)
+                NewsView(title: title, text: $bodyText)
             }
             .sheet(isPresented: $isShowingReminderSheet) {
                 CreateReminderView()
@@ -119,7 +162,7 @@ struct smallBoxImage: View {
     
     var body: some View {
         Image(boxText)
-            .resizable()
+            .scaleEffect(0.75)
             .frame(width: 110, height: 110)
             .scaledToFit()
     }

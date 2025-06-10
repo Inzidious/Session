@@ -3,6 +3,7 @@
 //  SessionApp
 //
 //  Created by Shawn McLean on 4/8/24.
+//  Update UI/UX Ahmed Shuja 6/6/2025
 //
 
 import SwiftUI
@@ -51,46 +52,71 @@ extension String
 
 struct NewsView: View
 {
-    @Binding var text:String
+    var title: String
+    @Binding var text: String
     @Environment(\.dismiss) private var dismiss
-    @State public var converted:AttributedString?
+    @State public var converted: AttributedString?
+    @State private var isLoading = true
     
     var body: some View
     {
-        Button()
-        {
-            dismiss()
-        }
-        label:
-        {
-            ZStack
-            {
-                Rectangle()
-                    .frame(maxWidth:.infinity)
-                    .foregroundColor(Color(.black).opacity(0.5))
-                    .padding(.horizontal, 20)
+        ZStack {
+            Color("BGRev1")
+                .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // Custom Back Button
+                HStack {
+                    Button(action: { dismiss() }) {
+                        HStack {
+                            Image(systemName: "arrow.left.circle")
+                                .font(.title2)
+                                .foregroundColor(Color(#colorLiteral(red: 0.8823529412, green: 0.6941176471, blue: 0.4156862745, alpha: 1)))
+                                .scaleEffect(1.25)
+                        }
+                    }
+                    .padding(.leading, 50)
+                    Spacer()
+                }
+                .padding(.top, 60)
                 
-                Text("Back").font(Font.custom("Roboto", size:25)).foregroundColor(.white)
-            }.frame(width:130, height:40)
-        }.padding()
-        
-        VStack
-        {
-            ScrollView
-            {
-                if let convertedUnwr = converted
-                {
-                    Text(converted!)
+                // Article Content
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 16) {
+                        // Title
+                        Text(title)
+                            .font(.title)
+                            .bold()
+                            .padding(.horizontal, 24)
+                            .padding(.top, 24)
+
+                        // Content Box
+                        VStack(alignment: .leading, spacing: 16) {
+                            if let convertedUnwr = converted {
+                                Text(convertedUnwr)
+                                    .font(.system(size: 18))
+                                    .foregroundColor(.primary)
+                            } else if isLoading {
+                                ProgressView()
+                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                    .padding(.top, 100)
+                            }
+                        }
+                        .padding(20)
+                        .background(Color(.systemGray6))
+                        .cornerRadius(20)
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 24)
+                    }
                 }
-                else
-                {
-                    
-                }
-            }.padding(1)
-        }.onAppear()
-        {
-            let nsresult = GetFormattedBodyString(body:text)
+                .padding(.top, 20)
+            }
+        }
+        .onAppear {
+            isLoading = true
+            let nsresult = GetFormattedBodyString(body: text)
             converted = AttributedString.init(nsresult!)
+            isLoading = false
         }
     }
 }
@@ -144,5 +170,5 @@ struct NewsViewTopic: View {
 }
 
 #Preview {
-    NewsView(text: .constant("Test"))
+    NewsView(title: "Test Title", text: .constant("Test"))
 }
