@@ -58,7 +58,7 @@ struct ContentView: View {
                 }
                 .tag(2)
             
-            CommunityView()
+            GroupsView()
                 .environmentObject(authManager)
                 .tabItem {
                     Image(systemName:"globe.americas.fill")
@@ -78,6 +78,9 @@ let previewUser = User(
 )
 
 #Preview {
+    
+    var _ = InitializeChat()
+    
     let config = ModelConfiguration(isStoredInMemoryOnly: true)
     let container = try! ModelContainer(
         for: User.self,

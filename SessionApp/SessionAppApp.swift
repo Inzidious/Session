@@ -16,6 +16,7 @@ struct SessionAppApp: App {
     
     init() {
         do {
+            InitializeChat()
             let config = ModelConfiguration(isStoredInMemoryOnly: false)
             container = try ModelContainer(
                 for: User.self,
