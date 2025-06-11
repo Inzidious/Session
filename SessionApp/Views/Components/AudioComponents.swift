@@ -68,7 +68,9 @@ struct AudioSessionCard: View {
             showingPlayer = true
         }
         .sheet(isPresented: $showingPlayer) {
-            FullPlayerView(assetToPlay:GlobalManifest.shared.manifest[0])
+            if let loadedAsset = GlobalManifest.shared.findAssetByTitle(asset.title) {
+                FullPlayerView(assetToPlay: loadedAsset)
+            }
         }
     }
     

@@ -111,6 +111,7 @@ struct BreathView: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

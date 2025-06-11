@@ -103,4 +103,8 @@ class GlobalManifest {
         
     }
     
+    func findAssetByTitle(_ title: String) -> LoadedAsset? {
+        return manifest.first { $0.title == title }
+    }
+    
 }

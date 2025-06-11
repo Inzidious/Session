@@ -20,18 +20,16 @@ class RecordingStore: ObservableObject {
         // Breathing exercises
         breathingAssets = [
             AudioAsset(
-                title: "3 Minutes to Calm",
+                title: "5-Point Check In",
                 duration: 180,
                 imageName: "woman_calm",
-                audioFileName: "s_audio",
                 tags: [.top, .calm],
                 type: .breathing
             ),
             AudioAsset(
-                title: "Sama Vritti-Even Breath",
+                title: "Sama Vritti",
                 duration: 120,
                 imageName: "woman_pose",
-                audioFileName: "even_breath",
                 tags: [.calm, .guided],
                 type: .breathing
             ),
@@ -39,16 +37,7 @@ class RecordingStore: ObservableObject {
                 title: "Box Breathing",
                 duration: 360,
                 imageName: "box_breathing",
-                audioFileName: "box_breathing",
                 tags: [.energize, .guided],
-                type: .breathing
-            ),
-            AudioAsset(
-                title: "Alternate Nostril",
-                duration: 300 ,
-                imageName: "medi_sphere",
-                audioFileName: "alternate_nostril",
-                tags: [.calm, .guided],
                 type: .breathing
             )
         ]
@@ -59,7 +48,6 @@ class RecordingStore: ObservableObject {
                 title: "Anxiety Reduction",
                 duration: 300,
                 imageName: "abstract_cloud_green",
-                audioFileName: "Anxiety_Reduction",
                 tags: [.calm, .guided],
                 type: .meditation
             ),
@@ -67,15 +55,13 @@ class RecordingStore: ObservableObject {
                 title: "Focus Meditation",
                 duration: 300,
                 imageName: "abstract_water",
-                audioFileName: "Focus_Meditation",
                 tags: [.calm, .guided],
                 type: .meditation
             ),
             AudioAsset(
-                title: "Safety Sensory Meditation",
+                title: "Safe Place Sensory Meditation",
                 duration: 300,
                 imageName: "green_blue_mood",
-                audioFileName: "SafePlaceSensoryMeditation",
                 tags: [.calm, .guided],
                 type: .meditation
             )

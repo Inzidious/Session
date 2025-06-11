@@ -186,7 +186,6 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		222B663B2DCD5CBD0042DF3C /* Reminders */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Reminders; sourceTree = "<group>"; };
-		2271BDF32D583B0E0028A13B /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		22F6ADE22D517FDA001669F5 /* Fonts */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Fonts; sourceTree = "<group>"; };
 		22F6ADFE2D51C8EA001669F5 /* Extensions */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Extensions; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -337,7 +336,6 @@
 		29054D332B9F88C2003FA7EB /* SessionApp */ = {
 			isa = PBXGroup;
 			children = (
-				2271BDF32D583B0E0028A13B /* Resources */,
 				22F6AE062D51EBD4001669F5 /* Info.plist */,
 				22F6ADE22D517FDA001669F5 /* Fonts */,
 				293517722D4029000089276C /* Models */,
@@ -463,7 +461,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				222B663B2DCD5CBD0042DF3C /* Reminders */,
-				2271BDF32D583B0E0028A13B /* Resources */,
 				22F6ADE22D517FDA001669F5 /* Fonts */,
 				22F6ADFE2D51C8EA001669F5 /* Extensions */,
 			);

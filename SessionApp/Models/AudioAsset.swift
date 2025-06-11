@@ -27,7 +27,6 @@ struct AudioAsset: Identifiable {
     let title: String
     let duration: TimeInterval
     let imageName: String
-    let audioFileName: String
     let tags: Set<Category>
     let type: AssetType
 } 
