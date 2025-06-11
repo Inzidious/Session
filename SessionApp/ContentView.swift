@@ -59,7 +59,7 @@ struct ContentView: View {
                     }
                     .tag(2)
                 
-                CommunityView()
+                GroupsView()
                     .environmentObject(authManager)
                     .tabItem {
                         Image(systemName:"globe.americas.fill")
