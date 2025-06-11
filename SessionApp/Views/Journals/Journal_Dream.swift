@@ -13,7 +13,7 @@ import Foundation
 struct JournalDreamView: View
 {
     @Environment(\.modelContext) var context;
-    @EnvironmentObject var globalCluster:PromptCluster
+    @StateObject private var globalCluster = PromptCluster(journalType: .dream)
     @Environment(\.dismiss) var dismiss
     
     // Unused variables - kept for future features

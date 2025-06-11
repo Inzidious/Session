@@ -52,7 +52,7 @@ struct SessionListView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
-            .padding(.trailing, 10)
+            .padding(.trailing, 20)
             .background(
                 Color(#colorLiteral(red: 0.9803921569, green: 0.9764705882, blue: 0.9647058824, alpha: 1))
                     .opacity(0.2)

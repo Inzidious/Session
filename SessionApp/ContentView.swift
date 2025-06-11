@@ -33,38 +33,54 @@ struct ContentView: View {
     }
     
     var body: some View {
-        TabView(selection: $selectedTab) {
-            HomeView()
-                .environmentObject(authManager)
-                .tabItem {
-                    Image(systemName: "heart.circle")
-                    Text("Home")
-                }
-                .tag(0)
+        ZStack(alignment: .bottom) {
+            TabView(selection: $selectedTab) {
+                HomeView()
+                    .environmentObject(authManager)
+                    .tabItem {
+                        Image(systemName: "heart.circle")
+                        Text("Home")
+                    }
+                    .tag(0)
+                
+                ResourceView()
+                    .environmentObject(authManager)
+                    .tabItem {
+                        Image(systemName:"heart.fill")
+                        Text("Resources")
+                    }
+                    .tag(1)
+                
+                MoodTracking()
+                    .environmentObject(authManager)
+                    .tabItem {
+                        Image(systemName: "map.circle.fill")
+                        Text("Tracking")
+                    }
+                    .tag(2)
+                
+                CommunityView()
+                    .environmentObject(authManager)
+                    .tabItem {
+                        Image(systemName:"globe.americas.fill")
+                        Text("Community")
+                    }
+                    .tag(3)
+            }
             
-            ResourceView()
-                .environmentObject(authManager)
-                .tabItem {
-                    Image(systemName:"heart.fill")
-                    Text("Resources")
-                }
-                .tag(1)
-            
-            MoodTracking()
-                .environmentObject(authManager)
-                .tabItem {
-                    Image(systemName: "map.circle.fill")
-                    Text("Tracking")
-                }
-                .tag(2)
-            
-            GroupsView()
-                .environmentObject(authManager)
-                .tabItem {
-                    Image(systemName:"globe.americas.fill")
-                    Text("Community")
-                }
-                .tag(3)
+            // Custom Tab Bar Indicator
+            GeometryReader { geometry in
+                let tabWidth = geometry.size.width / 4
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(width: tabWidth - 20, height: 55)
+                    .cornerRadius(8)
+                    .offset(x: CGFloat(selectedTab) * tabWidth + 10)
+                    .animation(.spring(), value: selectedTab)
+            }
+            .frame(height: 45)
+            .padding(.bottom, 5) // Adjust this value to position the indicator above the tab bar
         }
     }
 }
