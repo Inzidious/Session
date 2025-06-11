@@ -20,6 +20,10 @@
 		223A8C912D55798700CE9734 /* FeelingsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223A8C8E2D55798700CE9734 /* FeelingsWheelView.swift */; };
 		224552DE2D66888F00255063 /* GlobalUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224552DD2D66888F00255063 /* GlobalUser.swift */; };
 		224552EA2D66923100255063 /* Reminder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224552E92D66923100255063 /* Reminder.swift */; };
+		225C6B112DF901D700731E77 /* SendbirdChatSDK in Frameworks */ = {isa = PBXBuildFile; productRef = 225C6B102DF901D700731E77 /* SendbirdChatSDK */; };
+		225C6B132DF901DF00731E77 /* SendbirdSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 225C6B122DF901DF00731E77 /* SendbirdSwiftUI */; };
+		225C6B152DF9044400731E77 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C6B142DF9044400731E77 /* ChatView.swift */; };
+		225C6B172DF9096B00731E77 /* CreateGroupChannelCustomView 2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225C6B162DF9096B00731E77 /* CreateGroupChannelCustomView 2.swift */; };
 		225FFBC52DF218A200691C61 /* demo_user.json in Resources */ = {isa = PBXBuildFile; fileRef = 225FFBBD2DF218A200691C61 /* demo_user.json */; };
 		225FFBEB2DF2651E00691C61 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225FFBEA2DF2651E00691C61 /* DemoData.swift */; };
 		2262C5FF2D5722BA005B5B58 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2262C5FE2D5722BA005B5B58 /* GoogleSignIn */; };
@@ -114,6 +118,8 @@
 		223A8C8E2D55798700CE9734 /* FeelingsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelingsWheelView.swift; sourceTree = "<group>"; };
 		224552DD2D66888F00255063 /* GlobalUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalUser.swift; sourceTree = "<group>"; };
 		224552E92D66923100255063 /* Reminder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reminder.swift; sourceTree = "<group>"; };
+		225C6B142DF9044400731E77 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		225C6B162DF9096B00731E77 /* CreateGroupChannelCustomView 2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateGroupChannelCustomView 2.swift"; sourceTree = "<group>"; };
 		225FFBBD2DF218A200691C61 /* demo_user.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = demo_user.json; sourceTree = "<group>"; };
 		225FFBEA2DF2651E00691C61 /* DemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoData.swift; sourceTree = "<group>"; };
 		2271BDFA2D5840740028A13B /* RecordingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingStore.swift; sourceTree = "<group>"; };
@@ -192,9 +198,11 @@
 			files = (
 				22172B052DCB0321005D7344 /* EventKitUI.framework in Frameworks */,
 				22172B062DCB0321005D7344 /* EventKit.framework in Frameworks */,
+				225C6B112DF901D700731E77 /* SendbirdChatSDK in Frameworks */,
 				2262C6012D5722BA005B5B58 /* GoogleSignInSwift in Frameworks */,
 				29054D7A2BC44724003FA7EB /* CachedAsyncImage in Frameworks */,
 				2262C5FF2D5722BA005B5B58 /* GoogleSignIn in Frameworks */,
+				225C6B132DF901DF00731E77 /* SendbirdSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +383,7 @@
 		29054D5E2BA4D5E5003FA7EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				225C6B142DF9044400731E77 /* ChatView.swift */,
 				22C85D6D2DEA3095007C2C7F /* Journals */,
 				22BD5ECF2DCD12E9001726DE /* HomeView.swift */,
 				22A9ED9E2D6ED878009256A0 /* PrivacyPolicyView.swift */,
@@ -396,6 +405,7 @@
 				299BFBE32BED6D8000F533A9 /* BreathView.swift */,
 				298B04232CA5BE9C00954591 /* ResourceDetails.swift */,
 				298B04272CAB11DA00954591 /* ResourceAssets.swift */,
+				225C6B162DF9096B00731E77 /* CreateGroupChannelCustomView 2.swift */,
 				2928AC1C2CC81A3E00457A86 /* FullPlayerView.swift */,
 				2928AC202CC8261600457A86 /* ImagePickerView.swift */,
 				2928AC222CD15A5500457A86 /* AnimationLearner.swift */,
@@ -462,6 +472,8 @@
 				29054D792BC44724003FA7EB /* CachedAsyncImage */,
 				2262C5FE2D5722BA005B5B58 /* GoogleSignIn */,
 				2262C6002D5722BA005B5B58 /* GoogleSignInSwift */,
+				225C6B102DF901D700731E77 /* SendbirdChatSDK */,
+				225C6B122DF901DF00731E77 /* SendbirdSwiftUI */,
 			);
 			productName = SessionApp;
 			productReference = 29054D312B9F88C2003FA7EB /* SessionApp.app */;
@@ -538,6 +550,8 @@
 			packageReferences = (
 				29054D722BBDE4CE003FA7EB /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				2262C5FD2D5722BA005B5B58 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				225C6B0E2DF900D600731E77 /* XCRemoteSwiftPackageReference "sendbird-chat-sdk-ios" */,
+				225C6B0F2DF9010A00731E77 /* XCRemoteSwiftPackageReference "sendbird-swiftui-ios" */,
 			);
 			productRefGroup = 29054D322B9F88C2003FA7EB /* Products */;
 			projectDirPath = "";
@@ -605,10 +619,12 @@
 				22A9ED9D2D6E1D86009256A0 /* TermsAndConditionsView.swift in Sources */,
 				223A8C892D5578F200CE9734 /* FeelingSection.swift in Sources */,
 				223A8C8A2D5578F200CE9734 /* Item.swift in Sources */,
+				225C6B152DF9044400731E77 /* ChatView.swift in Sources */,
 				22BD5ECE2DCC015A001726DE /* SectionView.swift in Sources */,
 				224552EA2D66923100255063 /* Reminder.swift in Sources */,
 				22E220BA2D558729007D9216 /* FeelingsWheelContainerView.swift in Sources */,
 				29054D6A2BAE10A3003FA7EB /* FeelingsView.swift in Sources */,
+				225C6B172DF9096B00731E77 /* CreateGroupChannelCustomView 2.swift in Sources */,
 				2928AC232CD15A5500457A86 /* AnimationLearner.swift in Sources */,
 				299BFBE22BDE9CCD00F533A9 /* SessionHistory.swift in Sources */,
 				29054D782BC44510003FA7EB /* NewsView.swift in Sources */,
@@ -814,7 +830,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMPILER_INDEX_STORE_ENABLE = YES;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"SessionApp/Preview Content\"";
 				DEVELOPMENT_TEAM = LLD9HYLPL3;
@@ -832,10 +848,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytherapymuse.SessionApp.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -851,7 +871,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMPILER_INDEX_STORE_ENABLE = YES;
-				CURRENT_PROJECT_VERSION = 1.0.1;
+				CURRENT_PROJECT_VERSION = 1.0.2;
 				DEVELOPMENT_ASSET_PATHS = "\"SessionApp/Preview Content\"";
 				DEVELOPMENT_TEAM = LLD9HYLPL3;
 				ENABLE_PREVIEWS = YES;
@@ -868,10 +888,14 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mytherapymuse.SessionApp.Test;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -988,6 +1012,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		225C6B0E2DF900D600731E77 /* XCRemoteSwiftPackageReference "sendbird-chat-sdk-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sendbird/sendbird-chat-sdk-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.27.2;
+			};
+		};
+		225C6B0F2DF9010A00731E77 /* XCRemoteSwiftPackageReference "sendbird-swiftui-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sendbird/sendbird-swiftui-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.4;
+			};
+		};
 		2262C5FD2D5722BA005B5B58 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -1007,6 +1047,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		225C6B102DF901D700731E77 /* SendbirdChatSDK */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 225C6B0E2DF900D600731E77 /* XCRemoteSwiftPackageReference "sendbird-chat-sdk-ios" */;
+			productName = SendbirdChatSDK;
+		};
+		225C6B122DF901DF00731E77 /* SendbirdSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 225C6B0F2DF9010A00731E77 /* XCRemoteSwiftPackageReference "sendbird-swiftui-ios" */;
+			productName = SendbirdSwiftUI;
+		};
 		2262C5FE2D5722BA005B5B58 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2262C5FD2D5722BA005B5B58 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
