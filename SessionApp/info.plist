@@ -33,7 +33,11 @@
 		<string>OpenSans-SemiBoldItalic.ttf</string>
 		<string>OpenSans-Soft-Bold.ttf</string>
 	</array>
-	<key>CFBundleDisplayName</key>
-	<string>Therapy Muse</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>This app needs calendar access to add reminders.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs photo access to let you select images.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>This app uses the microphone for voice recording features.</string>
 </dict>
 </plist>
