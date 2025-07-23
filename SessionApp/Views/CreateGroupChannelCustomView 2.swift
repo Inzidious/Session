@@ -11,6 +11,13 @@ struct CreateGroupChannelCustomView: View {
     @State private var isCreating: Bool = false
     @State private var errorMessage: String? = nil
     @State private var showSuccess: Bool = false
+    @State private var selectedImage: String = "mountain" // Default image
+    
+    private let availableImages = [
+        ("mountain", "https://mytherapymuse.com/wp-content/uploads/2025/06/mountain.png"),
+        ("seafoam", "https://mytherapymuse.com/wp-content/uploads/2025/06/seafoam.png"),
+        ("greenblue", "https://mytherapymuse.com/wp-content/uploads/2025/06/greenblue.png")
+    ]
     
     var body: some View {
         NavigationView {
@@ -18,24 +25,29 @@ struct CreateGroupChannelCustomView: View {
                 Section(header: Text("Channel Name")) {
                     TextField("Enter channel name", text: $channelName)
                 }
-                /*Section(header: Text("Select Users")) {
-                    if users.isEmpty {
-                        Text("No users available.")
-                    } else {
-                        List(users, id: \.id) { user in
-                            MultipleSelectionRow(
-                                user: user,
-                                isSelected: selectedUserIds.contains(user.id)
-                            ) {
-                                if selectedUserIds.contains(user.id) {
-                                    selectedUserIds.remove(user.id)
-                                } else {
-                                    selectedUserIds.insert(user.id)
-                                }
+                
+                Section(header: Text("Select Group Image")) {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(spacing: 15) {
+                            ForEach(availableImages, id: \.0) { image in
+                                Image(image.0)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 100, height: 100)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(selectedImage == image.0 ? Color.blue : Color.clear, lineWidth: 3)
+                                    )
+                                    .onTapGesture {
+                                        selectedImage = image.0
+                                    }
                             }
                         }
+                        .padding(.vertical, 8)
                     }
-                }*/
+                }
+                
                 Section {
                     Button(action: createChannel) {
                         if isCreating {
@@ -72,14 +84,32 @@ struct CreateGroupChannelCustomView: View {
         params.name = channelName
         params.userIds = Array(selectedUserIds)
         params.isPublic = false // or true if you want public
+        
+        // Get the selected image URL
+        let selectedImageUrl = availableImages.first(where: { $0.0 == selectedImage })?.1 ?? ""
+        
+        // Create custom data dictionary
+        let customData: [String: String] = [
+            "groupImageUrl": selectedImageUrl,
+            "groupName": channelName
+        ]
+        
+        // Convert to JSON string
+        if let jsonData = try? JSONSerialization.data(withJSONObject: customData),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            params.data = jsonString
+        }
+        
         GroupChannel.createChannel(params: params) { channel, error in
             DispatchQueue.main.async {
                 isCreating = false
                 if let error = error {
                     print("In error: ", error)
                     errorMessage = error.localizedDescription
-                } else {
+                } else if let channel = channel {
                     print("Success")
+                    // Store the channel URL for sharing
+                    shareLink = channel.channelUrl
                     showSuccess = true
                 }
             }

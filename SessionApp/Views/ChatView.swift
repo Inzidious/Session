@@ -22,31 +22,53 @@ extension NSNotification.Name {
 var shareLink:String = ""
 
 class CustomChannelHeader: SBUGroupChannelModule.Header {
-    func tapped(){
-        let finalString = "https://www.example.com?" + shareLink
-        let urlToShare = URL(string: finalString)
-        let activityViewController = UIActivityViewController(activityItems: [urlToShare!], applicationActivities: nil)
+    func tapped() {
+        // Get channel data
+        guard let channel = self.channel else { return }
         
-        print(finalString)
+        // Parse custom data
+        var groupImageUrl = ""
+        var groupName = channel.name
+        
+        if let data = channel.data,
+           let jsonData = data.data(using: .utf8),
+           let customData = try? JSONSerialization.jsonObject(with: jsonData) as? [String: String] {
+            groupImageUrl = customData["groupImageUrl"] ?? ""
+            groupName = customData["groupName"] ?? channel.name
+        }
+        
+        // Construct the sharing URL with required parameters
+        let groupUrl = "https://www.mytherapymuse.com/groups/\(channel.channelUrl)?groupName=\(groupName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&groupImage=\(groupImageUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
+        
+        // Create TestFlight URL
+        let testFlightUrl = "https://testflight.apple.com/join/YOUR_TESTFLIGHT_CODE"
+        
+        // Create the sharing text
+        let shareText = """
+        Join my group "\(groupName)" on Therapy Muse!
+        
+        If you have the app installed, tap here to join:
+        \(groupUrl)
+        
+        If you don't have the app yet, download it here:
+        \(testFlightUrl)
+        """
+        
+        let activityViewController = UIActivityViewController(
+            activityItems: [shareText],
+            applicationActivities: nil
+        )
+        
+        print("Sharing URL: \(groupUrl)")
         
         UIApplication.shared.windows.first?.rootViewController?.present(activityViewController, animated: true, completion: nil)
-        
-        //NotificationCenter.default.post(name: .ehNotification, object: nil)
-        
     }
+    
     override func setupViews() {
         super.setupViews()
-        print("inside")
-        // Hide the right and left buttons
         self.rightBarButton?.image = nil
         self.rightBarButton?.title = "Invite"
         self.rightBarButton?.action = #selector(tapped)
-        //self.rightBarButton = nil
-        
-        //self.rightBarButton
-        //self.
-        //self.leftBarButton?.isEnabled = false;
-        //self.
     }
 }
 
